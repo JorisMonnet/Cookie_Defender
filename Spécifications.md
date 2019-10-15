@@ -19,7 +19,7 @@ Specifications:
 ### systeme de jeu: ###
 
 * ennemis arrivant par vagues (avec un temps entre chaque vagues)
-    *nombres d'ennemis, et type d'ennemis visible
+    * nombres d'ennemis, et type d'ennemis visible
     * chaques type d'ennemis à une vitesse, une résistance et des dégats propres
 
 * economie:
