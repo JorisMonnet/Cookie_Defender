@@ -4,6 +4,8 @@
 
 #include <QGraphicsView>
 #include <QTime>
+#include <QGraphicsEllipseItem>
+#include <QVector2D>
 
 class QGraphicsScene;
 
@@ -15,7 +17,7 @@ public:
 private:
     QGraphicsScene *scene = nullptr;
     QTimer *timer = nullptr;
-    QVector<QGraphicsEllipseItem> ellipses;
+    QVector<QGraphicsEllipseItem*> ellipses;
     QTime time;
 
     ParticleEmitter<QVector<Particle<QVector2D>>> emmiter;

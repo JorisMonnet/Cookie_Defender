@@ -32,6 +32,7 @@ public:
     void integrate(ParticleType &particle, double dt)
     {
         particle.position += particle.velocity *dt;
+        particle.velocity += particle.acceleration *dt;
     }
 
     void update(double dt)

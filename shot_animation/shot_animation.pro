@@ -22,6 +22,7 @@ SOURCES += \
 HEADERS += \
     particle.h \
     particleemitter.h \
+    physicstools.h \
     widget.h
 
 # Default rules for deployment.

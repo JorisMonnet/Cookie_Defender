@@ -5,6 +5,8 @@ struct Particle
 {
     VecType position;
     VecType velocity;
+    VecType acceleration;
 
-    float life = 0;
+    double life = 0.0;
+    double mass = 0.0;
 };
