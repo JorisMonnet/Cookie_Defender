@@ -18,11 +18,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     main.cpp \
     map.cpp \
-    monster.cpp
+    monster.cpp \
+    tower.cpp
 
 HEADERS += \
     map.h \
-    monster.h
+    monster.h \
+    tower.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
