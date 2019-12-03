@@ -20,10 +20,12 @@ public:
      void createTower(int index);
      void showRange(int index);
 
-     QTimer * timer = nullptr;
      QList<QPointF> points;
 
      Monster* tabMonster[5];
+
+     //for test
+     QGraphicsRectItem *rect;
 
 protected slots:
     void mousePressEvent(QMouseEvent *event) override;

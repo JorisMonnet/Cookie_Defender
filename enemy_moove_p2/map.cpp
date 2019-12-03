@@ -1,6 +1,8 @@
 #include "map.h"
 #include "monster.h"
 
+#include  <QTimer>
+
 
 /**
 * Map
@@ -12,21 +14,31 @@ Map::Map(QWidget *parent) : QGraphicsView(parent)
     settingUpScene();
 
      //on crée un monstre
-    Monster *monster1 = new Monster();
-    tabMonster[0]=monster1;
+   // Monster *monster1 = new Monster();
+   // tabMonster[0]=monster1;
+    tabMonster[0]= new Monster();
 
     this->points<<QPointF(0,500)
                 <<QPointF(950,500);
     
-    //on déplace toute les 15 ms
-    timer = new QTimer;
+    //creating a timer to update the movement each 15 seconds.
+    QTimer * timer = new QTimer(this);
 
     QObject::connect(timer,&QTimer::timeout,this,&Map::move_monster);
     QObject::connect(timer,&QTimer::timeout,this,&Map::tp_monster);
 
+
+
+    //error source
+    /*
+
     timer->start(15);
-    scene->addItem(monster1);
+
+    for(Monster * monster : tabMonster)
+        scene->addItem(monster);
+    */
 }
+
 /**
 * settingUpScene
 * setting up the scene and preparing the tower
@@ -46,9 +58,9 @@ void Map:: settingUpScene()
         QGraphicsPixmapItem *finish2 = new QGraphicsPixmapItem();
 
         finish->setPos(950,450);
-        finish->setPixmap(QPixmap("Cookie.png").scaled(50,50));
+        finish->setPixmap(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
         finish2->setPos(950,500);
-        finish2->setPixmap(QPixmap("Cookie.png").scaled(50,50));
+        finish2->setPixmap(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
         topMap->setBrush(QBrush(Qt::green));
         topMap->setPen(QPen(Qt::green));
         bottomMap->setBrush(QBrush(Qt::green));
@@ -61,10 +73,12 @@ void Map:: settingUpScene()
         textHealth->setScale(1.5);
         textHealth->setPos(0,0);
         scene->addItem(textHealth);
+
         QGraphicsTextItem *textMoney = new QGraphicsTextItem(QString("Money: ")+QString::number(money));
         textMoney->setScale(1.5);
         textMoney->setPos(0,50);
         scene->addItem(textMoney);
+
         for(int i=0;i<4;i++)
         {
             towerPlacement[i].setRect(towerPositions[i].rx(),towerPositions[i].ry(),100,100);
@@ -126,8 +140,10 @@ void  Map::move_monster()
 {
     for(Monster * monster : tabMonster)
     {
-        monster->moveBy(1,0);
+        //monster->moveBy(1,0);
+        monster->setX(monster->x()+1);
     }
+
 }
 
 /**
@@ -141,6 +157,7 @@ void Map::tp_monster()
         if(monster->x()>=950)
             monster->setX(0);
     }
+
 }
 
 /**

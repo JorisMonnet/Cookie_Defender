@@ -13,16 +13,15 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QTimer>
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
 #include <QRect>
 
-class Monster : public QGraphicsRectItem
+class Monster : public QObject, public QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    Monster(QGraphicsItem * parent=nullptr);
+    Monster();
 
     int hp=100;
     int shield=25;

@@ -14,7 +14,7 @@ void Tower::set(int level)
     this->speed=2*x;
     this->damage=10*x;
     this->level=level;
-    setPixmap(QPixmap("tower.png").scaled(100,100));
+    setPixmap(QPixmap("../enemy_moove_p2/tower.png").scaled(100,100));
 }
 /*void Tower::attack(Monster *monster)
 {
