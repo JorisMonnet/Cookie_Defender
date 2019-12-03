@@ -10,7 +10,7 @@ Monster::Monster(  ) : QGraphicsRectItem()
 {
 
     this->setRect(0,500,20,20);
-    this->setBrush(QPixmap("rogue.png"));
+    this->setBrush(QPixmap("../enemy_moove_p2/rogue.png"));
 
 }
 
