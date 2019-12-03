@@ -9,6 +9,7 @@
 */
 Map::Map(QWidget *parent) : QGraphicsView(parent)
 {
+    settingUpScene();
 
      //on crée un monstre
     Monster *monster1 = new Monster();

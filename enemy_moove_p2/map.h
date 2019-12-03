@@ -24,6 +24,7 @@ public:
      QList<QPointF> points;
 
      Monster* tabMonster[5];
+
 protected slots:
     void mousePressEvent(QMouseEvent *event) override;
 

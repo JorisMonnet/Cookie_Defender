@@ -6,9 +6,12 @@
 * Monster's class constructor
 *
 */
-Monster::Monster( ) : QGraphicsPixmapItem()
+Monster::Monster(QGraphicsItem * ) : QGraphicsRectItem()
 {
-    this->setPixmap(QPixmap("rogue.png"));
+
+    this->setRect(0,500,20,20);
+    this->setBrush(QPixmap("rogue.png"));
+
 }
 
 

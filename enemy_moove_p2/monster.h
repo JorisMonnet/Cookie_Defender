@@ -18,11 +18,11 @@
 #include <QGraphicsItem>
 #include <QRect>
 
-class Monster : public QGraphicsPixmapItem
+class Monster : public QGraphicsRectItem
 {
     Q_OBJECT
 public:
-    Monster();
+    Monster(QGraphicsItem * parent=nullptr);
 
     int hp=100;
     int shield=25;
