@@ -154,7 +154,7 @@ void Map::tp_monster()
 {
     for(Monster *monster : vectMonster)
     {
-        if(monster->x()>=950)
+        if(monster->x()>=910)
             monster->setX(0);
     }
 
