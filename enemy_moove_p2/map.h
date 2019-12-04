@@ -7,6 +7,7 @@
 #include <QPoint>
 #include <QGraphicsScene>
 #include <QMouseEvent>
+#include <QVector>
 #include "tower.h"
 
 #include "monster.h"
@@ -22,7 +23,7 @@ public:
 
      QList<QPointF> points;
 
-     Monster* tabMonster[5];
+     QVector<Monster*> vectMonster;
 
      //for test
      QGraphicsRectItem *rect;

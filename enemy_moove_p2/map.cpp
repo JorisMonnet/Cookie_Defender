@@ -13,30 +13,29 @@ Map::Map(QWidget *parent) : QGraphicsView(parent)
 {
     settingUpScene();
 
-     //on crée un monstre
-   // Monster *monster1 = new Monster();
-   // tabMonster[0]=monster1;
-    tabMonster[0]= new Monster();
-
     this->points<<QPointF(0,500)
                 <<QPointF(950,500);
     
     //creating a timer to update the movement each 15 seconds.
     QTimer * timer = new QTimer(this);
 
+
+
     QObject::connect(timer,&QTimer::timeout,this,&Map::move_monster);
     QObject::connect(timer,&QTimer::timeout,this,&Map::tp_monster);
 
-
-
-    //error source
-    /*
-
     timer->start(15);
 
-    for(Monster * monster : tabMonster)
+    //error source
+
+    //on crée un monstre
+    vectMonster.append(new Monster());
+
+
+    for(Monster * monster : vectMonster)
         scene->addItem(monster);
-    */
+
+
 }
 
 /**
@@ -138,10 +137,11 @@ void Map::showRange(int i)
 */
 void  Map::move_monster()
 {
-    for(Monster * monster : tabMonster)
+    for(Monster * monster : vectMonster)
     {
         //monster->moveBy(1,0);
-        monster->setX(monster->x()+1);
+        if(monster!=nullptr)
+            monster->setX(monster->x()+1);
     }
 
 }
@@ -152,7 +152,7 @@ void  Map::move_monster()
 */
 void Map::tp_monster()
 {
-    for(Monster *monster : tabMonster)
+    for(Monster *monster : vectMonster)
     {
         if(monster->x()>=950)
             monster->setX(0);
