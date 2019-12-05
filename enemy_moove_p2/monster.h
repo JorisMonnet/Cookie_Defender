@@ -20,7 +20,7 @@ public:
     const int size=40;
     int hp=100;
     int shield=25;
-    const float velocity=1;
+    const int velocity=3;
     const int dammage=1;
 };
 

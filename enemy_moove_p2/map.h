@@ -21,7 +21,7 @@ public:
      void createTower(int index);
      void showRange(int index);
      void showPlace(int index);
-     void mapUpdate();
+     void textUpdate();
      QList<QPointF> path;
 
      QVector<Monster*> vectMonster;
@@ -32,9 +32,11 @@ public:
 protected slots:
      void mousePressEvent(QMouseEvent *event) override;
      void mouseMoveEvent(QMouseEvent *event) override;
+     void keyPressEvent(QKeyEvent *event) override;
      void moveMonster();
      void attackMonster();
      void settingUpScene();
+     void gameOver();
 private :
      QGraphicsSimpleTextItem * textHealth;
      QGraphicsSimpleTextItem * textMoney;
@@ -42,11 +44,11 @@ private :
      QGraphicsScene *scene;
      QPoint towerPositions[4]={{50,350},{500,350},{300,550},{700,550}};
      bool towerCreated[4];
-     QGraphicsEllipseItem showedRange;
-     QGraphicsRectItem showedPlace;
+     QGraphicsEllipseItem *showedRange;
+     QGraphicsRectItem *showedPlace;
      QGraphicsRectItem towerPlacement[4];
      int money=400;
-     int health=20;
+     int health=2;
      Tower t[4];
 };
 
