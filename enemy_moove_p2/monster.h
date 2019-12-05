@@ -4,7 +4,7 @@
 * -attack
 * -set the basics parameters
 *
-* @author	Adrien Paysant
+* @author	Adrien Paysant/Ugo Crucy/Joris Monnet
 * @version	1.0
 */
 
@@ -21,7 +21,7 @@ public:
     int hp=100;
     int shield=25;
     const float velocity=1;
-    const int dammage=25;
+    const int dammage=1;
 };
 
 #endif // MONSTER_H

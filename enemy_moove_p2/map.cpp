@@ -13,7 +13,7 @@
 Map::Map(QWidget *parent) : QGraphicsView(parent)
 {
     settingUpScene();
-    this->path<<QPointF(0,500)<<QPointF(950,500);
+    this->path<<QPointF(0,500)<<QPointF(950,500);   // useless currently
 
     QTimer * timer = new QTimer(this);
     timer->start(15);
@@ -21,8 +21,8 @@ Map::Map(QWidget *parent) : QGraphicsView(parent)
     QObject::connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     QObject::connect(timer,&QTimer::timeout,this,&Map::attackMonster);
 
-    //creating monster
-    vectMonster.append(new Monster());
+    //creating 1 monster
+    vectMonster.append(new Monster());          // maybe a tab instead of a vector
     for(Monster * monster : vectMonster)
         scene->addItem(monster);
 }
@@ -60,11 +60,11 @@ void Map:: settingUpScene()
     scene->addItem(finish);
     scene->addItem(finish2);
 
-    textHealth = new QGraphicsTextItem(QString("Health: ")+QString::number(health));
+    textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
     textHealth->setPos(0,0);
     scene->addItem(textHealth);
-    textMoney = new QGraphicsTextItem(QString("Money: ")+QString::number(money));
+    textMoney = scene->addSimpleText(QString("Money: ")+QString::number(money));
     textMoney->setScale(1.5);
     textMoney->setPos(0,50);
     scene->addItem(textMoney);
@@ -117,6 +117,7 @@ void Map::createTower(int index)
         scene->addItem(&t[index]);
         money-=100;
         towerCreated[index]=true;
+        mapUpdate();
     }
 }
 
@@ -156,6 +157,12 @@ void Map::attackMonster()
     for(Monster *monster : vectMonster)
         if(monster->x()>=this->width()-monster->size){
             health-=monster->dammage;
+            mapUpdate();
             monster->setPos(start);
         }
+}
+void Map::mapUpdate()
+{
+    textMoney->setText(QString("Money: ")+QString::number(money));
+    textHealth->setText(QString("Health: ")+QString::number(health));
 }

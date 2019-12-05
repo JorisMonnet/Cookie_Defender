@@ -21,8 +21,8 @@ public:
      void createTower(int index);
      void showRange(int index);
      void showPlace(int index);
-
-     QList<QPointF> points;
+     void mapUpdate();
+     QList<QPointF> path;
 
      QVector<Monster*> vectMonster;
 
@@ -36,8 +36,8 @@ protected slots:
      void attackMonster();
      void settingUpScene();
 private :
-     QGraphicsTextItem * textHealth;
-     QGraphicsTextItem * textMoney;
+     QGraphicsSimpleTextItem * textHealth;
+     QGraphicsSimpleTextItem * textMoney;
      QPoint start={0,480};
      QGraphicsScene *scene;
      QPoint towerPositions[4]={{50,350},{500,350},{300,550},{700,550}};
