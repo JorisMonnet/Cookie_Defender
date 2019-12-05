@@ -17,15 +17,12 @@
 #include <QGraphicsItem>
 #include <QRect>
 
-class Monster : public QObject, public QGraphicsRectItem
+class Monster : public QGraphicsPixmapItem
 {
-    Q_OBJECT
 public:
     Monster();
-
     int hp=100;
     int shield=25;
-
     const float velocity=1;
     const int dammage=25;
 };

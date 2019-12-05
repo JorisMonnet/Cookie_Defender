@@ -29,15 +29,13 @@ public:
      QGraphicsRectItem *rect;
 
 protected slots:
-    void mousePressEvent(QMouseEvent *event) override;
-
-public slots:
-     void monsterMove();
-     void monsterAttack();
-     void monsterTp();
+     void mousePressEvent(QMouseEvent *event) override;
+     void moveMonster();
+     void attackMonster();
+     void tpMonster();
      void settingUpScene();
 private :
-     QPoint start={0,500};
+     QPoint start={0,480};
      QGraphicsScene *scene;
      QPoint towerPositions[4]={{50,350},{500,350},{300,550},{700,550}};
      bool towerCreated[4];
