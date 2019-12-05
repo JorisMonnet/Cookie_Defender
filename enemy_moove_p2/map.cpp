@@ -13,26 +13,16 @@
 Map::Map(QWidget *parent) : QGraphicsView(parent)
 {
     settingUpScene();
+    this->path<<QPointF(0,500)<<QPointF(950,500);
 
-    this->points<<QPointF(0,500)
-                <<QPointF(950,500);
-
-    //creating a timer to update the movement each 15 seconds.
     QTimer * timer = new QTimer(this);
-
-
-
-    QObject::connect(timer,&QTimer::timeout,this,&Map::moveMonster);
-    QObject::connect(timer,&QTimer::timeout,this,&Map::tpMonster);
-
     timer->start(15);
 
-    //error source
+    QObject::connect(timer,&QTimer::timeout,this,&Map::moveMonster);
+    QObject::connect(timer,&QTimer::timeout,this,&Map::attackMonster);
 
     //creating monster
     vectMonster.append(new Monster());
-
-
     for(Monster * monster : vectMonster)
         scene->addItem(monster);
 }
@@ -70,12 +60,11 @@ void Map:: settingUpScene()
     scene->addItem(finish);
     scene->addItem(finish2);
 
-    QGraphicsTextItem *textHealth = new QGraphicsTextItem(QString("Health: ")+QString::number(health));
+    textHealth = new QGraphicsTextItem(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
     textHealth->setPos(0,0);
     scene->addItem(textHealth);
-
-    QGraphicsTextItem *textMoney = new QGraphicsTextItem(QString("Money: ")+QString::number(money));
+    textMoney = new QGraphicsTextItem(QString("Money: ")+QString::number(money));
     textMoney->setScale(1.5);
     textMoney->setPos(0,50);
     scene->addItem(textMoney);
@@ -97,7 +86,7 @@ void Map:: settingUpScene()
 void Map::mousePressEvent(QMouseEvent *event)
 {
     bool statement=false;
-    for(int i=0;i<4;i++){
+    for(int i=0;i<4;i++)
         if(towerPlacement[i].contains(mapToScene(event->pos()))){
             statement=true;
             if(!(towerCreated[i])){
@@ -107,12 +96,20 @@ void Map::mousePressEvent(QMouseEvent *event)
                 showRange(i);
             }
         }
-    }
-    if(!statement){
+    if(!statement)
         scene->removeItem(&showedRange);
-    }
 }
-
+void Map::mouseMoveEvent(QMouseEvent*event)
+{
+    bool statement=false;
+    for(int i=0;i<4;i++)
+        if(towerPlacement[i].contains(mapToScene(event->pos()))){
+            statement=true;
+            showPlace(i);
+        }
+    if(!statement)
+       scene->removeItem(&showedPlace);
+}
 void Map::createTower(int index)
 {
     if (money>=100){
@@ -125,12 +122,21 @@ void Map::createTower(int index)
 
 void Map::showRange(int i)
 {
-    showedRange.setRect(towerPositions[i].rx()-(t[i].range/2-50),towerPositions[i].ry()-(t[i].range/2-50),t[i].range,t[i].range);
-    showedRange.setPen(QPen(Qt::black,0));
+    int r = t[i].range,
+        x=towerPositions[i].rx(),
+        y=towerPositions[i].ry();
+
+    showedRange.setRect(x-(r/2-50),y-(r/2-50),r,r);
+    showedRange.setPen(QPen(Qt::black));
     showedRange.setBrush(QBrush(QColor(0,0,0,128)));
     scene->addItem(&showedRange);
 }
-
+void Map::showPlace(int i)
+{
+    showedPlace.setPen(QPen(Qt::blue,2));
+    showedPlace.setRect(towerPositions[i].rx(),towerPositions[i].ry(),100,100);
+    scene->addItem(&showedPlace);
+}
 /**
  * @brief Map::moveMonster
  * make the monsters move along a defined path
@@ -138,35 +144,18 @@ void Map::showRange(int i)
 void Map::moveMonster()
 {
     for(Monster * monster : vectMonster)
-    {
-        //monster->moveBy(1,0);
         if(monster!=nullptr)
-            monster->setX(monster->x()+1);
-    }
-
+            monster->setPos(monster->x()+1,monster->y());
 }
-
-/**
- * @brief Map::tpMonster
- * (optionnal) when the monster hit the core, it will teleport the monster at the beginning of the path
- */
-void Map::tpMonster()
-{
-    for(Monster *monster : vectMonster)
-    {
-        if(monster->x()>=950){
-            monster->setX(0);
-            attackMonster();
-        }
-    }
-
-}
-
 /**
  * @brief Map::attackMonster
  * giving dammages to the heart
  */
 void Map::attackMonster()
 {
-
+    for(Monster *monster : vectMonster)
+        if(monster->x()>=this->width()-monster->size){
+            health-=monster->dammage;
+            monster->setPos(start);
+        }
 }

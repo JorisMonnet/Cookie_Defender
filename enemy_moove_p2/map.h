@@ -20,6 +20,7 @@ public:
 
      void createTower(int index);
      void showRange(int index);
+     void showPlace(int index);
 
      QList<QPointF> points;
 
@@ -30,16 +31,19 @@ public:
 
 protected slots:
      void mousePressEvent(QMouseEvent *event) override;
+     void mouseMoveEvent(QMouseEvent *event) override;
      void moveMonster();
      void attackMonster();
-     void tpMonster();
      void settingUpScene();
 private :
+     QGraphicsTextItem * textHealth;
+     QGraphicsTextItem * textMoney;
      QPoint start={0,480};
      QGraphicsScene *scene;
      QPoint towerPositions[4]={{50,350},{500,350},{300,550},{700,550}};
      bool towerCreated[4];
      QGraphicsEllipseItem showedRange;
+     QGraphicsRectItem showedPlace;
      QGraphicsRectItem towerPlacement[4];
      int money=400;
      int health=20;
