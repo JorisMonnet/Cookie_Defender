@@ -21,8 +21,8 @@ Map::Map(QWidget *parent) : QGraphicsView(parent)
 
 
 
-    QObject::connect(timer,&QTimer::timeout,this,&Map::move_monster);
-    QObject::connect(timer,&QTimer::timeout,this,&Map::tp_monster);
+    QObject::connect(timer,&QTimer::timeout,this,&Map::monsterMove);
+    QObject::connect(timer,&QTimer::timeout,this,&Map::monsterTp);
 
     timer->start(15);
 
@@ -135,7 +135,7 @@ void Map::showRange(int i)
 * moving the monster along the defined path.
 *
 */
-void  Map::move_monster()
+void  Map::monsterMove()
 {
     for(Monster * monster : vectMonster)
     {
@@ -150,7 +150,7 @@ void  Map::move_monster()
 * tp_monster
 * take the monster and get it back to the very start of the path (optionnal)
 */
-void Map::tp_monster()
+void Map::monsterTp()
 {
     for(Monster *monster : vectMonster)
     {
@@ -164,7 +164,7 @@ void Map::tp_monster()
 * attack
 * giving dammages to the heart
 */
-void Map::attack_monster()
+void Map::monsterAttack()
 {
 
 }

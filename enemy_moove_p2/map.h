@@ -32,9 +32,9 @@ protected slots:
     void mousePressEvent(QMouseEvent *event) override;
 
 public slots:
-     void move_monster();
-     void attack_monster();
-     void tp_monster();
+     void monsterMove();
+     void monsterAttack();
+     void monsterTp();
      void settingUpScene();
 private :
      QPoint start={0,500};
