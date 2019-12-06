@@ -1,7 +1,7 @@
 #include "map.h"
 #include "monster.h"
 #include <QMessageBox>
-#include  <QTimer>
+#include <QTimer>
 //bug: when clicking on the map resizer, the monster is paused
 
 /**
@@ -10,12 +10,13 @@
  *
  * constructor of the map
  */
-Map::Map(QWidget *parent) : QGraphicsView(parent)
+Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
 {
+    //setBackgroundBrush(QBrush(QPixmap("")));
     settingUpScene();
     this->path<<QPointF(0,500)<<QPointF(950,500);   // useless currently
 
-    QTimer * timer = new QTimer(this);
+    timer = new QTimer(this);
     timer->start(15);
 
     QObject::connect(timer,&QTimer::timeout,this,&Map::moveMonster);
@@ -31,7 +32,7 @@ Map::Map(QWidget *parent) : QGraphicsView(parent)
  * @brief Map::settingUpScene
  * set up the scene and prepare the tower
  */
-void Map:: settingUpScene()
+void Map::settingUpScene()
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -42,24 +43,23 @@ void Map:: settingUpScene()
     t[2].set(2);
     QGraphicsRectItem *topMap = new QGraphicsRectItem(0,0,this->width(),450);
     QGraphicsRectItem *bottomMap = new QGraphicsRectItem(0,550,this->width(),450);
-    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem();
-    QGraphicsPixmapItem *finish2 = new QGraphicsPixmapItem();
+    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
+    QGraphicsPixmapItem *finish2 = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
+    pause = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/pause.png").scaled(50,50));
+    pause->setPos(950,0);
+    finish->setPos(950,450);
+    finish2->setPos(950,500);
+
     showedPlace = new QGraphicsRectItem();
     showedRange = new QGraphicsEllipseItem();
-    finish->setPos(950,450);
-    finish->setPixmap(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
-    finish2->setPos(950,500);
-    finish2->setPixmap(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
-
     topMap->setBrush(QBrush(Qt::green));
-    topMap->setPen(QPen(Qt::green));
     bottomMap->setBrush(QBrush(Qt::green));
-    bottomMap->setPen(QPen(Qt::green));
 
     scene->addItem(topMap);
     scene->addItem(bottomMap);
     scene->addItem(finish);
     scene->addItem(finish2);
+    scene->addItem(pause);
 
     textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
@@ -79,7 +79,7 @@ void Map:: settingUpScene()
     }
 
     /*for(int i=0;i<this->height();i+=50)
-        scene->addLine(0,i,this->width(),i);
+        scene->addLine(0,i,this->width(),i);    //permet d'afficher la grille
     for(int i=0;i<this->width();i+=50)
         scene->addLine(i,0,i,this->height());*/
 }
@@ -105,33 +105,36 @@ void Map::mouseMoveEvent(QMouseEvent*event)
         }
     if(!statement&&showedPlace->isActive())
        scene->removeItem(showedPlace);
+    //if(pause->contains(mapToScene(event->pos())))
+        //pausemenu();
+
 }
 void Map::keyPressEvent(QKeyEvent*event)
 {
     if(event->key()==Qt::Key_Escape)
     {
+        timer->stop();
         //TO DO pause menu
     }
 }
-void Map::createTower(int index)
+void Map::createTower(int i)
 {
-    if (money>=t[index].cost){
-        t[index].setPos(towerPositions[index]);
-        scene->addItem(&t[index]);
-        money-=t[index].cost;
-        towerCreated[index]=true;
-        textUpdate();
+    if (money>=t[i].cost){
+        t[i].setPos(towerPositions[i]);
+        scene->addItem(&t[i]);
+        money-=t[i].cost;
+        towerCreated[i]=true;
+        mapUpdate();
     }
 }
 
 void Map::showRange(int i)
 {
-    int r = t[i].range,
+    int r=t[i].range,
         x=towerPositions[i].rx(),
         y=towerPositions[i].ry();
 
     showedRange->setRect(x-(r/2-50),y-(r/2-50),r,r);
-    showedRange->setPen(QPen(Qt::black));
     showedRange->setBrush(QBrush(QColor(0,0,0,128)));
     scene->addItem(showedRange);
 }
@@ -148,7 +151,6 @@ void Map::showPlace(int i)
 void Map::moveMonster()
 {
     for(Monster * monster : vectMonster)
-        if(monster!=nullptr)
             monster->setPos(monster->x()+monster->velocity,monster->y());
 }
 /**
@@ -160,12 +162,12 @@ void Map::attackMonster()
     for(Monster *monster : vectMonster)
         if(monster->x()>=this->width()-monster->size){
             health-=monster->dammage;
-            textUpdate();
+            mapUpdate();
             monster->setPos(start);
         }
 }
 
-void Map::textUpdate()
+void Map::mapUpdate()
 {
     textMoney->setText(QString("Money: ")+QString::number(money));
     textHealth->setText(QString("Health: ")+QString::number(health));
@@ -177,5 +179,5 @@ void Map::gameOver()
 {
     QMessageBox::information(this,"GAME OVER (u noob)","GAME OVER !!!");
     setScene(nullptr);
-    //scene->clear();   TO DO connect
+    health=1;
 }

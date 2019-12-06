@@ -1,33 +1,24 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include <QObject>
-#include <QWidget>
 #include <QGraphicsView>
 #include <QPoint>
-#include <QGraphicsScene>
 #include <QMouseEvent>
 #include <QVector>
 #include "tower.h"
-
 #include "monster.h"
 
 class Map : public QGraphicsView
 {
     Q_OBJECT
 public:
-     Map(QWidget *parent = nullptr);
-
+     Map(QGraphicsView *parent = nullptr);
      void createTower(int index);
      void showRange(int index);
      void showPlace(int index);
-     void textUpdate();
-     QList<QPointF> path;
-
-     QVector<Monster*> vectMonster;
-
-     //for test
-     QGraphicsRectItem *rect;
+     void mapUpdate();
+     void gameOver();
+     void settingUpScene();
 
 protected slots:
      void mousePressEvent(QMouseEvent *event) override;
@@ -35,21 +26,27 @@ protected slots:
      void keyPressEvent(QKeyEvent *event) override;
      void moveMonster();
      void attackMonster();
-     void settingUpScene();
-     void gameOver();
+
 private :
      QGraphicsSimpleTextItem * textHealth;
      QGraphicsSimpleTextItem * textMoney;
-     QPoint start={0,480};
-     QGraphicsScene *scene;
-     QPoint towerPositions[4]={{50,350},{500,350},{300,550},{700,550}};
-     bool towerCreated[4];
      QGraphicsEllipseItem *showedRange;
      QGraphicsRectItem *showedPlace;
+     QGraphicsPixmapItem * pause;
+     QPoint start={0,480};
+     QList<QPointF> path;
+     QTimer *timer;
+     QVector<Monster*> vectMonster;
+
+     QGraphicsScene *scene;
+
+     QPoint towerPositions[4]={{50,350},{500,350},{300,550},{700,550}};
      QGraphicsRectItem towerPlacement[4];
+     bool towerCreated[4];
+     Tower t[4];
+
      int money=400;
      int health=2;
-     Tower t[4];
 };
 
 #endif // MAP_H
