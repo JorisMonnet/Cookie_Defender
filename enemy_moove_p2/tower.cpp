@@ -9,7 +9,7 @@ void Tower::set(int level)
 {
     int x=static_cast<int>(log(level*level)+1);
     cost=100*x;
-    range=200*x;
+    range=100*x;
     speed=2*x;
     damage=10*x;
     this->level=level;

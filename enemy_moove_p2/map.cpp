@@ -131,10 +131,10 @@ void Map::createTower(int i)
 void Map::showRange(int i)
 {
     int r=t[i].range,
-        x=towerPositions[i].rx(),
-        y=towerPositions[i].ry();
+        x=towerPositions[i].rx()+50,
+        y=towerPositions[i].ry()+50;
 
-    showedRange->setRect(x-(r/2-50),y-(r/2-50),r,r);
+    showedRange->setRect(x-r,y-r,r*2,r*2);
     showedRange->setBrush(QBrush(QColor(0,0,0,128)));
     scene->addItem(showedRange);
 }
