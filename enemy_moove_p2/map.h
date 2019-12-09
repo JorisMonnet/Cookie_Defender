@@ -48,7 +48,7 @@ private :
      Tower t[4];
 
      int money=400;
-     int health=20;
+     int health=200;
 };
 
 #endif // MAP_H

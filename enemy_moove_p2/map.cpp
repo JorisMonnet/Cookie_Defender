@@ -201,10 +201,9 @@ void Map::attackMonster(Monster* monster)
 //revoir l'ajout a la liste et la mémoire
 void Map:: spawnMonster()
 {
-    //creating 1 monster
-    vectMonster.append(new Monster());  // maybe a tab instead of a vector
-    for(Monster * monster : vectMonster)
-        scene->addItem(monster);
+
+    vectMonster.append(new Monster());
+    scene->addItem(vectMonster.last());
 }
 
 void Map::mapUpdate()
@@ -217,7 +216,7 @@ void Map::mapUpdate()
 
 void Map::gameOver()
 {
-    //QMessageBox::information(this,"GAME OVER (u noob)","GAME OVER !!!");
+    QMessageBox::information(this,"GAME OVER (u noob)","GAME OVER !!!");
     setScene(nullptr);
     health=1;
 }
