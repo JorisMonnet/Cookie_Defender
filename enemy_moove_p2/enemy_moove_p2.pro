@@ -16,14 +16,22 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    game.cpp \
     main.cpp \
+    mainmenu.cpp \
     map.cpp \
     monster.cpp \
+    pausemenu.cpp \
+    soundboxes.cpp \
     tower.cpp
 
 HEADERS += \
+    game.h \
+    mainmenu.h \
     map.h \
     monster.h \
+    pausemenu.h \
+    soundboxes.h \
     tower.h
 
 # Default rules for deployment.

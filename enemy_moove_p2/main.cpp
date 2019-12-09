@@ -1,12 +1,11 @@
-#include "map.h"
-
+#include "game.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    Map *map=new Map();
-    map->show();
+    Game *cookieDefender=new Game();
+    cookieDefender->show();
     return a.exec();
 }
 

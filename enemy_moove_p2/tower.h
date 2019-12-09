@@ -1,20 +1,27 @@
 #ifndef TOWER_H
 #define TOWER_H
 
-#include <QImage>
 #include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
 
 class Tower : public QGraphicsPixmapItem
 {
 public:
     Tower(QGraphicsPixmapItem *parent=nullptr);
+    void showRange(QGraphicsScene *scene);
+    void hideRange(QGraphicsScene *scene);
     void set(int level);
+    bool isPlaced(QGraphicsScene *scene);
     //void attack(MonsterChild *monster);
+
     int damage;
     int range;
     int cost=100;
-    float speed;
+    int speed;
     int level;
+    int towerSize=100;
+    bool isShowingRange=false;
+    QGraphicsEllipseItem *showedRange=nullptr;
 };
 
 #endif // TOWER_H

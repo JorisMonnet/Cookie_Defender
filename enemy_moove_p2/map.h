@@ -5,8 +5,10 @@
 #include <QPoint>
 #include <QMouseEvent>
 #include <QVector>
+#include <QTimer>
 #include "tower.h"
 #include "monster.h"
+#include "pausemenu.h"
 
 class Map : public QGraphicsView
 {
@@ -14,39 +16,39 @@ class Map : public QGraphicsView
 public:
      Map(QGraphicsView *parent = nullptr);
      void createTower(int index);
-     void showRange(int index);
      void showPlace(int index);
      void mapUpdate();
      void gameOver();
      void settingUpScene();
+     QTimer *timer;
+  signals:
+     void pauseFunction();
+     void gameEnd();
 
-protected slots:
+public slots:
      void mousePressEvent(QMouseEvent *event) override;
      void mouseMoveEvent(QMouseEvent *event) override;
      void keyPressEvent(QKeyEvent *event) override;
      void moveMonster();
      void attackMonster();
+     void pauseMenu();
 
 private :
      QGraphicsSimpleTextItem * textHealth;
      QGraphicsSimpleTextItem * textMoney;
-     QGraphicsEllipseItem *showedRange;
      QGraphicsRectItem *showedPlace;
      QGraphicsPixmapItem * pause;
+     QGraphicsRectItem * pausePlacement;
      QPoint start={0,480};
-     QList<QPointF> path;
-     QTimer *timer;
+     //QList<QPointF> path;
      QVector<Monster*> vectMonster;
-
      QGraphicsScene *scene;
-
      QPoint towerPositions[4]={{50,350},{500,350},{300,550},{700,550}};
      QGraphicsRectItem towerPlacement[4];
-     bool towerCreated[4];
      Tower t[4];
 
-     int money=400;
-     int health=2;
+     int money=500;
+     int health=20;
 };
 
 #endif // MAP_H

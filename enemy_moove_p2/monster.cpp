@@ -8,7 +8,6 @@
 Monster::Monster() : QGraphicsPixmapItem()
 {
     setPixmap(QPixmap("../enemy_moove_p2/rogue.png").scaled(size,size));
-    setPos(0,480);
 }
 
 

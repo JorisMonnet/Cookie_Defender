@@ -1,7 +1,6 @@
 #include "map.h"
 #include "monster.h"
 #include <QMessageBox>
-#include <QTimer>
 //bug: when clicking on the map resizer, the monster is paused
 
 /**
@@ -14,16 +13,15 @@ Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
 {
     //setBackgroundBrush(QBrush(QPixmap("")));
     settingUpScene();
-    this->path<<QPointF(0,500)<<QPointF(950,500);   // useless currently
-
+    //this->path<<QPointF(0,500)<<QPointF(950,500);   // useless currently
     timer = new QTimer(this);
     timer->start(15);
-
-    QObject::connect(timer,&QTimer::timeout,this,&Map::moveMonster);
-    QObject::connect(timer,&QTimer::timeout,this,&Map::attackMonster);
-
+    connect(timer,&QTimer::timeout,this,&Map::moveMonster);
+    connect(timer,&QTimer::timeout,this,&Map::attackMonster);
     //creating 1 monster
-    vectMonster.append(new Monster());  // maybe a tab instead of a vector
+    Monster *monster1 = new Monster;
+    monster1->setPos(start);
+    vectMonster.append(monster1);  // maybe a tab instead of a vector
     for(Monster * monster : vectMonster)
         scene->addItem(monster);
 }
@@ -34,15 +32,16 @@ Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
  */
 void Map::settingUpScene()
 {
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setFixedSize(1000,1000);
     scene= new QGraphicsScene(this);
     setScene(scene);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setMouseTracking(true);
     t[2].set(2);
-    QGraphicsRectItem *topMap = new QGraphicsRectItem(0,0,this->width(),450);
-    QGraphicsRectItem *bottomMap = new QGraphicsRectItem(0,550,this->width(),450);
+    QGraphicsRectItem *topMap = new QGraphicsRectItem(0,0,1000,450);
+    QGraphicsRectItem *bottomMap = new QGraphicsRectItem(0,550,1000,450);
+    pausePlacement = new QGraphicsRectItem(950,0,50,50);
+    pausePlacement->setPen(QPen(Qt::blue,2));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
     QGraphicsPixmapItem *finish2 = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
     pause = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/pause.png").scaled(50,50));
@@ -51,7 +50,6 @@ void Map::settingUpScene()
     finish2->setPos(950,500);
 
     showedPlace = new QGraphicsRectItem();
-    showedRange = new QGraphicsEllipseItem();
     topMap->setBrush(QBrush(Qt::green));
     bottomMap->setBrush(QBrush(Qt::green));
 
@@ -64,15 +62,13 @@ void Map::settingUpScene()
     textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
     textHealth->setPos(0,0);
-    scene->addItem(textHealth);
     textMoney = scene->addSimpleText(QString("Money: ")+QString::number(money));
     textMoney->setScale(1.5);
     textMoney->setPos(0,50);
-    scene->addItem(textMoney);
 
     for(int i=0;i<4;i++)
     {
-        towerPlacement[i].setRect(towerPositions[i].rx(),towerPositions[i].ry(),100,100);
+        towerPlacement[i].setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].towerSize,t[i].towerSize);
         towerPlacement[i].setBrush(QBrush(Qt::red));
         towerPlacement[i].setPen(QPen(Qt::red));
         scene->addItem(&towerPlacement[i]);
@@ -80,42 +76,40 @@ void Map::settingUpScene()
 
     /*for(int i=0;i<this->height();i+=50)
         scene->addLine(0,i,this->width(),i);    //permet d'afficher la grille
-    for(int i=0;i<this->width();i+=50)
+    for(int i=0;i<this->width();i+=)
         scene->addLine(i,0,i,this->height());*/
 }
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
-    bool statement=false;
     for(int i=0;i<4;i++)
-        if(towerPlacement[i].contains(mapToScene(event->pos()))){
-            statement=true;
-            !towerCreated[i]?createTower(i):showRange(i);
-        }
-    if(!statement)
-        scene->removeItem(showedRange);
+        if(towerPlacement[i].contains(event->pos()))
+            !t[i].isPlaced(scene)?createTower(i):t[i].showRange(scene);
+        else if(t[i].isShowingRange)
+            t[i].hideRange(scene);
+    if(pausePlacement->contains(event->pos()))
+        pauseMenu();
 }
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool statement=false;
-    for(int i=0;i<4;i++)
-        if(towerPlacement[i].contains(mapToScene(event->pos()))){
+    for(int i=0;i<4;i++){
+        if(towerPlacement[i].contains(event->pos())&&!scene->items().contains(showedPlace)){
             statement=true;
             showPlace(i);
         }
-    if(!statement&&showedPlace->isActive())
-       scene->removeItem(showedPlace);
-    //if(pause->contains(mapToScene(event->pos())))
-        //pausemenu();
-
+        if(!towerPlacement[i].contains(event->pos())&&!statement&&scene->items().contains(showedPlace))       // to do check problem "eplepsy" on th first turret
+            scene->removeItem(showedPlace);
+    }
+    if(pausePlacement->contains(event->pos())&&!scene->items().contains(pausePlacement))
+        scene->addItem(pausePlacement);
+    else if(!pausePlacement->contains(event->pos())&&scene->items().contains(pausePlacement))
+        scene->removeItem(pausePlacement);
 }
 void Map::keyPressEvent(QKeyEvent*event)
 {
     if(event->key()==Qt::Key_Escape)
-    {
-        timer->stop();
-        //TO DO pause menu
-    }
+        pauseMenu();
 }
 void Map::createTower(int i)
 {
@@ -123,25 +117,14 @@ void Map::createTower(int i)
         t[i].setPos(towerPositions[i]);
         scene->addItem(&t[i]);
         money-=t[i].cost;
-        towerCreated[i]=true;
         mapUpdate();
     }
 }
 
-void Map::showRange(int i)
-{
-    int r=t[i].range,
-        x=towerPositions[i].rx()+50,
-        y=towerPositions[i].ry()+50;
-
-    showedRange->setRect(x-r,y-r,r*2,r*2);
-    showedRange->setBrush(QBrush(QColor(0,0,0,128)));
-    scene->addItem(showedRange);
-}
 void Map::showPlace(int i)
 {
     showedPlace->setPen(QPen(Qt::blue,2));
-    showedPlace->setRect(towerPositions[i].rx(),towerPositions[i].ry(),100,100);
+    showedPlace->setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].towerSize,t[i].towerSize);
     scene->addItem(showedPlace);
 }
 /**
@@ -179,5 +162,12 @@ void Map::gameOver()
 {
     QMessageBox::information(this,"GAME OVER (u noob)","GAME OVER !!!");
     setScene(nullptr);
-    health=1;
+    health++;
+    emit gameEnd();
+}
+
+void Map::pauseMenu()
+{
+    timer->stop();
+    emit pauseFunction();
 }
