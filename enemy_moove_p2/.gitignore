@@ -1,0 +1,4 @@
+#ignoring .pro.user
+
+*.pro.user
+
