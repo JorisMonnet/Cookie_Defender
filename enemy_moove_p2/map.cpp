@@ -3,7 +3,6 @@
 #include <QMessageBox>
 #include <QTimer>
 #include <QDebug>
-
 //bug: when clicking on the map resizer, the monster is paused
 
 /**
@@ -15,14 +14,11 @@
 Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
 {
     //setBackgroundBrush(QBrush(QPixmap("")));
-    settingUpScene();
-    settingUpPath();
-
+      settingUpPath();
 
     timer = new QTimer(this);
     timer->start(15);
     QTimer *timerSpawn= new QTimer(this);
-    timerSpawn->start(2000);
 
     QObject::connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     QObject::connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
@@ -30,18 +26,6 @@ Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
 }
 
 void Map::settingUpPath()
-{
-    this->path<<QPointF(0,475)
-              <<QPointF(200,475)
-              <<QPointF(200,700)
-              <<QPointF(70,700)
-              <<QPointF(70,850)
-              <<QPointF(450,850)
-              <<QPointF(450,300)
-              <<QPointF(650,300)
-              <<QPointF(650,475)
-              <<QPointF(950,475);
-}
 /**
  * @brief Map::settingUpScene
  * set up the scene and prepare the tower
@@ -58,7 +42,6 @@ void Map::settingUpScene()
     QGraphicsRectItem *topMap = new QGraphicsRectItem(0,0,this->width(),450);
     QGraphicsRectItem *bottomMap = new QGraphicsRectItem(0,550,this->width(),450);
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(50,50));
-    QGraphicsPixmapItem *finish2 = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(50,50));
     pause = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/pause.png").scaled(50,50));
     pause->setPos(950,0);
     finish->setPos(950,450);
@@ -166,26 +149,6 @@ void Map::moveMonster()
 {
     for(Monster * monster : vectMonster)
             for(int i=0;i<=monster->velocity;i++){
-
-                if(monster->x() < path.at(monster->pathIndex).x())
-                    monster->setX(monster->x()+1);
-
-                if(monster->x() > path.at(monster->pathIndex).x())
-                    monster->setX(monster->x()-1);
-
-                if(monster->y() < path.at(monster->pathIndex).y())
-                    monster->setY(monster->y()+1);
-
-                if(monster->y() > path.at(monster->pathIndex).y())
-                    monster->setY(monster->y()-1);
-
-                if(monster->pos() == path.at(monster->pathIndex).toPoint())
-                    monster->pathIndex++;
-                if(monster->pos() == path.last().toPoint()){
-                    qDebug()<<"je suis au dernier point"<<endl;
-                    this->attackMonster(monster);
-                }
-            }
 }
 /**
  * @brief Map::attackMonster
@@ -194,16 +157,9 @@ void Map::moveMonster()
 void Map::attackMonster(Monster* monster)
 {
     health-=monster->dammage;
-    mapUpdate();
     monster->setPos(path.first().toPoint());
-    monster->pathIndex=0;
-}
-//revoir l'ajout a la liste et la mémoire
-void Map:: spawnMonster()
-{
 
-    vectMonster.append(new Monster());
-    scene->addItem(vectMonster.last());
+//revoir l'ajout a la liste et la mémoire
 }
 
 void Map::mapUpdate()
