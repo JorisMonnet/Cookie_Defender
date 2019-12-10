@@ -97,14 +97,13 @@ void Map::mousePressEvent(QMouseEvent *event)
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool statement=false;
-    for (int i=0;i<4;i++){
+    for (int i=0;i<4;i++)
         if(towerPlacement[i].contains(event->pos())&&!scene->items().contains(showedPlace)){
             statement=true;
             showPlace(i);
         }
-        if(!statement&&scene->items().contains(showedPlace))      // to do check problem "eplepsy" on th first turret
-            scene->removeItem(showedPlace);
-    }
+        else if(!statement&&scene->items().contains(showedPlace))     // to do check problem "epilepsy" on the first turret
+            scene->removeItem(showedPlace);                     //problem is more complicated, the showed Place item is add and remove permanantly in towerPlacement
     if(pausePlacement->contains(event->pos())&&!scene->items().contains(pausePlacement))
         scene->addItem(pausePlacement);
     else if(!pausePlacement->contains(event->pos())&&scene->items().contains(pausePlacement))
@@ -187,9 +186,9 @@ void Map::mapUpdate()
 
 void Map::gameOver()
 {
-    vectMonster.clear();
     timerSpawn->stop();
     timer->stop();
+    vectMonster.clear();
     QMessageBox::information(this,"GAME OVER (u noob)","GAME OVER !!!");
     emit gameEnd();
 }

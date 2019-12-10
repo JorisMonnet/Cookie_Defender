@@ -50,7 +50,7 @@ private :
      Tower t[4];
 
      int money=500;
-     int health=1;
+     int health=20;
 };
 
 #endif // MAP_H
