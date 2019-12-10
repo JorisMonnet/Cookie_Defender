@@ -44,8 +44,8 @@ void Map::settingUpScene()
     pausePlacement->setPen(QPen(Qt::blue,2));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
     QGraphicsPixmapItem *finish2 = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/Cookie.png").scaled(50,50));
-    pause = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/pause.png").scaled(50,50));
-    pause->setPos(950,0);
+    QGraphicsPixmapItem *pauseIcon = new QGraphicsPixmapItem(QPixmap("../enemy_moove_p2/pause.png").scaled(50,50));
+    pauseIcon->setPos(950,0);
     finish->setPos(950,450);
     finish2->setPos(950,500);
 
@@ -57,7 +57,7 @@ void Map::settingUpScene()
     scene->addItem(bottomMap);
     scene->addItem(finish);
     scene->addItem(finish2);
-    scene->addItem(pause);
+    scene->addItem(pauseIcon);
 
     textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
@@ -73,11 +73,6 @@ void Map::settingUpScene()
         towerPlacement[i].setPen(QPen(Qt::red));
         scene->addItem(&towerPlacement[i]);
     }
-
-    /*for(int i=0;i<this->height();i+=50)
-        scene->addLine(0,i,this->width(),i);    //permet d'afficher la grille
-    for(int i=0;i<this->width();i+=)
-        scene->addLine(i,0,i,this->height());*/
 }
 
 void Map::mousePressEvent(QMouseEvent *event)
@@ -93,12 +88,12 @@ void Map::mousePressEvent(QMouseEvent *event)
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool statement=false;
-    for(int i=0;i<4;i++){
+    for (int i=0;i<4;i++){
         if(towerPlacement[i].contains(event->pos())&&!scene->items().contains(showedPlace)){
             statement=true;
             showPlace(i);
         }
-        if(!towerPlacement[i].contains(event->pos())&&!statement&&scene->items().contains(showedPlace))       // to do check problem "eplepsy" on th first turret
+        if(!statement&&scene->items().contains(showedPlace))      // to do check problem "eplepsy" on th first turret
             scene->removeItem(showedPlace);
     }
     if(pausePlacement->contains(event->pos())&&!scene->items().contains(pausePlacement))

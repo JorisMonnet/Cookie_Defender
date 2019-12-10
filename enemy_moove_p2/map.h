@@ -37,9 +37,8 @@ private :
      QGraphicsSimpleTextItem * textHealth;
      QGraphicsSimpleTextItem * textMoney;
      QGraphicsRectItem *showedPlace;
-     QGraphicsPixmapItem * pause;
      QGraphicsRectItem * pausePlacement;
-     QPoint start={0,480};
+     const QPoint start={0,480};
      //QList<QPointF> path;
      QVector<Monster*> vectMonster;
      QGraphicsScene *scene;

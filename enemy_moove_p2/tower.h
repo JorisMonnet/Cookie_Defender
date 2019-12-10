@@ -19,7 +19,7 @@ public:
     int cost=100;
     int speed;
     int level;
-    int towerSize=100;
+    const int towerSize=100;
     bool isShowingRange=false;
     QGraphicsEllipseItem *showedRange=nullptr;
 };
