@@ -16,7 +16,7 @@ Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
     settingUpPath();
 
     timer = new QTimer(this);
-    QTimer *timerSpawn= new QTimer(this);
+    timerSpawn= new QTimer(this);
     timerSpawn->start(2000);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
@@ -187,14 +187,16 @@ void Map::mapUpdate()
 
 void Map::gameOver()
 {
+    vectMonster.clear();
+    timerSpawn->stop();
+    timer->stop();
     QMessageBox::information(this,"GAME OVER (u noob)","GAME OVER !!!");
-    setScene(nullptr);
-    health=1000;
     emit gameEnd();
 }
 
 void Map::pauseMenu()
 {
     timer->stop();
+    timerSpawn->stop();
     emit pauseFunction();
 }

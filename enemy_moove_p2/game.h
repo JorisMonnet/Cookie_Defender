@@ -25,7 +25,6 @@ public slots :
     void encyclo();
     void pause();
     void restartMap();
-    void setLastIndex();
 private:
     int lastIndex=0;
 };

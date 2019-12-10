@@ -3,8 +3,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
-PauseMenu::PauseMenu(QWidget *parent)
-    : QWidget(parent)
+PauseMenu::PauseMenu(QWidget *parent): QWidget(parent)
 {
     resume = new QPushButton(tr("resume"));
     restart = new QPushButton(tr("Restart"));
@@ -25,6 +24,5 @@ PauseMenu::PauseMenu(QWidget *parent)
     mainLay->addStretch();
     mainLay->addLayout(vLay);
     mainLay->addStretch();
-
 }
 

@@ -23,6 +23,7 @@ public:
      void settingUpPath();
      void attackMonster(Monster *);
      QTimer *timer;
+     QTimer *timerSpawn;
   signals:
      void pauseFunction();
      void gameEnd();
@@ -49,7 +50,7 @@ private :
      Tower t[4];
 
      int money=500;
-     int health=20;
+     int health=1;
 };
 
 #endif // MAP_H
