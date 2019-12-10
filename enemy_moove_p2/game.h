@@ -6,6 +6,7 @@
 #include "pausemenu.h"
 #include "map.h"
 #include "mainmenu.h"
+#include "encyclopedia.h"
 
 class Game : public QMainWindow
 {
@@ -18,11 +19,15 @@ public:
     MainMenu *mainMenu;
     PauseMenu*pauseMenu;
     QStackedWidget *stackedWidget;
+    Encyclopedia *encyclopedia;
 public slots :
     void resume();
     void encyclo();
     void pause();
     void restartMap();
+    void setLastIndex();
+private:
+    int lastIndex=0;
 };
 
 #endif // GAME_H

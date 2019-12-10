@@ -12,19 +12,22 @@ void Game::setGame()
     map1 = new Map();
     pauseMenu = new PauseMenu();
     mainMenu = new MainMenu();
+    encyclopedia = new Encyclopedia();
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(mainMenu);
     stackedWidget->addWidget(map1);
     stackedWidget->addWidget(pauseMenu);
+    stackedWidget->addWidget(encyclopedia);
     setCentralWidget(stackedWidget);
     connect(map1,&Map::pauseFunction,this,&Game::pause);
     connect(pauseMenu->resume,&QPushButton::clicked,this,&Game::resume);
     connect(pauseMenu->exit,&QPushButton::clicked,map1,&Map::gameOver);
     connect(pauseMenu->encyclo,&QPushButton::clicked,this,&Game::encyclo);
     connect(mainMenu->play,&QPushButton::clicked,this,&Game::restartMap);
+    connect(encyclopedia,&Encyclopedia::finishEncyclo,this,&Game::setLastIndex);
     //connect(mainMenu->options,&QPushButton::clicked,this,&Game::?);
     connect(mainMenu->encyclo,&QPushButton::clicked,this,&Game::encyclo);
-    connect(map1,&Map::gameEnd,this,[=]{stackedWidget->setCurrentIndex(0);});
+    connect(map1,&Map::gameEnd,this,&Game::menu);
     connect(pauseMenu->restart,&QPushButton::clicked,this,&Game::restartMap);
 }
 void Game::restartMap()
@@ -39,13 +42,19 @@ void Game::resume()
 }
 void Game::encyclo()
 {
-    //setCentralWidget(encyclo);
+    stackedWidget->setCurrentIndex(3);
 }
 void Game::menu()
 {
+    lastIndex=0;
     stackedWidget->setCurrentIndex(0);
 }
 void Game::pause()
 {
+    lastIndex=2;
     stackedWidget->setCurrentIndex(2);
+}
+void Game::setLastIndex()
+{
+    stackedWidget->setCurrentIndex(lastIndex);
 }

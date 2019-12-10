@@ -16,7 +16,6 @@ Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
     settingUpPath();
 
     timer = new QTimer(this);
-    timer->start(15);
     QTimer *timerSpawn= new QTimer(this);
     timerSpawn->start(2000);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
