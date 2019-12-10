@@ -171,9 +171,9 @@ void Map:: spawnMonster()
 void Map::attackMonster(Monster * monster)
 {
     health-=monster->dammage;
-        mapUpdate();
-        monster->setPos(path.first().toPoint());
-        monster->pathIndex=0;
+    mapUpdate();
+    monster->setPos(path.first().toPoint());
+    monster->pathIndex=0;
 }
 
 void Map::mapUpdate()

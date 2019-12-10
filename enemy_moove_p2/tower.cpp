@@ -14,7 +14,7 @@ void Tower::set(int level)
     speed=2*x;
     damage=10*x;
     this->level=level;
-    setPixmap(QPixmap("../icones/tower.png").scaled(towerSize,towerSize));
+    setPixmap(QPixmap(QString("../icones/tower%1.png").arg(level)).scaled(towerSize,towerSize));
 }
 /*void Tower::attack(Monster *monster)
 {
@@ -22,10 +22,12 @@ void Tower::set(int level)
 }*/
 void Tower::showRange(QGraphicsScene*scene)
 {
-    showedRange->setRect(pos().rx()-range+towerSize/2,pos().ry()-range+towerSize/2,range*2,range*2);
-    showedRange->setBrush(QBrush(QColor(0,0,0,128)));
-    scene->addItem(showedRange);
-    isShowingRange = true;
+    if(!scene->items().contains(showedRange)){
+        showedRange->setRect(pos().rx()-range+towerSize/2,pos().ry()-range+towerSize/2,range*2,range*2);
+        showedRange->setBrush(QBrush(QColor(0,0,0,128)));
+        scene->addItem(showedRange);
+        isShowingRange = true;
+    }
 }
 
 void Tower::hideRange(QGraphicsScene*scene)
