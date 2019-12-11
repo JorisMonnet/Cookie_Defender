@@ -13,20 +13,20 @@ class Game : public QMainWindow
     Q_OBJECT
 public:
     Game(QMainWindow*parent=nullptr);
-    Map *map1;
     void menu();
     void setGame();
-    MainMenu *mainMenu;
-    PauseMenu*pauseMenu;
-    QStackedWidget *stackedWidget;
-    Encyclopedia *encyclopedia;
-public slots :
+private slots :
     void resume();
     void encyclo();
     void pause();
     void restartMap();
 private:
     int lastIndex=0;
+    MainMenu *mainMenu;
+    PauseMenu*pauseMenu;
+    QStackedWidget *stackedWidget;
+    Encyclopedia *encyclopedia;
+    Map *map1;
 };
 
 #endif // GAME_H

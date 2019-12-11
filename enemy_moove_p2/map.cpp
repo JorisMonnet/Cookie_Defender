@@ -1,9 +1,10 @@
 #include "map.h"
 #include "monster.h"
 #include <QMessageBox>
+
 #include <QDebug>
 //bug: when clicking on the map resizer, the monster is paused
-
+//bug: showed place of  tower 1
 /**
  * @brief Map::Map
  * @param parent
@@ -24,16 +25,18 @@ Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
 }
 void Map::settingUpPath()
 {
-    this->path<<QPointF(0,475)
-              <<QPointF(200,475)
-              <<QPointF(200,700)
-              <<QPointF(70,700)
-              <<QPointF(70,850)
-              <<QPointF(450,850)
-              <<QPointF(450,300)
-              <<QPointF(650,300)
-              <<QPointF(650,475)
-              <<QPointF(950,475);
+    path<<QPointF(0,475)
+        <<QPointF(200,475)
+        <<QPointF(200,700)
+        <<QPointF(70,700)
+        <<QPointF(70,850)
+        <<QPointF(450,850)
+        <<QPointF(450,300)
+        <<QPointF(650,300)
+        <<QPointF(650,475)
+        <<QPointF(950,475);
+    for(int i=0;i<path.size()-1;i++)
+        scene->addLine(QLineF(path.at(i),path.at(i+1)));
 }
 /**
  * @brief Map::settingUpScene
@@ -46,26 +49,18 @@ void Map::settingUpScene()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setMouseTracking(true);
-    t[2].set(2);
-    QGraphicsRectItem *topMap = new QGraphicsRectItem(0,0,1000,450);
-    QGraphicsRectItem *bottomMap = new QGraphicsRectItem(0,550,1000,450);
+    t[2].set(3);
     pausePlacement = new QGraphicsRectItem(950,0,50,50);
+    showedPlace = new QGraphicsRectItem();
     pausePlacement->setPen(QPen(Qt::blue,2));
-    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(50,50));
-    QGraphicsPixmapItem *finish2 = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(50,50));
+    QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap("../icones/bg.jpg").scaled(1000,1000));
+    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     QGraphicsPixmapItem *pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(50,50));
     pauseIcon->setPos(950,0);
     finish->setPos(950,450);
-    finish2->setPos(950,500);
 
-    showedPlace = new QGraphicsRectItem();
-    topMap->setBrush(QBrush(Qt::green));
-    bottomMap->setBrush(QBrush(Qt::green));
-
-    scene->addItem(topMap);
-    scene->addItem(bottomMap);
+    scene->addItem(background);
     scene->addItem(finish);
-    scene->addItem(finish2);
     scene->addItem(pauseIcon);
 
     textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));

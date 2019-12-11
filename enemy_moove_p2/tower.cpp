@@ -8,11 +8,11 @@ Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 }
 void Tower::set(int level)
 {
-    int x=static_cast<int>(log(level*level)+1);
-    cost=100*x;
-    range=100*x;
-    speed=2*x;
-    damage=10*x;
+    int x=level-1;
+    cost=100+x*50;
+    range=100+x*25;
+    speed=2+x;
+    damage=10+x*5;
     this->level=level;
     setPixmap(QPixmap(QString("../icones/tower%1.png").arg(level)).scaled(towerSize,towerSize));
 }
