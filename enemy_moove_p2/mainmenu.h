@@ -13,4 +13,5 @@ public:
     QPushButton *encyclo;
     QPushButton *play;
 };
+
 #endif // MAINMENU_H
