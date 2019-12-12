@@ -15,7 +15,6 @@ Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
 {
     settingUpScene();
     settingUpPath();
-
     timer = new QTimer(this);
     timerSpawn= new QTimer(this);
     timerSpawn->start(2000);
@@ -50,6 +49,7 @@ void Map::settingUpScene()
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setMouseTracking(true);
     t[2].set(3);
+    t[1].set(2);
     pausePlacement = new QGraphicsRectItem(950,0,50,50);
     showedPlace = new QGraphicsRectItem();
     pausePlacement->setPen(QPen(Qt::blue,2));
@@ -150,13 +150,14 @@ void Map::moveMonster()
                         monster->pathIndex++;
                     if(monster->pos() == path.last().toPoint()){
                         qDebug()<<"je suis au dernier point"<<endl;
-                        this->attackMonster(monster);
+                        attackMonster(monster);
                     }
                 }
 }
 void Map:: spawnMonster()
 {
-    vectMonster.append(new Monster(path.first().toPoint()));
+    vectMonster.append(new Monster());
+    vectMonster.last()->setPos(path.first().toPoint());
     scene->addItem(vectMonster.last());
 }
 /**

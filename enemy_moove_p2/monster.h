@@ -16,7 +16,7 @@
 class Monster : public QGraphicsPixmapItem
 {
 public:
-    Monster(QPointF);
+    Monster();
     const int size=40;
     int hp=100;
     int shield=25;

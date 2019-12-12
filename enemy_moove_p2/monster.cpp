@@ -5,10 +5,9 @@
 * Monster's class constructor
 *
 */
-Monster::Monster(QPointF pStart) : QGraphicsPixmapItem()
+Monster::Monster() : QGraphicsPixmapItem()
 {
     setPixmap(QPixmap("../icones/rogue.png").scaled(size,size));
-    setPos(pStart);
 }
 
 
