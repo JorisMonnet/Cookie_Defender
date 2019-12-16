@@ -131,28 +131,11 @@ void Map::showPlace(int i)
  */
 void Map::moveMonster()
 {
-    for(Monster * monster : vectMonster)
-                for(int i=0;i<=monster->velocity;i++){
-
-                    if(monster->x() < path.at(monster->pathIndex).x())
-                        monster->setX(monster->x()+1);
-
-                    if(monster->x() > path.at(monster->pathIndex).x())
-                        monster->setX(monster->x()-1);
-
-                    if(monster->y() < path.at(monster->pathIndex).y())
-                        monster->setY(monster->y()+1);
-
-                    if(monster->y() > path.at(monster->pathIndex).y())
-                        monster->setY(monster->y()-1);
-
-                    if(monster->pos() == path.at(monster->pathIndex).toPoint())
-                        monster->pathIndex++;
-                    if(monster->pos() == path.last().toPoint()){
-                        qDebug()<<"je suis au dernier point"<<endl;
-                        attackMonster(monster);
-                    }
-                }
+    for(Monster * monster : vectMonster){
+                monster->move(path);
+                if(monster->pos() == path.last().toPoint())
+                    attackMonster(monster);
+    }
 }
 void Map:: spawnMonster()
 {
