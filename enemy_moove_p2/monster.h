@@ -23,6 +23,7 @@ public:
     const int velocity=3;
     const int dammage=1;
     int pathIndex=0;
+    void move(QVector<QPointF>path);
 };
 
 #endif // MONSTER_H
