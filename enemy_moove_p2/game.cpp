@@ -48,7 +48,8 @@ void Game::resume(int difficulty)
 {
     stackedWidget->setCurrentIndex(1);
     map1->timer->start(15);
-    map1->timerSpawn->start(2000);
+    map1->timerSpawn->start(5000);
+    map1->timerWave->start(30000);
 }
 void Game::encyclo()
 {

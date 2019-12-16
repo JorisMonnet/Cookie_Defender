@@ -4,7 +4,8 @@
 
 #include <QDebug>
 //bug: when clicking on the map resizer, the monster is paused
-//bug: showed place of  tower 1
+//bug: showed place of  tower 1(clignotement)
+//bug : sometime printing twice game over.
 /**
  * @brief Map::Map
  * @param parent
@@ -17,19 +18,20 @@ Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
     settingUpPath();
     timer = new QTimer(this);
     timerSpawn= new QTimer(this);
-    timerSpawn->start(2000);
+    timerWave = new QTimer(this);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
-
+    connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
 }
+
 void Map::settingUpPath()
 {
     path<<QPointF(0,475)
         <<QPointF(200,475)
         <<QPointF(200,700)
         <<QPointF(70,700)
-        <<QPointF(70,850)
-        <<QPointF(450,850)
+        <<QPointF(70,750)
+        <<QPointF(450,750)
         <<QPointF(450,300)
         <<QPointF(650,300)
         <<QPointF(650,475)
@@ -118,7 +120,6 @@ void Map::createTower(int i)
         mapUpdate();
     }
 }
-
 void Map::showPlace(int i)
 {
     showedPlace->setPen(QPen(Qt::blue,2));
@@ -149,16 +150,22 @@ void Map::moveMonster()
                     if(monster->pos() == path.at(monster->pathIndex).toPoint())
                         monster->pathIndex++;
                     if(monster->pos() == path.last().toPoint()){
-                        qDebug()<<"je suis au dernier point"<<endl;
                         attackMonster(monster);
                     }
                 }
 }
 void Map:: spawnMonster()
 {
-    vectMonster.append(new Monster());
-    vectMonster.last()->setPos(path.first().toPoint());
-    scene->addItem(vectMonster.last());
+   vectMonster.append(new Monster());
+   qDebug()<<"j'ai insérer un monstre"<<endl;
+   vectMonster.last()->setPos(path.first().toPoint());
+   scene->addItem(vectMonster.last());
+}
+//accelerate the monster rate of spawn after 30 sec
+void Map:: waveMonster()
+{
+    int k=timerSpawn->interval();
+    this->timerSpawn->setInterval(k-(k/2));
 }
 /**
  * @brief Map::attackMonster
@@ -180,6 +187,7 @@ void Map::mapUpdate()
         gameOver();
 }
 
+//passe toujours par gameOver même si on arrete la partie
 void Map::gameOver()
 {
     timerSpawn->stop();

@@ -24,6 +24,7 @@ public:
      void attackMonster(Monster *);
      QTimer *timer;
      QTimer *timerSpawn;
+     QTimer *timerWave;
 
 private slots:
      void mousePressEvent(QMouseEvent *event) override;
@@ -32,6 +33,7 @@ private slots:
      void moveMonster();
      void spawnMonster();
      void pauseMenu();
+     void waveMonster();
 
 private :
      QGraphicsSimpleTextItem * textHealth;
@@ -45,7 +47,7 @@ private :
      QGraphicsRectItem towerPlacement[4];
      Tower t[4];
      int money=500;
-     int health=20;
+     int health=200;
 signals:
    void pauseFunction();
    void gameEnd();
