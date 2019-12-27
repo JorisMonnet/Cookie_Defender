@@ -15,13 +15,12 @@ class Game : public QMainWindow
     Q_OBJECT
 public:
     Game(QMainWindow*parent=nullptr);
-    void menu();
-    void setGame();
 private slots :
     void resume(int difficulty);
     void encyclo();
     void pause();
     void restartMap(int difficulty);
+    void chooseMap(int indexMap=1);
 private:
     int lastIndex=0;
     MainMenu *mainMenu;
@@ -30,7 +29,9 @@ private:
     DifficultyMenu *difficultyMenu;
     QStackedWidget *stackedWidget;
     Encyclopedia *encyclopedia;
-    Map *map1;
+    Map *currentMap;
+    void menu();
+    void setGame();
 };
 
 #endif // GAME_H

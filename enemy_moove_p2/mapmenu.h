@@ -10,10 +10,10 @@ class MapMenu : public QWidget
 public:
     MapMenu(QWidget *parent=nullptr);
     QPushButton *exit;
-    QPushButton *map1;
+    QPushButton *map1,*map2;
 signals:
     void exitMapMenu();
-    void map1Chosen();
+    void mapChosen(int);
 };
 
 #endif // MAPMENU_H

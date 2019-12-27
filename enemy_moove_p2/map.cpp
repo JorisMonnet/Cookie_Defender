@@ -11,31 +11,20 @@
  *
  * constructor of the map
  */
-Map::Map(QGraphicsView *parent) : QGraphicsView(parent)
+Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[]) : QGraphicsView(parent)
 {
-    settingUpScene();
-    settingUpPath();
+    this->path = QVector<QPointF>(pathSource);
+    qDebug() << this->path;
+    this->towerNumber = towerNumberSource;
+    this->towerPositions = towerPositionsSource;
+    this->towerPlacement = new QGraphicsRectItem[towerNumber];
+    this->t = new Tower[towerNumber];
     timer = new QTimer(this);
     timerSpawn= new QTimer(this);
     timerSpawn->start(2000);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
-
-}
-void Map::settingUpPath()
-{
-    path<<QPointF(0,475)
-        <<QPointF(200,475)
-        <<QPointF(200,700)
-        <<QPointF(70,700)
-        <<QPointF(70,850)
-        <<QPointF(450,850)
-        <<QPointF(450,300)
-        <<QPointF(650,300)
-        <<QPointF(650,475)
-        <<QPointF(950,475);
-    for(int i=0;i<path.size()-1;i++)
-        scene->addLine(QLineF(path.at(i),path.at(i+1)));
+    settingUpScene();
 }
 /**
  * @brief Map::settingUpScene
@@ -48,8 +37,8 @@ void Map::settingUpScene()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setMouseTracking(true);
-    t[2].set(3);
-    t[1].set(2);
+    //t[2].set(3);
+    //t[1].set(2);
     pausePlacement = new QGraphicsRectItem(950,0,50,50);
     showedPlace = new QGraphicsRectItem();
     pausePlacement->setPen(QPen(Qt::blue,2));
@@ -70,18 +59,20 @@ void Map::settingUpScene()
     textMoney->setScale(1.5);
     textMoney->setPos(0,50);
 
-    for(int i=0;i<4;i++)
+    for(int i=0;i<towerNumber;i++)
     {
         towerPlacement[i].setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].towerSize,t[i].towerSize);
         towerPlacement[i].setBrush(QBrush(Qt::red));
         towerPlacement[i].setPen(QPen(Qt::red));
         scene->addItem(&towerPlacement[i]);
     }
+    for(int i=0;i<path.size()-1;i++)
+        scene->addLine(QLineF(path.at(i),path.at(i+1)));
 }
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
-    for(int i=0;i<4;i++)
+    for(int i=0;i<towerNumber;i++)
         if(towerPlacement[i].contains(event->pos()))
             !t[i].isPlaced(scene)?createTower(i):t[i].showRange(scene);
         else if(t[i].isShowingRange)
@@ -92,7 +83,7 @@ void Map::mousePressEvent(QMouseEvent *event)
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool statement=false;
-    for (int i=0;i<4;i++)
+    for (int i=0;i<towerNumber;i++)
         if(towerPlacement[i].contains(event->pos())&&!scene->items().contains(showedPlace)){
             statement=true;
             showPlace(i);
@@ -132,9 +123,9 @@ void Map::showPlace(int i)
 void Map::moveMonster()
 {
     for(Monster * monster : vectMonster){
-                monster->move(path);
-                if(monster->pos() == path.last().toPoint())
-                    attackMonster(monster);
+        monster->move(path);
+        if(monster->pos() == path.last().toPoint())
+            attackMonster(monster);
     }
 }
 void Map:: spawnMonster()

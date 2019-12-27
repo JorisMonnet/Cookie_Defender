@@ -14,7 +14,7 @@ class Map : public QGraphicsView
 {
     Q_OBJECT
 public:
-     Map(QGraphicsView *parent = nullptr);
+     Map(QGraphicsView *parent = nullptr,QVector<QPointF> path={{0,0}},int towerNumber=0,QPoint towerPositions[]=nullptr);
      void createTower(int index);
      void showPlace(int index);
      void mapUpdate();
@@ -41,11 +41,12 @@ private :
      QVector<QPointF> path;
      QVector<Monster*> vectMonster;
      QGraphicsScene *scene;
-     QPoint towerPositions[4]={{50,350},{500,350},{300,550},{700,550}};
-     QGraphicsRectItem towerPlacement[4];
-     Tower t[4];
+     QPoint *towerPositions;
+     QGraphicsRectItem *towerPlacement;
+     Tower *t;
      int money=500;
      int health=20;
+     int towerNumber;
 signals:
    void pauseFunction();
    void gameEnd();
