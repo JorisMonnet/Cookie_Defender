@@ -11,10 +11,12 @@
  *
  * constructor of the map
  */
-Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[]) : QGraphicsView(parent)
+Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],int moneySource,QGraphicsPixmapItem *backgroundSource)
+    : QGraphicsView(parent)
 {
-    this->path = QVector<QPointF>(pathSource);
-    qDebug() << this->path;
+    this->path = pathSource;
+    this->money = moneySource;
+    this->background = backgroundSource;
     this->towerNumber = towerNumberSource;
     this->towerPositions = towerPositionsSource;
     this->towerPlacement = new QGraphicsRectItem[towerNumber];
@@ -42,13 +44,12 @@ void Map::settingUpScene()
     pausePlacement = new QGraphicsRectItem(950,0,50,50);
     showedPlace = new QGraphicsRectItem();
     pausePlacement->setPen(QPen(Qt::blue,2));
-    QGraphicsPixmapItem *background = new QGraphicsPixmapItem(QPixmap("../icones/bg.jpg").scaled(1000,1000));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     QGraphicsPixmapItem *pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(50,50));
     pauseIcon->setPos(950,0);
     finish->setPos(950,450);
-
-    scene->addItem(background);
+    if(background!=nullptr)
+        scene->addItem(background);
     scene->addItem(finish);
     scene->addItem(pauseIcon);
 

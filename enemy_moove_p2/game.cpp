@@ -42,21 +42,25 @@ void Game::setGame()
 void Game::chooseMap(int indexMap)
 {
     QVector<QPointF> path;
-    int towerNumber=4;
-    QPoint *towerPositions;
+    int towerNumber=4,money=500;
+    QPoint *towerPositions= new QPoint;
+    QGraphicsPixmapItem *background = new QGraphicsPixmapItem;
     switch(indexMap){
     case 1: path<<QPointF(0,475)<<QPointF(200,475)<<QPointF(200,700)<<QPointF(70,700)
                 <<QPointF(70,850)<<QPointF(450,850)<<QPointF(450,300)<<QPointF(650,300)
                 <<QPointF(650,475)<<QPointF(950,475);
             towerNumber=4;
+            background->setPixmap(QPixmap("../icones/bg.jpg").scaled(1000,1000));
             towerPositions=new QPoint[towerNumber];
             towerPositions[0]= QPoint(50 ,350);
             towerPositions[1]= QPoint(500,350);
             towerPositions[2]= QPoint(300,550);
             towerPositions[3]= QPoint(700,550);
-            currentMap = new Map(nullptr,path,towerNumber,towerPositions);
         break;
+
+        //add case to add map
     }
+    currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
     stackedWidget->setCurrentWidget(difficultyMenu);
 }
 void Game::restartMap(int difficulty)
