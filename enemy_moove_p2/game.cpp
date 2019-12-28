@@ -4,6 +4,7 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
     setWindowTitle("Cookie Defender");
     setFixedSize(1000,1000);
+    gameView = new GameView();
     currentMap = new Map();
     currentMap->timer->stop();
     currentMap->timerSpawn->stop();
@@ -20,7 +21,7 @@ void Game::setGame()
     encyclopedia = new Encyclopedia();
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(mainMenu);
-    stackedWidget->addWidget(currentMap);
+    stackedWidget->addWidget(gameView);
     stackedWidget->addWidget(pauseMenu);
     stackedWidget->addWidget(encyclopedia);
     stackedWidget->addWidget(mapMenu);
@@ -28,17 +29,17 @@ void Game::setGame()
     setCentralWidget(stackedWidget);
 
     connect(currentMap,&Map::pauseFunction,this,&Game::pause);
-    connect(pauseMenu->exit,&QPushButton::clicked,currentMap,&Map::gameOver);
     connect(currentMap,&Map::gameEnd,this,&Game::menu);
     connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
     connect(difficultyMenu,&DifficultyMenu::difficultySignal,this,&Game::startMap);
     connect(pauseMenu->resume,&QPushButton::clicked,this,&Game::resume);
+    connect(pauseMenu->restart,&QPushButton::clicked,this,&Game::restartMap);
     connect(pauseMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
+    connect(pauseMenu->exit,&QPushButton::clicked,currentMap,&Map::gameOver);
     connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
-    connect(encyclopedia,&Encyclopedia::finishEncyclo,this,[=]{stackedWidget->setCurrentIndex(lastIndex);});
     //connect(mainMenu->options,&QPushButton::clicked,this,&Game::?);
     connect(mainMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
-    connect(pauseMenu->restart,&QPushButton::clicked,this,&Game::restartMap);
+    connect(encyclopedia,&Encyclopedia::finishEncyclo,this,[=]{stackedWidget->setCurrentIndex(lastIndex);});
     connect(mapMenu,&MapMenu::exitMapMenu,this,&Game::menu);
     connect(mapMenu,&MapMenu::mapChosen,this,&Game::chooseMap);
 }
@@ -64,6 +65,7 @@ void Game::chooseMap(int indexMap)
             //add case to add map
     }
     currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
+    gameView = new GameView(nullptr,currentMap);
     stackedWidget->setCurrentWidget(difficultyMenu);
 }
 
@@ -81,7 +83,7 @@ void Game::restartMap()
 
 void Game::resume()
 {
-    stackedWidget->setCurrentWidget(currentMap);
+    stackedWidget->setCurrentWidget(gameView);
     currentMap->timer->start(15);
     currentMap->timerSpawn->start(2000);
 }

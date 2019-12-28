@@ -26,7 +26,11 @@ public:
      void attackMonster(Monster *);
      QTimer *timer;
      QTimer *timerSpawn;
-
+     QVector<QPointF> path;
+     int money;
+     QPoint *towerPositions;
+     QGraphicsPixmapItem *background;
+     int towerNumber;
 private slots:
      void mousePressEvent(QMouseEvent *event) override;
      void mouseMoveEvent(QMouseEvent *event) override;
@@ -40,15 +44,10 @@ private :
      QGraphicsSimpleTextItem * textMoney;
      QGraphicsRectItem *showedPlace;
      QGraphicsRectItem * pausePlacement;
-     QVector<QPointF> path;
      QVector<Monster*> vectMonster;
-     QPoint *towerPositions;
      QGraphicsRectItem *towerPlacement;
-     QGraphicsPixmapItem*background;
      Tower *t;
-     int money;
      int health=20;
-     int towerNumber;
 signals:
    void pauseFunction();
    void gameEnd();

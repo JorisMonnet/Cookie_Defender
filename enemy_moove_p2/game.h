@@ -4,11 +4,11 @@
 #include <QMainWindow>
 #include <QStackedWidget>
 #include "pausemenu.h"
-#include "map.h"
 #include "mainmenu.h"
 #include "mapmenu.h"
 #include "difficultymenu.h"
 #include "encyclopedia.h"
+#include "gameview.h"
 
 class Game : public QMainWindow
 {
@@ -22,6 +22,7 @@ private slots :
     void chooseMap(int indexMap=1);
     void startMap(int difficulty);
 private:
+    GameView *gameView;
     int lastIndex=0;
     MainMenu *mainMenu;
     PauseMenu*pauseMenu;

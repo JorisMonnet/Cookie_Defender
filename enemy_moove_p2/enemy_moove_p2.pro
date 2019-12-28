@@ -19,6 +19,7 @@ SOURCES += \
     difficultymenu.cpp \
     encyclopedia.cpp \
     game.cpp \
+    gameview.cpp \
     main.cpp \
     mainmenu.cpp \
     map.cpp \
@@ -33,6 +34,7 @@ HEADERS += \
     difficultymenu.h \
     encyclopedia.h \
     game.h \
+    gameview.h \
     mainmenu.h \
     map.h \
     mapmenu.h \

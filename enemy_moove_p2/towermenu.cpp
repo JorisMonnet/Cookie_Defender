@@ -2,8 +2,8 @@
 
 TowerMenu::TowerMenu(QGraphicsView *parent): QGraphicsView(parent)
 {
-    setFixedSize(1000,200);
     QGraphicsScene * scene = new QGraphicsScene(this);
+    setSceneRect(QRect(0,0,1000,200));
     setScene(scene);
     Tower *t = new Tower;
     QGraphicsPixmapItem * tower1 = new QGraphicsPixmapItem(QPixmap(t->pixmap()).scaled(50,50));
