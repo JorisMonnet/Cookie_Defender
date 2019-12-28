@@ -17,7 +17,6 @@ public:
     Game(QMainWindow*parent=nullptr);
 private slots :
     void resume();
-    void encyclo();
     void pause();
     void restartMap();
     void chooseMap(int indexMap=1);

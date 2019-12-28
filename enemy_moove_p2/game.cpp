@@ -10,6 +10,7 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
     setGame();
     menu();
 }
+
 void Game::setGame()
 {
     pauseMenu = new PauseMenu();
@@ -32,11 +33,11 @@ void Game::setGame()
     connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
     connect(difficultyMenu,&DifficultyMenu::difficultySignal,this,&Game::startMap);
     connect(pauseMenu->resume,&QPushButton::clicked,this,&Game::resume);
-    connect(pauseMenu->encyclo,&QPushButton::clicked,this,&Game::encyclo);
+    connect(pauseMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
     connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
     connect(encyclopedia,&Encyclopedia::finishEncyclo,this,[=]{stackedWidget->setCurrentIndex(lastIndex);});
     //connect(mainMenu->options,&QPushButton::clicked,this,&Game::?);
-    connect(mainMenu->encyclo,&QPushButton::clicked,this,&Game::encyclo);
+    connect(mainMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
     connect(pauseMenu->restart,&QPushButton::clicked,this,&Game::restartMap);
     connect(mapMenu,&MapMenu::exitMapMenu,this,&Game::menu);
     connect(mapMenu,&MapMenu::mapChosen,this,&Game::chooseMap);
@@ -65,32 +66,32 @@ void Game::chooseMap(int indexMap)
     currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
     stackedWidget->setCurrentWidget(difficultyMenu);
 }
+
 void Game::startMap(int difficulty)
 {
     this->difficulty=difficulty;
     setGame();
     resume();
 }
+
 void Game::restartMap()
 {
     chooseMap(indexMap);
-    resume();
 }
+
 void Game::resume()
 {
     stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
     currentMap->timerSpawn->start(2000);
 }
-void Game::encyclo()
-{
-    stackedWidget->setCurrentWidget(encyclopedia);
-}
+
 void Game::menu()
 {
     lastIndex=0;
     stackedWidget->setCurrentWidget(mainMenu);
 }
+
 void Game::pause()
 {
     lastIndex=2;
