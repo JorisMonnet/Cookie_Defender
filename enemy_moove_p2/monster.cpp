@@ -12,6 +12,8 @@ Monster::Monster() : QGraphicsPixmapItem()
 void Monster::move(QVector<QPointF>path)
 {
     for(int i=0;i<=velocity;i++){
+        if(pos()==path.last())
+            return;
         if(x() < path.at(pathIndex).x())
             setX(x()+1);
         if(x() > path.at(pathIndex).x())

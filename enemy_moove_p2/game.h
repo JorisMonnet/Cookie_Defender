@@ -16,11 +16,12 @@ class Game : public QMainWindow
 public:
     Game(QMainWindow*parent=nullptr);
 private slots :
-    void resume(int difficulty);
+    void resume();
     void encyclo();
     void pause();
-    void restartMap(int difficulty);
+    void restartMap();
     void chooseMap(int indexMap=1);
+    void startMap(int difficulty);
 private:
     int lastIndex=0;
     MainMenu *mainMenu;
@@ -32,6 +33,8 @@ private:
     Map *currentMap;
     void menu();
     void setGame();
+    int indexMap;
+    int difficulty=0;
 };
 
 #endif // GAME_H

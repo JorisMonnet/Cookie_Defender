@@ -12,8 +12,6 @@ public:
     void hideRange(QGraphicsScene *scene);
     void set(int level);
     bool isPlaced(QGraphicsScene *scene);
-    //void attack(MonsterChild *monster);
-
     int damage;
     int range;
     int cost=100;

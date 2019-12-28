@@ -1,13 +1,14 @@
 #ifndef TOWERMENU_H
 #define TOWERMENU_H
 
-#include <QWidget>
+#include <QGraphicsView>
+#include "tower.h"
 
-class TowerMenu : public QWidget
+class TowerMenu : public QGraphicsView
 {
 public:
-    TowerMenu(QWidget*parent=nullptr);
-
+    TowerMenu(QGraphicsView*parent=nullptr);
+    Tower *t;
 };
 
 #endif // TOWERMENU_H

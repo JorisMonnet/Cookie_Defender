@@ -2,9 +2,11 @@
 
 Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
-    currentMap= new Map();
     setWindowTitle("Cookie Defender");
     setFixedSize(1000,1000);
+    currentMap = new Map();
+    currentMap->timer->stop();
+    currentMap->timerSpawn->stop();
     setGame();
     menu();
 }
@@ -16,19 +18,19 @@ void Game::setGame()
     difficultyMenu = new DifficultyMenu();
     encyclopedia = new Encyclopedia();
     stackedWidget = new QStackedWidget();
-    stackedWidget->addWidget(mainMenu);         //1 : Main Menu
-    stackedWidget->addWidget(currentMap);       //2 : Map played
-    stackedWidget->addWidget(pauseMenu);        //3 : Pause Menu
-    stackedWidget->addWidget(encyclopedia);     //4 : Encyclopedia
-    stackedWidget->addWidget(mapMenu);          //5 : Map menu
-    stackedWidget->addWidget(difficultyMenu);   //6 : difficulty Menu
+    stackedWidget->addWidget(mainMenu);
+    stackedWidget->addWidget(currentMap);
+    stackedWidget->addWidget(pauseMenu);
+    stackedWidget->addWidget(encyclopedia);
+    stackedWidget->addWidget(mapMenu);
+    stackedWidget->addWidget(difficultyMenu);
     setCentralWidget(stackedWidget);
 
     connect(currentMap,&Map::pauseFunction,this,&Game::pause);
     connect(pauseMenu->exit,&QPushButton::clicked,currentMap,&Map::gameOver);
     connect(currentMap,&Map::gameEnd,this,&Game::menu);
     connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
-    connect(difficultyMenu,&DifficultyMenu::difficultySignal,this,&Game::restartMap);
+    connect(difficultyMenu,&DifficultyMenu::difficultySignal,this,&Game::startMap);
     connect(pauseMenu->resume,&QPushButton::clicked,this,&Game::resume);
     connect(pauseMenu->encyclo,&QPushButton::clicked,this,&Game::encyclo);
     connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
@@ -44,33 +46,38 @@ void Game::chooseMap(int indexMap)
     QVector<QPointF> path;
     int towerNumber=4,money=500;
     QPoint *towerPositions= new QPoint;
+    this->indexMap=indexMap;
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem;
     switch(indexMap){
-    case 1: path<<QPointF(0,475)<<QPointF(200,475)<<QPointF(200,700)<<QPointF(70,700)
-                <<QPointF(70,850)<<QPointF(450,850)<<QPointF(450,300)<<QPointF(650,300)
-                <<QPointF(650,475)<<QPointF(950,475);
-            towerNumber=4;
-            background->setPixmap(QPixmap("../icones/bg.jpg").scaled(1000,1000));
-            towerPositions=new QPoint[towerNumber];
-            towerPositions[0]= QPoint(50 ,350);
-            towerPositions[1]= QPoint(500,350);
-            towerPositions[2]= QPoint(300,550);
-            towerPositions[3]= QPoint(700,550);
-        break;
+        case 1: path<<QPointF(0,475)<<QPointF(200,475)<<QPointF(200,700)<<QPointF(70,700)<<QPointF(70,850)
+                    <<QPointF(450,850)<<QPointF(450,300)<<QPointF(650,300)<<QPointF(650,475)<<QPointF(950,475);
+                towerNumber=4;
+                background->setPixmap(QPixmap("../icones/bg.jpg").scaled(1000,1000));
+                towerPositions=new QPoint[towerNumber];
+                towerPositions[0]= QPoint(50 ,350);
+                towerPositions[1]= QPoint(500,350);
+                towerPositions[2]= QPoint(300,550);
+                towerPositions[3]= QPoint(700,550);
+            break;
 
-        //add case to add map
+            //add case to add map
     }
     currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
     stackedWidget->setCurrentWidget(difficultyMenu);
 }
-void Game::restartMap(int difficulty)
+void Game::startMap(int difficulty)
 {
+    this->difficulty=difficulty;
     setGame();
-    resume(difficulty);
+    resume();
 }
-void Game::resume(int difficulty)
+void Game::restartMap()
 {
-    difficulty=0;//useless
+    chooseMap(indexMap);
+    resume();
+}
+void Game::resume()
+{
     stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
     currentMap->timerSpawn->start(2000);
