@@ -72,8 +72,12 @@ void Map::settingUpScene()
 void Map::mousePressEvent(QMouseEvent *event)
 {
     for(int i=0;i<towerNumber;i++)
-        if(towerPlacement[i].contains(event->pos()))
-            !t[i].isPlaced(scene)?createTower(i):t[i].showRange(scene);
+        if(towerPlacement[i].contains(event->pos())){
+            !t[i].isPlaced(scene)?createTower(i):t[i].showRange(scene); //tower must be created by towermenu after
+            towerClicked = new Tower();
+            towerClicked->set(t[i].level);
+            emit clickedTower();
+        }
         else if(t[i].isShowingRange)
             t[i].hideRange(scene);
     if(pausePlacement->contains(event->pos()))
