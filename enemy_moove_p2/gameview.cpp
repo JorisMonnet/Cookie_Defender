@@ -3,7 +3,7 @@
 GameView::GameView(QWidget*parent,Map*map) : QWidget(parent)
 {
     setMouseTracking(true);
-    mainLay->setContentsMargins(0,0,0,0);
+    //mainLay->setContentsMargins(0,0,0,0);
 
     towerMenu= new TowerMenu();
     mainLay=new QVBoxLayout();

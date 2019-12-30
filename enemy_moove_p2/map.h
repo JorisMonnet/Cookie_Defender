@@ -26,6 +26,8 @@ public:
      void attackMonster(Monster *);
      QTimer *timer;
      QTimer *timerSpawn;
+     QTimer *timerTower;
+     QTimer *timerWave;
      QVector<QPointF> path;
      int money;
      QPoint *towerPositions;
@@ -38,6 +40,8 @@ private slots:
      void moveMonster();
      void spawnMonster();
      void pauseMenu();
+     void shotTower();
+     void waveMonster();
 
 private :
      QGraphicsSimpleTextItem * textHealth;
@@ -47,6 +51,7 @@ private :
      QVector<Monster*> vectMonster;
      QGraphicsRectItem *towerPlacement;
      Tower *t;
+
      int health=20;
 signals:
    void pauseFunction();

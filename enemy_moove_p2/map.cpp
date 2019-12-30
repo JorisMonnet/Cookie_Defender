@@ -23,10 +23,14 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     this->t = new Tower[towerNumber];
     timer = new QTimer(this);
     timerSpawn= new QTimer(this);
-    timerSpawn->start(2000);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
     settingUpScene();
+
+    timerTower =new QTimer(this);
+    connect(timerTower,&QTimer::timeout,this,&Map::shotTower);
+    timerWave = new QTimer(this);
+    connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
 }
 /**
  * @brief Map::settingUpScene
@@ -108,6 +112,10 @@ void Map::createTower(int i)
         mapUpdate();
     }
 }
+void Map:: shotTower()
+{
+
+}
 
 void Map::showPlace(int i)
 {
@@ -132,6 +140,12 @@ void Map:: spawnMonster()
     vectMonster.append(new Monster());
     vectMonster.last()->setPos(path.first().toPoint());
     scene->addItem(vectMonster.last());
+}
+
+void Map:: waveMonster()
+{
+    int k=timerSpawn->interval();
+    this->timerSpawn->setInterval(k-(k/2));
 }
 /**
  * @brief Map::attackMonster
