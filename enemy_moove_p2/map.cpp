@@ -21,16 +21,18 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     this->towerPositions = towerPositionsSource;
     this->towerPlacement = new QGraphicsRectItem[towerNumber];
     this->t = new Tower[towerNumber];
+
     timer = new QTimer(this);
     timerSpawn= new QTimer(this);
-    connect(timer,&QTimer::timeout,this,&Map::moveMonster);
-    connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
-    settingUpScene();
-
     timerTower =new QTimer(this);
-    connect(timerTower,&QTimer::timeout,this,&Map::shotTower);
     timerWave = new QTimer(this);
+    connect(timer,&QTimer::timeout,this,&Map::moveMonster);
+    connect(timer,&QTimer::timeout,this,&Map::aliveMonster);
+    connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
+    connect(timerTower,&QTimer::timeout,this,&Map::towerDetect);
     connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
+
+    settingUpScene();
 }
 /**
  * @brief Map::settingUpScene
@@ -116,11 +118,26 @@ void Map::createTower(int i)
         mapUpdate();
     }
 }
-void Map:: shotTower()
+//detect to decide if a tower have to shot
+void Map:: towerDetect()
 {
-
+    for(int i=0;i<towerNumber;i++ ){
+        for(Monster * monster : vectMonster){
+            if(t[i].isTarget(monster))
+                t[i].shotTower(monster);
+        }
+   }
 }
-
+void Map:: aliveMonster()
+{
+    for(Monster * monster : vectMonster){
+        if(monster->hp<=0){
+            vectMonster.remove(vectMonster.indexOf(monster));
+            delete monster;
+            qDebug()<<"A monster has been killed"<<endl;
+        }
+    }
+}
 void Map::showPlace(int i)
 {
     showedPlace->setPen(QPen(Qt::blue,2));

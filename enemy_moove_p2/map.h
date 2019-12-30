@@ -24,6 +24,7 @@ public:
      void settingUpScene();
      void settingUpPath();
      void attackMonster(Monster *);
+
      QTimer *timer;
      QTimer *timerSpawn;
      QTimer *timerTower;
@@ -41,8 +42,9 @@ private slots:
      void moveMonster();
      void spawnMonster();
      void pauseMenu();
-     void shotTower();
+     void towerDetect();
      void waveMonster();
+     void aliveMonster();
 
 private :
      QGraphicsSimpleTextItem * textHealth;
@@ -51,7 +53,8 @@ private :
      QGraphicsRectItem * pausePlacement;
      QVector<Monster*> vectMonster;
      QGraphicsRectItem *towerPlacement;
-     Tower *t;
+     //tower's tab
+     Tower *t;//t...pas ouf comme nom
 
      int health=20;
 signals:

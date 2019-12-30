@@ -26,4 +26,3 @@ void Monster::move(QVector<QPointF>path)
             pathIndex++;
     }
 }
-

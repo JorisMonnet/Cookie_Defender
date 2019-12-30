@@ -1,5 +1,6 @@
 #include "tower.h"
 #include "math.h"
+#include <QDebug>
 
 Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 {
@@ -16,10 +17,23 @@ void Tower::set(int level)
     this->level=level;
     setPixmap(QPixmap(QString("../icones/tower%1.png").arg(level)).scaled(towerSize,towerSize));
 }
-/*void Tower::attack(Monster *monster)
+void Tower ::shotTower(Monster *target)
 {
+    target->hp-=this->damage;
+}
+bool Tower ::isTarget(Monster *target)
+{
+    //taking the center of the monster..
+    double xM=target->x();
+    double yM=target->y();
+    xM+=target->size/2;
+    yM+=target->size/2;
+    double distance = sqrt(pow((xM+this->x()),2)+pow((yM+this->y()),2));
+    if(distance>=this->range)
+        return true;
+    return false;
+}
 
-}*/
 void Tower::showRange(QGraphicsScene*scene)
 {
     if(!scene->items().contains(showedRange)){

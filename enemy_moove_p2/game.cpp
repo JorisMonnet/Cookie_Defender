@@ -87,6 +87,7 @@ void Game::resume()
     currentMap->timer->start(15);
     currentMap->timerSpawn->start(2000);
     currentMap->timerWave->start(50000);
+    currentMap->timerTower->start(3000);
     }
 
 void Game::menu()

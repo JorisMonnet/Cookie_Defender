@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include "monster.h"
 
 class Tower : public QGraphicsPixmapItem
 {
@@ -12,6 +13,8 @@ public:
     void hideRange(QGraphicsScene *scene);
     void set(int level);
     bool isPlaced(QGraphicsScene *scene);
+    void shotTower(Monster*);
+    bool isTarget(Monster*);
     int damage;
     int range;
     int cost=100;
