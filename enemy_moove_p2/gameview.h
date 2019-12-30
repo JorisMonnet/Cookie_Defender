@@ -14,9 +14,6 @@ public:
     GameView(QWidget*parent=nullptr,Map*map=nullptr);
     TowerMenu*towerMenu;
     Map*map;
-public slots:
-    void showTowerMenu();
-    void showOnlyMap();
 private :
     QVBoxLayout *mainLay;
 };

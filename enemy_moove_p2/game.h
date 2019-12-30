@@ -22,8 +22,9 @@ private slots :
     void chooseMap(int indexMap=1);
     void startMap(int difficulty);
 private:
+    void menu();
+    void setGame();
     GameView *gameView;
-    int lastIndex=0;
     MainMenu *mainMenu;
     PauseMenu*pauseMenu;
     MapMenu*mapMenu;
@@ -31,9 +32,8 @@ private:
     QStackedWidget *stackedWidget;
     Encyclopedia *encyclopedia;
     Map *currentMap;
-    void menu();
-    void setGame();
     int indexMap;
+    int lastIndex=0;
     int difficulty=0;
 };
 

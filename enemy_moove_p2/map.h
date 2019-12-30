@@ -33,6 +33,7 @@ public:
      QPoint *towerPositions;
      QGraphicsPixmapItem *background;
      int towerNumber;
+     Tower *towerClicked;
 private slots:
      void mousePressEvent(QMouseEvent *event) override;
      void mouseMoveEvent(QMouseEvent *event) override;
@@ -56,6 +57,7 @@ private :
 signals:
    void pauseFunction();
    void gameEnd();
+   void clickedTower();
 };
 
 #endif // MAP_H
