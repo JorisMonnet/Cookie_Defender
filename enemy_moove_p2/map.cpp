@@ -3,6 +3,7 @@
 #include <QMessageBox>
 
 #include <QDebug>
+
 //bug: when clicking on the map resizer, the monster is paused
 //bug: showed place of  tower 1
 /**
@@ -123,8 +124,12 @@ void Map:: towerDetect()
 {
     for(int i=0;i<towerNumber;i++ ){
         for(Monster * monster : vectMonster){
-            if(t[i].isTarget(monster))
-                t[i].shotTower(monster);
+            if( t[i].isPlaced(this->scene)){
+                if(t[i].isTarget(monster)){
+                    t[i].shotTower(monster);
+                    qDebug()<<"tower "<<i<<" has shot"<<endl;
+                }
+            }
         }
    }
 }

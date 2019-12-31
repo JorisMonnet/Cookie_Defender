@@ -20,17 +20,22 @@ void Tower::set(int level)
 void Tower ::shotTower(Monster *target)
 {
     target->hp-=this->damage;
+
 }
 bool Tower ::isTarget(Monster *target)
 {
+
     //taking the center of the monster..
     double xM=target->x();
     double yM=target->y();
     xM+=target->size/2;
     yM+=target->size/2;
-    double distance = sqrt(pow((xM+this->x()),2)+pow((yM+this->y()),2));
-    if(distance>=this->range)
+    double distance = sqrt(pow((xM-(this->x()+this->towerSize/2)),2)+pow((yM-(this->y()+this->towerSize/2)),2));
+    qDebug()<<"distance: "<<distance<<endl;
+    if(distance<=this->range){
+        qDebug()<<"La cible et a porté ! Attaque imminente !"<<endl;
         return true;
+        }
     return false;
 }
 
