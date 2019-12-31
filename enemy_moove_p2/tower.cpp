@@ -1,11 +1,14 @@
 #include "tower.h"
 #include "math.h"
 #include <QDebug>
+#include <QTimer>
 
 Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 {
     set(1);
     showedRange= new QGraphicsEllipseItem();
+
+
 }
 void Tower::set(int level)
 {
@@ -16,6 +19,8 @@ void Tower::set(int level)
     damage=10+x*5;
     this->level=level;
     setPixmap(QPixmap(QString("../icones/tower%1.png").arg(level)).scaled(towerSize,towerSize));
+
+
 }
 void Tower ::shotTower(Monster *target)
 {

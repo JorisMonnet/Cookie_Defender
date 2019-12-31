@@ -23,6 +23,8 @@ public:
     const int towerSize=100;
     bool isShowingRange=false;
     QGraphicsEllipseItem *showedRange=nullptr;
+
+
 };
 
 #endif // TOWER_H

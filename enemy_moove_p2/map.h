@@ -54,7 +54,7 @@ private :
      QVector<Monster*> vectMonster;
      QGraphicsRectItem *towerPlacement;
      //tower's tab
-     Tower *t;//t...pas ouf comme nom
+     Tower *t;
 
      int health=20;
 signals:
