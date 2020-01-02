@@ -86,7 +86,8 @@ void Game::resume()
     stackedWidget->setCurrentWidget(gameView);
     currentMap->timer->start(15);
     currentMap->timerSpawn->start(2000);
-}
+    currentMap->timerWave->start(50000);
+    }
 
 void Game::menu()
 {

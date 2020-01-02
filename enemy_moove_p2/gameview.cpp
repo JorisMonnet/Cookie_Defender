@@ -5,7 +5,7 @@ GameView::GameView(QWidget*parent,Map*map) : QWidget(parent)
     mainLay=new QVBoxLayout();
     setFixedSize(1000,1000);
     setMouseTracking(true);
-    mainLay->setContentsMargins(0,0,0,0);
+    //mainLay->setContentsMargins(0,0,0,0);
     mainLay->setSpacing(0);
     setLayout(mainLay);
 

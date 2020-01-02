@@ -24,5 +24,6 @@ PauseMenu::PauseMenu(QWidget *parent): QWidget(parent)
     mainLay->addStretch();
     mainLay->addLayout(vLay);
     mainLay->addStretch();
+
 }
 
