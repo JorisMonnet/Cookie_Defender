@@ -170,12 +170,17 @@ void Map::createTower(int i)
     }
 }
 //detect to decide if a tower have to shot
-void Map:: towerDetect()
+void Map::towerDetect()
 {
-    for(int i=0;i<towerNumber;i++ )
-        for(Monster * monster : vectMonster)
-            if(t[i].isPlaced(scene)&&t[i].hasTarget(monster))
-                t[i].shotTower(monster);
+    for(int i=0;i<towerNumber;i++)
+        if(t[i].isPlaced(scene)){
+            int monsterToKill=0;
+            for(Monster *monster : vectMonster)
+                if(t[i].hasTarget(monster)&&monster->toCookie(path)<monster->toCookie(path))
+                    monsterToKill=vectMonster.indexOf(monster);
+            if(monsterToKill!=0)
+                t[i].shotTower(vectMonster.at(monsterToKill));
+        }
 }
 void Map::aliveMonster()
 {

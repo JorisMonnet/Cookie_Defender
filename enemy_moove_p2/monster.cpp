@@ -1,5 +1,5 @@
 #include "monster.h"
-
+#include "math.h"
 /**
 * Monster
 * Monster's class constructor
@@ -26,4 +26,7 @@ void Monster::move(QVector<QPointF>path)
             pathIndex++;
     }
 }
-
+double Monster::toCookie(QVector<QPointF> path)
+{
+    return sqrt(pow(path.last().x()-this->x(),2)+pow(path.last().y()-this->y(),2));
+}
