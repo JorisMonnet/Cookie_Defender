@@ -18,7 +18,6 @@ public:
 private slots :
     void resume();
     void pause();
-    void restartMap();
     void chooseMap(int indexMap=1);
     void startMap(int difficulty);
 private:

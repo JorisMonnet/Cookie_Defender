@@ -17,22 +17,16 @@ public:
      QGraphicsScene *scene;
      Map(QGraphicsView *parent = nullptr, QVector<QPointF> path={{0,0}},
          int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr);
-     void createTower(int index);
-     void showPlace(int index);
-     void mapUpdate();
-     void gameOver();
-     void settingUpScene();
-     void settingUpPath();
-     void attackMonster(Monster *);
      QTimer *timer;
      QTimer *timerSpawn;
      QTimer *timerTower;
      QTimer *timerWave;
      QVector<QPointF> path;
-     int money;
      QPoint *towerPositions;
      QGraphicsPixmapItem *background;
+     int money;
      int towerNumber;
+     void gameOver();
 private slots:
      void mousePressEvent(QMouseEvent *event) override;
      void mouseMoveEvent(QMouseEvent *event) override;
@@ -58,6 +52,11 @@ private :
      int indexTower=0;
      int health=20;
      void createClickableItem(double x,double y,int width,int height);
+     void createTower(int index);
+     void showPlace(int index);
+     void mapUpdate();
+     void settingUpScene();
+     void attackMonster(Monster *);
 signals:
    void pauseFunction();
    void gameEnd();

@@ -21,16 +21,17 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     this->towerPositions = towerPositionsSource;
     this->towerPlacement = new QGraphicsRectItem[towerNumber];
     this->t = new Tower[towerNumber];
+
     timer = new QTimer(this);
     timerSpawn= new QTimer(this);
+    timerTower = new QTimer(this);
+    timerWave = new QTimer(this);
+    connect(timerTower,&QTimer::timeout,this,&Map::shotTower);
+    connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
-    settingUpScene();
 
-    timerTower =new QTimer(this);
-    connect(timerTower,&QTimer::timeout,this,&Map::shotTower);
-    timerWave = new QTimer(this);
-    connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
+    settingUpScene();  
 }
 /**
  * @brief Map::settingUpScene
@@ -130,13 +131,12 @@ void Map::mousePressEvent(QMouseEvent *event)
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool statement=false;
-    for(int i=0;i<towerNumber;i++){
+    for(int i=0;i<towerNumber;i++)
         if(towerPlacement[i].contains(event->pos())){
             statement=true;
             if(!scene->items().contains(showedPlace))
                 showPlace(i);
         }
-    }
     if(!statement&&scene->items().contains(showedPlace))
         scene->removeItem(showedPlace);
 

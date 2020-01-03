@@ -7,6 +7,8 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
     currentMap = new Map();
     currentMap->timer->stop();
     currentMap->timerSpawn->stop();
+    currentMap->timerWave->stop();
+    currentMap->timerTower->stop();
     setGame();
     menu();
 }
@@ -32,7 +34,7 @@ void Game::setGame()
     connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
     connect(difficultyMenu,&DifficultyMenu::difficultySignal,this,&Game::startMap);
     connect(pauseMenu->resume,&QPushButton::clicked,this,&Game::resume);
-    connect(pauseMenu->restart,&QPushButton::clicked,this,&Game::restartMap);
+    connect(pauseMenu->restart,&QPushButton::clicked,this,[=]{chooseMap(indexMap);});
     connect(pauseMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
     connect(pauseMenu->exit,&QPushButton::clicked,currentMap,&Map::gameOver);
     connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
@@ -74,17 +76,13 @@ void Game::startMap(int difficulty)
     resume();
 }
 
-void Game::restartMap()
-{
-    chooseMap(indexMap);
-}
-
 void Game::resume()
 {
     stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
     currentMap->timerSpawn->start(2000);
     currentMap->timerWave->start(50000);
+    currentMap->timerTower->start(5000);
     }
 
 void Game::menu()
