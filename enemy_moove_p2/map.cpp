@@ -85,10 +85,10 @@ void Map::mousePressEvent(QMouseEvent *event)
             indexTower=i;
             if(t[i].isPlaced(scene)){
                 t[i].showRange(scene,true);
-                sell->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
+                sell->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
                 scene->addItem(sell);
                 if(t[i].level<t[i].maxLevel){
-                    upgrade->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
+                    upgrade->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
                     scene->addItem(upgrade);
                 }
             }
@@ -110,6 +110,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         money+=t[indexTower].cost/2;
         t[indexTower].set(1);
         scene->removeItem(&t[indexTower]);
+        scene->addItem(&towerPlacement[indexTower]);
     }
     if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
         pauseMenu();
@@ -161,6 +162,7 @@ void Map::createTower(int i)
 {
     if (money>=t[i].cost){
         t[i].setPos(towerPositions[i]);
+        scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
         money-=t[i].cost;
         mapUpdate();
