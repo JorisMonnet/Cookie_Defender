@@ -8,7 +8,7 @@ class Tower : public QGraphicsPixmapItem
 {
 public:
     Tower(QGraphicsPixmapItem *parent=nullptr);
-    void showRange(QGraphicsScene *scene);
+    void showRange(QGraphicsScene *scene,bool isFilled);
     void hideRange(QGraphicsScene *scene);
     void set(int level);
     bool isPlaced(QGraphicsScene *scene);
@@ -18,6 +18,7 @@ public:
     int speed;
     int level;
     const int towerSize=100;
+    const int maxLevel = 3;
     bool isShowingRange=false;
     QGraphicsEllipseItem *showedRange=nullptr;
 };

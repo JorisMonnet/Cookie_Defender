@@ -43,11 +43,14 @@ void Map::settingUpScene()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setMouseTracking(true);
-    pausePlacement = new QGraphicsRectItem(950,0,50,50);
+    clickableItem = new QGraphicsRectItem();
+    clickableItem->setPen(QPen(Qt::blue,2));
     showedPlace = new QGraphicsRectItem();
-    pausePlacement->setPen(QPen(Qt::blue,2));
+    upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(50,50));
+    sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(50,50));
+    towerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower1.png").scaled(50,50));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
-    QGraphicsPixmapItem *pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(50,50));
+    pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(50,50));
     pauseIcon->setPos(950,0);
     finish->setPos(950,450);
     if(background!=nullptr)
@@ -75,32 +78,99 @@ void Map::settingUpScene()
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
+    if(scene->items().contains(clickableItem))
+        scene->removeItem(clickableItem);
     for(int i=0;i<towerNumber;i++)
         if(towerPlacement[i].contains(event->pos())){
-            !t[i].isPlaced(scene)?createTower(i):t[i].showRange(scene); //tower must be created by towermenu after
-            towerClicked = new Tower();
-            towerClicked->set(t[i].level);
-            emit clickedTower();
+            indexTower=i;
+            if(t[i].isPlaced(scene)){
+                t[i].showRange(scene,true);
+                sell->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
+                scene->addItem(sell);
+                if(t[i].level<t[i].maxLevel){
+                    upgrade->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
+                    scene->addItem(upgrade);
+                }
+            }
+            else{
+                t[i].setPos(towerPositions[i]);
+                t[i].showRange(scene,false);
+                towerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
+                scene->addItem(towerImage);
+            }
         }
-        else if(t[i].isShowingRange)
-            t[i].hideRange(scene);
-    if(pausePlacement->contains(event->pos()))
+    if(scene->items().contains(towerImage)&&QRectF(towerImage->x(),towerImage->y(),50,50).contains(event->pos()))
+        createTower(indexTower);
+    if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos()))
+        if(t[indexTower].cost<=money){
+            money-=t[indexTower].cost;
+            t[indexTower].set(t[indexTower].level+1);
+        }
+    if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos())){
+        money+=t[indexTower].cost/2;
+        t[indexTower].set(1);
+        scene->removeItem(&t[indexTower]);
+    }
+    if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
         pauseMenu();
+    for (int i=0;i<towerNumber;i++) {
+        if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
+            if(scene->items().contains(upgrade))
+                scene->removeItem(upgrade);
+            if(scene->items().contains(sell))
+                scene->removeItem(sell);
+            if(scene->items().contains(towerImage))
+                scene->removeItem(towerImage);
+            t[i].hideRange(scene);
+        }
+    }
+    QGraphicsView::mousePressEvent(event);
 }
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool statement=false;
-    for (int i=0;i<towerNumber;i++)
-        if(towerPlacement[i].contains(event->pos())&&!scene->items().contains(showedPlace)){
+    for(int i=0;i<towerNumber;i++){
+        if(towerPlacement[i].contains(event->pos())){
             statement=true;
-            showPlace(i);
+            if(!scene->items().contains(showedPlace))
+                showPlace(i);
         }
-        else if(!statement&&scene->items().contains(showedPlace))     // to do check problem "epilepsy" on the first turret
-            scene->removeItem(showedPlace);                     //problem is more complicated, the showed Place item is add and remove permanantly in towerPlacement
-    if(pausePlacement->contains(event->pos())&&!scene->items().contains(pausePlacement))
-        scene->addItem(pausePlacement);
-    else if(!pausePlacement->contains(event->pos())&&scene->items().contains(pausePlacement))
-        scene->removeItem(pausePlacement);
+    }
+    if(!statement&&scene->items().contains(showedPlace))
+        scene->removeItem(showedPlace);
+
+    bool clickableItemShowed=false;
+    clickableItem->setRect(pauseIcon->x(),pauseIcon->y(),50,50);
+    if(clickableItem->contains(event->pos())){
+        clickableItemShowed=true;
+        clickableItem->setPos(pauseIcon->x(),pauseIcon->y());
+        if(!scene->items().contains(clickableItem))
+            scene->addItem(clickableItem);
+    }
+    clickableItem->setRect(towerImage->x(),towerImage->y(),50,50);
+    if(scene->items().contains(towerImage)&&clickableItem->contains(event->pos())){
+        clickableItemShowed=true;
+        clickableItem->setPos(towerImage->x(),towerImage->y());
+        if(!scene->items().contains(clickableItem))
+            scene->addItem(clickableItem);
+    }
+    clickableItem->setRect(upgrade->x(),upgrade->y(),50,50);
+    if(scene->items().contains(upgrade)&&clickableItem->contains(event->pos())){
+        clickableItemShowed=true;
+        clickableItem->setPos(upgrade->x(),upgrade->y());
+        if(!scene->items().contains(clickableItem))
+            scene->addItem(clickableItem);
+    }
+    clickableItem->setRect(sell->x(),sell->y(),50,50);
+    if(scene->items().contains(sell)&&clickableItem->contains(event->pos())){
+        clickableItemShowed=true;
+        clickableItem->setPos(sell->x(),sell->y());
+        if(!scene->items().contains(clickableItem))
+            scene->addItem(clickableItem);
+    }
+    if(!clickableItemShowed&&scene->items().contains(clickableItem))
+        scene->removeItem(clickableItem);
+    QGraphicsView::mouseMoveEvent(event);
 }
 void Map::keyPressEvent(QKeyEvent*event)
 {

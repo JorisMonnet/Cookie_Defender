@@ -4,7 +4,6 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
     setWindowTitle("Cookie Defender");
     setFixedSize(1000,1000);
-    gameView = new GameView();
     currentMap = new Map();
     currentMap->timer->stop();
     currentMap->timerSpawn->stop();
@@ -21,7 +20,7 @@ void Game::setGame()
     encyclopedia = new Encyclopedia();
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(mainMenu);
-    stackedWidget->addWidget(gameView);
+    stackedWidget->addWidget(currentMap);
     stackedWidget->addWidget(pauseMenu);
     stackedWidget->addWidget(encyclopedia);
     stackedWidget->addWidget(mapMenu);
@@ -65,7 +64,6 @@ void Game::chooseMap(int indexMap)
             //add case to add map
     }
     currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
-    gameView = new GameView(nullptr,currentMap);
     stackedWidget->setCurrentWidget(difficultyMenu);
 }
 
@@ -83,7 +81,7 @@ void Game::restartMap()
 
 void Game::resume()
 {
-    stackedWidget->setCurrentWidget(gameView);
+    stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
     currentMap->timerSpawn->start(2000);
     currentMap->timerWave->start(50000);

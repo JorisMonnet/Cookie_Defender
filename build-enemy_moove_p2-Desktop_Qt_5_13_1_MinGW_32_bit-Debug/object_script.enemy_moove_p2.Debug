@@ -1,7 +1,6 @@
 debug/difficultymenu.o
 debug/encyclopedia.o
 debug/game.o
-debug/gameview.o
 debug/main.o
 debug/mainmenu.o
 debug/map.o
@@ -10,13 +9,10 @@ debug/monster.o
 debug/pausemenu.o
 debug/soundboxes.o
 debug/tower.o
-debug/towermenu.o
 debug/moc_difficultymenu.o
 debug/moc_encyclopedia.o
 debug/moc_game.o
-debug/moc_gameview.o
 debug/moc_map.o
 debug/moc_mapmenu.o
 debug/moc_pausemenu.o
 debug/moc_soundboxes.o
-debug/moc_towermenu.o

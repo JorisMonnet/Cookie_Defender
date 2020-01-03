@@ -20,11 +20,13 @@ void Tower::set(int level)
 {
 
 }*/
-void Tower::showRange(QGraphicsScene*scene)
+void Tower::showRange(QGraphicsScene*scene,bool isFilled)
 {
     if(!scene->items().contains(showedRange)){
         showedRange->setRect(pos().rx()-range+towerSize/2,pos().ry()-range+towerSize/2,range*2,range*2);
-        showedRange->setBrush(QBrush(QColor(0,0,0,128)));
+        showedRange->setPen(QPen(Qt::black,3));
+        if(isFilled)
+            showedRange->setBrush(QBrush(QColor(0,0,0,128)));
         scene->addItem(showedRange);
         isShowingRange = true;
     }

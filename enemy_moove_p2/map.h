@@ -33,7 +33,6 @@ public:
      QPoint *towerPositions;
      QGraphicsPixmapItem *background;
      int towerNumber;
-     Tower *towerClicked;
 private slots:
      void mousePressEvent(QMouseEvent *event) override;
      void mouseMoveEvent(QMouseEvent *event) override;
@@ -45,19 +44,22 @@ private slots:
      void waveMonster();
 
 private :
+     QGraphicsPixmapItem * sell;
+     QGraphicsPixmapItem * upgrade;
+     QGraphicsPixmapItem *towerImage;
+     QGraphicsPixmapItem * pauseIcon;
      QGraphicsSimpleTextItem * textHealth;
      QGraphicsSimpleTextItem * textMoney;
      QGraphicsRectItem *showedPlace;
-     QGraphicsRectItem * pausePlacement;
+     QGraphicsRectItem *clickableItem;
      QVector<Monster*> vectMonster;
      QGraphicsRectItem *towerPlacement;
      Tower *t;
-
+     int indexTower=0;
      int health=20;
 signals:
    void pauseFunction();
    void gameEnd();
-   void clickedTower();
 };
 
 #endif // MAP_H

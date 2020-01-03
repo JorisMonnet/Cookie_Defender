@@ -6,9 +6,9 @@
 #include "pausemenu.h"
 #include "mainmenu.h"
 #include "mapmenu.h"
+#include "map.h"
 #include "difficultymenu.h"
 #include "encyclopedia.h"
-#include "gameview.h"
 
 class Game : public QMainWindow
 {
@@ -24,7 +24,6 @@ private slots :
 private:
     void menu();
     void setGame();
-    GameView *gameView;
     MainMenu *mainMenu;
     PauseMenu*pauseMenu;
     MapMenu*mapMenu;

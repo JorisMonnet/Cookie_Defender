@@ -19,7 +19,6 @@ SOURCES += \
     difficultymenu.cpp \
     encyclopedia.cpp \
     game.cpp \
-    gameview.cpp \
     main.cpp \
     mainmenu.cpp \
     map.cpp \
@@ -27,22 +26,19 @@ SOURCES += \
     monster.cpp \
     pausemenu.cpp \
     soundboxes.cpp \
-    tower.cpp \
-    towermenu.cpp
+    tower.cpp
 
 HEADERS += \
     difficultymenu.h \
     encyclopedia.h \
     game.h \
-    gameview.h \
     mainmenu.h \
     map.h \
     mapmenu.h \
     monster.h \
     pausemenu.h \
     soundboxes.h \
-    tower.h \
-    towermenu.h
+    tower.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
