@@ -174,15 +174,14 @@ void Map:: towerDetect()
 {
     for(int i=0;i<towerNumber;i++ )
         for(Monster * monster : vectMonster)
-            if(t[i].isPlaced(scene)&&t[i].hasTarget(monster)){
+            if(t[i].isPlaced(scene)&&t[i].hasTarget(monster))
                 t[i].shotTower(monster);
-                qDebug()<<"tower "<<i<<" has shot"<<endl;
-            }
 }
 void Map::aliveMonster()
 {
     for(Monster * monster : vectMonster)
         if(monster->hp<=0){
+            money+=monster->reward;
             vectMonster.remove(vectMonster.indexOf(monster));
             delete monster;
             qDebug()<<"A monster has been killed"<<endl;
