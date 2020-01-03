@@ -34,9 +34,9 @@ private slots:
      void moveMonster();
      void spawnMonster();
      void pauseMenu();
-     void shotTower();
+     void towerDetect();
      void waveMonster();
-
+     void aliveMonster();
 private :
      QGraphicsPixmapItem * sell;
      QGraphicsPixmapItem * upgrade;

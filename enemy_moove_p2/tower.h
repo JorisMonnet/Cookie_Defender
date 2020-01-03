@@ -3,6 +3,7 @@
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsScene>
+#include "monster.h"
 
 class Tower : public QGraphicsPixmapItem
 {
@@ -21,6 +22,8 @@ public:
     const int maxLevel = 3;
     bool isShowingRange=false;
     QGraphicsEllipseItem *showedRange=nullptr;
+    void shotTower(Monster*target);
+    bool hasTarget(Monster*target);
 };
 
 #endif // TOWER_H

@@ -26,7 +26,8 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     timerSpawn= new QTimer(this);
     timerTower = new QTimer(this);
     timerWave = new QTimer(this);
-    connect(timerTower,&QTimer::timeout,this,&Map::shotTower);
+    connect(timerTower,&QTimer::timeout,this,&Map::towerDetect);
+    connect(timer,&QTimer::timeout,this,&Map::aliveMonster);
     connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
@@ -168,9 +169,24 @@ void Map::createTower(int i)
         mapUpdate();
     }
 }
-void Map:: shotTower()
+//detect to decide if a tower have to shot
+void Map:: towerDetect()
 {
-
+    for(int i=0;i<towerNumber;i++ )
+        for(Monster * monster : vectMonster)
+            if(t[i].isPlaced(scene)&&t[i].hasTarget(monster)){
+                t[i].shotTower(monster);
+                qDebug()<<"tower "<<i<<" has shot"<<endl;
+            }
+}
+void Map::aliveMonster()
+{
+    for(Monster * monster : vectMonster)
+        if(monster->hp<=0){
+            vectMonster.remove(vectMonster.indexOf(monster));
+            delete monster;
+            qDebug()<<"A monster has been killed"<<endl;
+        }
 }
 void Map::createClickableItem(double x,double y,int width,int height)
 {
