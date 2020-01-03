@@ -58,7 +58,6 @@ private :
      int indexTower=0;
      int health=20;
      void createClickableItem(double x,double y,int width,int height);
-     bool clickableItemShowed =false;
 signals:
    void pauseFunction();
    void gameEnd();

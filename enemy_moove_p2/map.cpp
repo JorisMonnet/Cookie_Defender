@@ -129,7 +129,6 @@ void Map::mousePressEvent(QMouseEvent *event)
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool statement=false;
-    clickableItemShowed =false;
     for(int i=0;i<towerNumber;i++){
         if(towerPlacement[i].contains(event->pos())){
             statement=true;
@@ -140,7 +139,6 @@ void Map::mouseMoveEvent(QMouseEvent*event)
     if(!statement&&scene->items().contains(showedPlace))
         scene->removeItem(showedPlace);
 
-
     if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
         createClickableItem(pauseIcon->x(),pauseIcon->y(),50,50);
     else if(scene->items().contains(towerImage)&&QRectF(towerImage->x(),towerImage->y(),50,50).contains(event->pos()))
@@ -149,8 +147,7 @@ void Map::mouseMoveEvent(QMouseEvent*event)
         createClickableItem(upgrade->x(),upgrade->y(),50,50);
     else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos()))
         createClickableItem(sell->x(),sell->y(),50,50);
-
-    if(!clickableItemShowed&&scene->items().contains(clickableItem))
+    else if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
     QGraphicsView::mouseMoveEvent(event);
 }
@@ -175,7 +172,6 @@ void Map:: shotTower()
 }
 void Map::createClickableItem(double x,double y,int width,int height)
 {
-    clickableItemShowed = true;
     clickableItem->setRect(x,y,width,height);
     if(!scene->items().contains(clickableItem))
         scene->addItem(clickableItem);
