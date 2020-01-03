@@ -54,7 +54,7 @@ void Map::settingUpScene()
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(50,50));
     pauseIcon->setPos(950,0);
-    finish->setPos(950,450);
+    finish->setPos(path.last().x(),path.last().y()-50);
     if(background!=nullptr)
         scene->addItem(background);
     scene->addItem(finish);

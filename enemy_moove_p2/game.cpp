@@ -51,19 +51,27 @@ void Game::chooseMap(int indexMap)
     QPoint *towerPositions= new QPoint;
     this->indexMap=indexMap;
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem;
+    background->setPixmap(QPixmap(QString("../icones/bg%1.jpg").arg(indexMap)).scaled(1000,1000));
     switch(indexMap){
         case 1: path<<QPointF(0,475)<<QPointF(200,475)<<QPointF(200,700)<<QPointF(70,700)<<QPointF(70,850)
                     <<QPointF(450,850)<<QPointF(450,300)<<QPointF(650,300)<<QPointF(650,475)<<QPointF(950,475);
-                towerNumber=4;
-                background->setPixmap(QPixmap("../icones/bg.jpg").scaled(1000,1000));
                 towerPositions=new QPoint[towerNumber];
                 towerPositions[0]= QPoint(50 ,350);
                 towerPositions[1]= QPoint(500,350);
                 towerPositions[2]= QPoint(300,550);
                 towerPositions[3]= QPoint(700,550);
             break;
-
-            //add case to add map
+        case 2: path<<QPointF(0,500)<<QPointF(200,500)<<QPointF(200,200)<<QPointF(700,200)<<QPointF(700,800)<<QPointF(950,800);
+                towerNumber=5;
+                towerPositions = new QPoint[towerNumber];
+                towerPositions[0]=QPoint(50,350);
+                towerPositions[1]=QPoint(250,50);
+                towerPositions[2]=QPoint(550,50);
+                towerPositions[3]=QPoint(550,500);
+                towerPositions[4]=QPoint(800,850);
+            break;
+        //add case to add map
+        default:chooseMap(1);
     }
     currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
     stackedWidget->setCurrentWidget(difficultyMenu);
