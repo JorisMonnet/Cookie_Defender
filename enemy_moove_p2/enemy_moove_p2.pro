@@ -25,6 +25,7 @@ SOURCES += \
     mapmenu.cpp \
     monster.cpp \
     pausemenu.cpp \
+    projectile.cpp \
     soundboxes.cpp \
     tower.cpp
 
@@ -37,6 +38,7 @@ HEADERS += \
     mapmenu.h \
     monster.h \
     pausemenu.h \
+    projectile.h \
     soundboxes.h \
     tower.h
 

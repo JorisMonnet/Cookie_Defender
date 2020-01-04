@@ -31,7 +31,6 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
-
     settingUpScene();  
 }
 /**
@@ -82,25 +81,7 @@ void Map::mousePressEvent(QMouseEvent *event)
 {
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
-    for(int i=0;i<towerNumber;i++)
-        if(towerPlacement[i].contains(event->pos())){
-            indexTower=i;
-            if(t[i].isPlaced(scene)){
-                t[i].showRange(scene,true);
-                sell->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
-                scene->addItem(sell);
-                if(t[i].level<t[i].maxLevel){
-                    upgrade->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                    scene->addItem(upgrade);
-                }
-            }
-            else{
-                t[i].setPos(towerPositions[i]);
-                t[i].showRange(scene,false);
-                towerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                scene->addItem(towerImage);
-            }
-        }
+
     if(scene->items().contains(towerImage)&&QRectF(towerImage->x(),towerImage->y(),50,50).contains(event->pos()))
         createTower(indexTower);
     if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos()))
@@ -116,7 +97,8 @@ void Map::mousePressEvent(QMouseEvent *event)
     }
     if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
         pauseMenu();
-    for (int i=0;i<towerNumber;i++) {
+
+    for (int i=0;i<towerNumber;i++)
         if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
             if(scene->items().contains(upgrade))
                 scene->removeItem(upgrade);
@@ -126,7 +108,28 @@ void Map::mousePressEvent(QMouseEvent *event)
                 scene->removeItem(towerImage);
             t[i].hideRange(scene);
         }
-    }
+    for(int i=0;i<towerNumber;i++)
+        if(towerPlacement[i].contains(event->pos())){
+            indexTower=i;
+            if(t[i].isPlaced(scene)){
+                t[i].showRange(scene,true);
+                sell->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
+                if(!scene->items().contains(sell))
+                    scene->addItem(sell);
+                if(t[i].level<t[i].maxLevel){
+                    upgrade->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
+                    if(!scene->items().contains(upgrade))
+                        scene->addItem(upgrade);
+                }
+            }
+            else{
+                t[i].setPos(towerPositions[i]);
+                t[i].showRange(scene,false);
+                towerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
+                if(!scene->items().contains(towerImage))
+                    scene->addItem(towerImage);
+            }
+        }
     QGraphicsView::mousePressEvent(event);
 }
 void Map::mouseMoveEvent(QMouseEvent*event)

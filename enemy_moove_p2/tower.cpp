@@ -1,5 +1,6 @@
 #include "tower.h"
 #include "math.h"
+#include "projectile.h"
 #include <QDebug>
 
 Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)

@@ -7,6 +7,7 @@ debug/map.o
 debug/mapmenu.o
 debug/monster.o
 debug/pausemenu.o
+debug/projectile.o
 debug/soundboxes.o
 debug/tower.o
 debug/moc_difficultymenu.o

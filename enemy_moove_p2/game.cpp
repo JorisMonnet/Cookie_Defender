@@ -69,6 +69,7 @@ void Game::chooseMap(int indexMap)
                 towerPositions[2]=QPoint(550,50);
                 towerPositions[3]=QPoint(550,500);
                 towerPositions[4]=QPoint(800,850);
+                money=300;
             break;
         //add case to add map
         default:chooseMap(1);

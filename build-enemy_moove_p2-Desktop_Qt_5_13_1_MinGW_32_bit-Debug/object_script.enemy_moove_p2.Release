@@ -7,6 +7,7 @@ release/map.o
 release/mapmenu.o
 release/monster.o
 release/pausemenu.o
+release/projectile.o
 release/soundboxes.o
 release/tower.o
 release/moc_difficultymenu.o
