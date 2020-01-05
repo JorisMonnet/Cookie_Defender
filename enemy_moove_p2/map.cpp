@@ -14,13 +14,13 @@
 Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],int moneySource,QGraphicsPixmapItem *backgroundSource)
     : QGraphicsView(parent)
 {
-    this->path = pathSource;
-    this->money = moneySource;
-    this->background = backgroundSource;
-    this->towerNumber = towerNumberSource;
-    this->towerPositions = towerPositionsSource;
-    this->towerPlacement = new QGraphicsRectItem[towerNumber];
-    this->t = new Tower[towerNumber];
+    path = pathSource;
+    money = moneySource;
+    background = backgroundSource;
+    towerNumber = towerNumberSource;
+    towerPositions = towerPositionsSource;
+    towerPlacement = new QGraphicsRectItem[towerNumber];
+    t = new Tower[towerNumber];
 
     timer = new QTimer(this);
     timerSpawn= new QTimer(this);
@@ -47,6 +47,7 @@ void Map::settingUpScene()
     clickableItem = new QGraphicsRectItem();
     clickableItem->setPen(QPen(Qt::blue,2));
     showedPlace = new QGraphicsRectItem();
+    showedPlace->setPen(QPen(Qt::blue,2));
     upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(50,50));
     sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(50,50));
     towerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower1.png").scaled(50,50));
@@ -88,15 +89,21 @@ void Map::mousePressEvent(QMouseEvent *event)
         pauseMenu();
     else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos())&&t[indexTower].cost<=money){
             money-=t[indexTower].cost;
+            scene->removeItem(sell);
+            scene->removeItem(upgrade);
+            t[indexTower].hideRange(scene);
             t[indexTower].set(t[indexTower].level+1);
             mapUpdate();    
     }
     else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos())){
         money+=t[indexTower].cost/2;
         t[indexTower].set(1);
+        scene->removeItem(sell);
+        scene->removeItem(upgrade);
+        t[indexTower].hideRange(scene);
         scene->removeItem(&t[indexTower]);
-        mapUpdate();
         scene->addItem(&towerPlacement[indexTower]);
+        mapUpdate();
     }
     else{
         for (int i=0;i<towerNumber;i++)
@@ -105,7 +112,7 @@ void Map::mousePressEvent(QMouseEvent *event)
                     scene->removeItem(upgrade);
                 if(scene->items().contains(sell))
                     scene->removeItem(sell);
-                if(scene->items().contains(towerImage))
+                else if(scene->items().contains(towerImage))
                     scene->removeItem(towerImage);
                 t[i].hideRange(scene);
             }
@@ -197,7 +204,6 @@ void Map::aliveMonster()
             money+=monster->reward;
             vectMonster.remove(vectMonster.indexOf(monster));
             delete monster;
-            qDebug()<<"A monster has been killed"<<endl;
         }
 }
 
@@ -210,7 +216,6 @@ void Map::createClickableItem(double x,double y,int width,int height)
 
 void Map::showPlace(int i)
 {
-    showedPlace->setPen(QPen(Qt::blue,2));
     showedPlace->setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].towerSize,t[i].towerSize);
     scene->addItem(showedPlace);
 }

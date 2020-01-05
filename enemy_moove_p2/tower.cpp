@@ -13,7 +13,7 @@ void Tower::set(int level)
 {
     int x=level-1;
     cost=100+x*50;
-    range=100+x*25;
+    range=150+x*35;
     speed=2+x;
     damage=10+x*5;
     this->level=level;

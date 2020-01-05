@@ -82,6 +82,7 @@ void Game::chooseMap(int indexMap)
     else{
         //implements if the map doesn't exist
     }
+    delete currentMap;
     currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
     stackedWidget->setCurrentWidget(difficultyMenu);
 }
