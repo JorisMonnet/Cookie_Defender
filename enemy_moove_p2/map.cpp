@@ -39,11 +39,14 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
  */
 void Map::settingUpScene()
 {
-    scene= new QGraphicsScene(this);
-    setScene(scene);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setMouseTracking(true);
+
+    scene= new QGraphicsScene(this);
+    setScene(scene);
+
+
     clickableItem = new QGraphicsRectItem();
     clickableItem->setPen(QPen(Qt::blue,2));
     showedPlace = new QGraphicsRectItem();
@@ -251,9 +254,9 @@ void Map::waveMonster()
 void Map::attackMonster(Monster * monster)
 {
     health-=monster->dammage;
-    mapUpdate();
     monster->setPos(path.first().toPoint());
     monster->pathIndex=0;
+    mapUpdate();
 }
 
 void Map::mapUpdate()
