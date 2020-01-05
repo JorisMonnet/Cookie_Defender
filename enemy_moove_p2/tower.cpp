@@ -8,6 +8,7 @@ Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
     set(1);
     showedRange= new QGraphicsEllipseItem();
 }
+
 void Tower::set(int level)
 {
     int x=level-1;
@@ -32,6 +33,7 @@ bool Tower::hasTarget(Monster *target)
     double distance = sqrt(pow((xM-(this->x()+towerSize/2)),2)+pow((yM-(this->y()+towerSize/2)),2));
     return distance<=range;
 }
+
 void Tower::showRange(QGraphicsScene*scene,bool isFilled)
 {
     if(!scene->items().contains(showedRange)){
@@ -49,6 +51,7 @@ void Tower::hideRange(QGraphicsScene*scene)
     scene->removeItem(showedRange);
     isShowingRange = false;
 }
+
 bool Tower::isPlaced(QGraphicsScene*scene)
 {
     return scene->items().contains(this);

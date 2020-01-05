@@ -84,54 +84,54 @@ void Map::mousePressEvent(QMouseEvent *event)
 
     if(scene->items().contains(towerImage)&&QRectF(towerImage->x(),towerImage->y(),50,50).contains(event->pos()))
         createTower(indexTower);
-    if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos()))
-        if(t[indexTower].cost<=money){
+    else if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
+        pauseMenu();
+    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos())&&t[indexTower].cost<=money){
             money-=t[indexTower].cost;
             t[indexTower].set(t[indexTower].level+1);
-            mapUpdate();
-        }
-    if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos())){
+            mapUpdate();    
+    }
+    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos())){
         money+=t[indexTower].cost/2;
         t[indexTower].set(1);
         scene->removeItem(&t[indexTower]);
         mapUpdate();
         scene->addItem(&towerPlacement[indexTower]);
     }
-    if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
-        pauseMenu();
-
-    for (int i=0;i<towerNumber;i++)
-        if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
-            if(scene->items().contains(upgrade))
-                scene->removeItem(upgrade);
-            if(scene->items().contains(sell))
-                scene->removeItem(sell);
-            if(scene->items().contains(towerImage))
-                scene->removeItem(towerImage);
-            t[i].hideRange(scene);
-        }
-    for(int i=0;i<towerNumber;i++)
-        if(towerPlacement[i].contains(event->pos())){
-            indexTower=i;
-            if(t[i].isPlaced(scene)){
-                t[i].showRange(scene,true);
-                sell->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
-                if(!scene->items().contains(sell))
-                    scene->addItem(sell);
-                if(t[i].level<t[i].maxLevel){
-                    upgrade->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                    if(!scene->items().contains(upgrade))
-                        scene->addItem(upgrade);
+    else{
+        for (int i=0;i<towerNumber;i++)
+            if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
+                if(scene->items().contains(upgrade))
+                    scene->removeItem(upgrade);
+                if(scene->items().contains(sell))
+                    scene->removeItem(sell);
+                if(scene->items().contains(towerImage))
+                    scene->removeItem(towerImage);
+                t[i].hideRange(scene);
+            }
+        for(int i=0;i<towerNumber;i++)
+            if(towerPlacement[i].contains(event->pos())){
+                indexTower=i;
+                if(t[i].isPlaced(scene)){
+                    t[i].showRange(scene,true);
+                    sell->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
+                    if(!scene->items().contains(sell))
+                        scene->addItem(sell);
+                    if(t[i].level<t[i].maxLevel){
+                        upgrade->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
+                        if(!scene->items().contains(upgrade))
+                            scene->addItem(upgrade);
+                    }
+                }
+                else{
+                    t[i].setPos(towerPositions[i]);
+                    t[i].showRange(scene,false);
+                    towerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
+                    if(!scene->items().contains(towerImage))
+                        scene->addItem(towerImage);
                 }
             }
-            else{
-                t[i].setPos(towerPositions[i]);
-                t[i].showRange(scene,false);
-                towerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                if(!scene->items().contains(towerImage))
-                    scene->addItem(towerImage);
-            }
-        }
+    }
     QGraphicsView::mousePressEvent(event);
 }
 void Map::mouseMoveEvent(QMouseEvent*event)
@@ -171,6 +171,8 @@ void Map::createTower(int i)
         scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
         money-=t[i].cost;
+        t[i].hideRange(scene);
+        scene->removeItem(towerImage);
         mapUpdate();
     }
 }
@@ -225,17 +227,17 @@ void Map::moveMonster()
     }
 }
 
-void Map:: spawnMonster()
+void Map::spawnMonster()
 {
     vectMonster.append(new Monster());
     vectMonster.last()->setPos(path.first().toPoint());
     scene->addItem(vectMonster.last());
 }
 
-void Map:: waveMonster()
+void Map::waveMonster()
 {
     int k=timerSpawn->interval();
-    this->timerSpawn->setInterval(k-(k/2));
+    timerSpawn->setInterval(k-(k/2));
 }
 /**
  * @brief Map::attackMonster
@@ -261,6 +263,8 @@ void Map::gameOver()
 {
     timerSpawn->stop();
     timer->stop();
+    timerWave->stop();
+    timerTower->stop();
     vectMonster.clear();
     QMessageBox::information(this,"GAME OVER (u noob)","GAME OVER !!!");
     emit gameEnd();

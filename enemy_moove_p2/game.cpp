@@ -60,10 +60,10 @@ void Game::chooseMap(int indexMap)
     this->indexMap=indexMap;
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem;
     background->setPixmap(QPixmap(QString("../icones/bg%1.jpg").arg(indexMap)).scaled(1000,1000));
-    QFile fichier(QString("../maps/map%1.txt").arg(indexMap));
-    if(fichier.open(QIODevice::ReadOnly | QIODevice::Text))
+    QFile file(QString("../maps/map%1.txt").arg(indexMap));
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QTextStream flux(&fichier);
+        QTextStream flux(&file);
         money = flux.readLine().toInt();
         towerNumber = flux.readLine().toInt();
         towerPositions=new QPoint[towerNumber];
@@ -77,7 +77,7 @@ void Game::chooseMap(int indexMap)
             int j= Line.indexOf(',');
             path << QPoint(Line.left(j).toInt(),Line.right(Line.size()-j-1).toInt());
         }
-        fichier.close();
+        file.close();
     }
     else{
         //implements if the map doesn't exist
