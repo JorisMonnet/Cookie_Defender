@@ -29,6 +29,13 @@ void Game::setGame()
     stackedWidget->addWidget(difficultyMenu);
     setCentralWidget(stackedWidget);
 
+    QPalette pal = palette();
+    pal.setBrush(QPalette::Background,QBrush(QPixmap("../icones/menubg.png")));
+    stackedWidget->setAutoFillBackground(true);
+    stackedWidget->setPalette(pal);
+    //stackedWidget->setStyleSheet(QString("background-image:url(%1)").arg("../icones/menubg.png"));
+
+
     connect(currentMap,&Map::pauseFunction,this,&Game::pause);
     connect(currentMap,&Map::gameEnd,this,&Game::menu);
     connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});

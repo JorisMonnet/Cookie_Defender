@@ -88,6 +88,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         if(t[indexTower].cost<=money){
             money-=t[indexTower].cost;
             t[indexTower].set(t[indexTower].level+1);
+            mapUpdate();
         }
     if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos())){
         money+=t[indexTower].cost/2;
@@ -134,14 +135,14 @@ void Map::mousePressEvent(QMouseEvent *event)
 }
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
-    bool statement=false;
+    bool statement=true;
     for(int i=0;i<towerNumber;i++)
         if(towerPlacement[i].contains(event->pos())){
-            statement=true;
+            statement=false;
             if(!scene->items().contains(showedPlace))
                 showPlace(i);
         }
-    if(!statement&&scene->items().contains(showedPlace))
+    if(statement&&scene->items().contains(showedPlace))
         scene->removeItem(showedPlace);
 
     if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))

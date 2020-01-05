@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Map_t {
-    QByteArrayData data[16];
-    char stringdata0[174];
+    QByteArrayData data[17];
+    char stringdata0[183];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -36,25 +36,26 @@ QT_MOC_LITERAL(0, 0, 3), // "Map"
 QT_MOC_LITERAL(1, 4, 13), // "pauseFunction"
 QT_MOC_LITERAL(2, 18, 0), // ""
 QT_MOC_LITERAL(3, 19, 7), // "gameEnd"
-QT_MOC_LITERAL(4, 27, 15), // "mousePressEvent"
-QT_MOC_LITERAL(5, 43, 12), // "QMouseEvent*"
-QT_MOC_LITERAL(6, 56, 5), // "event"
-QT_MOC_LITERAL(7, 62, 14), // "mouseMoveEvent"
-QT_MOC_LITERAL(8, 77, 13), // "keyPressEvent"
-QT_MOC_LITERAL(9, 91, 10), // "QKeyEvent*"
-QT_MOC_LITERAL(10, 102, 11), // "moveMonster"
-QT_MOC_LITERAL(11, 114, 12), // "spawnMonster"
-QT_MOC_LITERAL(12, 127, 9), // "pauseMenu"
-QT_MOC_LITERAL(13, 137, 11), // "towerDetect"
-QT_MOC_LITERAL(14, 149, 11), // "waveMonster"
-QT_MOC_LITERAL(15, 161, 12) // "aliveMonster"
+QT_MOC_LITERAL(4, 27, 8), // "gameOver"
+QT_MOC_LITERAL(5, 36, 15), // "mousePressEvent"
+QT_MOC_LITERAL(6, 52, 12), // "QMouseEvent*"
+QT_MOC_LITERAL(7, 65, 5), // "event"
+QT_MOC_LITERAL(8, 71, 14), // "mouseMoveEvent"
+QT_MOC_LITERAL(9, 86, 13), // "keyPressEvent"
+QT_MOC_LITERAL(10, 100, 10), // "QKeyEvent*"
+QT_MOC_LITERAL(11, 111, 11), // "moveMonster"
+QT_MOC_LITERAL(12, 123, 12), // "spawnMonster"
+QT_MOC_LITERAL(13, 136, 9), // "pauseMenu"
+QT_MOC_LITERAL(14, 146, 11), // "towerDetect"
+QT_MOC_LITERAL(15, 158, 11), // "waveMonster"
+QT_MOC_LITERAL(16, 170, 12) // "aliveMonster"
 
     },
-    "Map\0pauseFunction\0\0gameEnd\0mousePressEvent\0"
-    "QMouseEvent*\0event\0mouseMoveEvent\0"
-    "keyPressEvent\0QKeyEvent*\0moveMonster\0"
-    "spawnMonster\0pauseMenu\0towerDetect\0"
-    "waveMonster\0aliveMonster"
+    "Map\0pauseFunction\0\0gameEnd\0gameOver\0"
+    "mousePressEvent\0QMouseEvent*\0event\0"
+    "mouseMoveEvent\0keyPressEvent\0QKeyEvent*\0"
+    "moveMonster\0spawnMonster\0pauseMenu\0"
+    "towerDetect\0waveMonster\0aliveMonster"
 };
 #undef QT_MOC_LITERAL
 
@@ -64,7 +65,7 @@ static const uint qt_meta_data_Map[] = {
        8,       // revision
        0,       // classname
        0,    0, // classinfo
-      11,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -72,28 +73,30 @@ static const uint qt_meta_data_Map[] = {
        2,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    0,   69,    2, 0x06 /* Public */,
-       3,    0,   70,    2, 0x06 /* Public */,
+       1,    0,   74,    2, 0x06 /* Public */,
+       3,    0,   75,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-       4,    1,   71,    2, 0x08 /* Private */,
-       7,    1,   74,    2, 0x08 /* Private */,
-       8,    1,   77,    2, 0x08 /* Private */,
-      10,    0,   80,    2, 0x08 /* Private */,
-      11,    0,   81,    2, 0x08 /* Private */,
-      12,    0,   82,    2, 0x08 /* Private */,
-      13,    0,   83,    2, 0x08 /* Private */,
-      14,    0,   84,    2, 0x08 /* Private */,
-      15,    0,   85,    2, 0x08 /* Private */,
+       4,    0,   76,    2, 0x0a /* Public */,
+       5,    1,   77,    2, 0x08 /* Private */,
+       8,    1,   80,    2, 0x08 /* Private */,
+       9,    1,   83,    2, 0x08 /* Private */,
+      11,    0,   86,    2, 0x08 /* Private */,
+      12,    0,   87,    2, 0x08 /* Private */,
+      13,    0,   88,    2, 0x08 /* Private */,
+      14,    0,   89,    2, 0x08 /* Private */,
+      15,    0,   90,    2, 0x08 /* Private */,
+      16,    0,   91,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void,
     QMetaType::Void,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 5,    6,
-    QMetaType::Void, 0x80000000 | 5,    6,
-    QMetaType::Void, 0x80000000 | 9,    6,
+    QMetaType::Void,
+    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, 0x80000000 | 6,    7,
+    QMetaType::Void, 0x80000000 | 10,    7,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -112,15 +115,16 @@ void Map::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **
         switch (_id) {
         case 0: _t->pauseFunction(); break;
         case 1: _t->gameEnd(); break;
-        case 2: _t->mousePressEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 3: _t->mouseMoveEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
-        case 4: _t->keyPressEvent((*reinterpret_cast< QKeyEvent*(*)>(_a[1]))); break;
-        case 5: _t->moveMonster(); break;
-        case 6: _t->spawnMonster(); break;
-        case 7: _t->pauseMenu(); break;
-        case 8: _t->towerDetect(); break;
-        case 9: _t->waveMonster(); break;
-        case 10: _t->aliveMonster(); break;
+        case 2: _t->gameOver(); break;
+        case 3: _t->mousePressEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 4: _t->mouseMoveEvent((*reinterpret_cast< QMouseEvent*(*)>(_a[1]))); break;
+        case 5: _t->keyPressEvent((*reinterpret_cast< QKeyEvent*(*)>(_a[1]))); break;
+        case 6: _t->moveMonster(); break;
+        case 7: _t->spawnMonster(); break;
+        case 8: _t->pauseMenu(); break;
+        case 9: _t->towerDetect(); break;
+        case 10: _t->waveMonster(); break;
+        case 11: _t->aliveMonster(); break;
         default: ;
         }
     } else if (_c == QMetaObject::IndexOfMethod) {
@@ -171,13 +175,13 @@ int Map::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 11)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 11;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 11)
+        if (_id < 12)
             *reinterpret_cast<int*>(_a[0]) = -1;
-        _id -= 11;
+        _id -= 12;
     }
     return _id;
 }

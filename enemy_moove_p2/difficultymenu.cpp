@@ -29,7 +29,6 @@ DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
     mainLayout->addStretch();
     mainLayout->addLayout(vLay);
     mainLayout->addStretch();
-
     connect(group, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),[=](int id){
         emit difficultySignal(id);
     });
