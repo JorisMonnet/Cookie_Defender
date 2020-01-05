@@ -94,6 +94,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         money+=t[indexTower].cost/2;
         t[indexTower].set(1);
         scene->removeItem(&t[indexTower]);
+        mapUpdate();
         scene->addItem(&towerPlacement[indexTower]);
     }
     if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
@@ -186,6 +187,7 @@ void Map::towerDetect()
                 t[i].shotTower(vectMonster.at(monsterToKill));
         }
 }
+
 void Map::aliveMonster()
 {
     for(Monster * monster : vectMonster)
@@ -196,12 +198,14 @@ void Map::aliveMonster()
             qDebug()<<"A monster has been killed"<<endl;
         }
 }
+
 void Map::createClickableItem(double x,double y,int width,int height)
 {
     clickableItem->setRect(x,y,width,height);
     if(!scene->items().contains(clickableItem))
         scene->addItem(clickableItem);
 }
+
 void Map::showPlace(int i)
 {
     showedPlace->setPen(QPen(Qt::blue,2));
@@ -220,6 +224,7 @@ void Map::moveMonster()
             attackMonster(monster);
     }
 }
+
 void Map:: spawnMonster()
 {
     vectMonster.append(new Monster());

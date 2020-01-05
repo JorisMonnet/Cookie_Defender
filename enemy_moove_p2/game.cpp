@@ -35,7 +35,6 @@ void Game::setGame()
     pal.setBrush(QPalette::Background,QBrush(QPixmap("../icones/menubg.png")));
     stackedWidget->setAutoFillBackground(true);
     stackedWidget->setPalette(pal);
-    //stackedWidget->setStyleSheet(QString("background-image:url(%1)").arg("../icones/menubg.png"));
 
 
     connect(currentMap,&Map::pauseFunction,this,&Game::pause);
@@ -101,7 +100,7 @@ void Game::resume()
     currentMap->timerSpawn->start(2000);
     currentMap->timerWave->start(50000);
     currentMap->timerTower->start(200);
-    }
+}
 
 void Game::menu()
 {
