@@ -1,5 +1,7 @@
 #include "game.h"
-
+#include <QFile>
+#include <QTextStream>
+#include <QString>
 Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
     setWindowTitle("Cookie Defender");
@@ -59,27 +61,27 @@ void Game::chooseMap(int indexMap)
     this->indexMap=indexMap;
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem;
     background->setPixmap(QPixmap(QString("../icones/bg%1.jpg").arg(indexMap)).scaled(1000,1000));
-    switch(indexMap){
-        case 1: path<<QPointF(0,475)<<QPointF(200,475)<<QPointF(200,700)<<QPointF(70,700)<<QPointF(70,850)
-                    <<QPointF(450,850)<<QPointF(450,300)<<QPointF(650,300)<<QPointF(650,475)<<QPointF(950,475);
-                towerPositions=new QPoint[towerNumber];
-                towerPositions[0]= QPoint(50 ,350);
-                towerPositions[1]= QPoint(500,350);
-                towerPositions[2]= QPoint(300,550);
-                towerPositions[3]= QPoint(700,550);
-            break;
-        case 2: path<<QPointF(0,500)<<QPointF(200,500)<<QPointF(200,200)<<QPointF(700,200)<<QPointF(700,800)<<QPointF(950,800);
-                towerNumber=5;
-                towerPositions = new QPoint[towerNumber];
-                towerPositions[0]=QPoint(50,350);
-                towerPositions[1]=QPoint(250,50);
-                towerPositions[2]=QPoint(550,50);
-                towerPositions[3]=QPoint(550,500);
-                towerPositions[4]=QPoint(800,850);
-                money=300;
-            break;
-        //add case to add map
-        default:chooseMap(1);
+    QFile fichier(QString("../maps/map%1.txt").arg(indexMap));
+    if(fichier.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream flux(&fichier);
+        money = flux.readLine().toInt();
+        towerNumber = flux.readLine().toInt();
+        towerPositions=new QPoint[towerNumber];
+        for(int i=0;i<towerNumber;i++){
+            QString Line =flux.readLine();
+            int j= Line.indexOf(',');
+            towerPositions[i]=QPoint(Line.left(j).toInt(),Line.right(Line.size()-j-1).toInt());
+        }
+        while(!flux.atEnd()){
+            QString Line = flux.readLine();
+            int j= Line.indexOf(',');
+            path << QPoint(Line.left(j).toInt(),Line.right(Line.size()-j-1).toInt());
+        }
+        fichier.close();
+    }
+    else{
+        //implements if the map doesn't exist
     }
     currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
     stackedWidget->setCurrentWidget(difficultyMenu);

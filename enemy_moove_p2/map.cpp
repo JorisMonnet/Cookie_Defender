@@ -180,7 +180,7 @@ void Map::towerDetect()
         if(t[i].isPlaced(scene)){
             int monsterToKill=0;
             for(Monster *monster : vectMonster)
-                if(t[i].hasTarget(monster)&&monster->toCookie(path)<monster->toCookie(path))
+                if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                     monsterToKill=vectMonster.indexOf(monster);
             if(monsterToKill!=0)
                 t[i].shotTower(vectMonster.at(monsterToKill));
