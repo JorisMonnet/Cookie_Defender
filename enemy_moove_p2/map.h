@@ -15,7 +15,7 @@ class Map : public QGraphicsView
     Q_OBJECT
 public:
     Map(QGraphicsView *parent = nullptr, QVector<QPointF> path={{0,0}},
-        int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr);
+        int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr,int width=1000);
     QGraphicsScene *scene;
     QTimer *timer;
     QTimer *timerSpawn;
@@ -53,6 +53,7 @@ private :
     int indexTower=0;
     int health=20;
     int towerNumber;
+    int width;
     const int iconSize = 50;
     void createClickableItem(double x,double y,int width,int height);
     void createTower(int index,int type);

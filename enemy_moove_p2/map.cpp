@@ -11,9 +11,10 @@
  *
  * constructor of the map
  */
-Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],int moneySource,QGraphicsPixmapItem *backgroundSource)
+Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource)
     : QGraphicsView(parent)
 {
+    width = widthSource;
     path = pathSource;
     money = moneySource;
     background = backgroundSource;
@@ -56,7 +57,7 @@ void Map::settingUpScene()
     mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/magetower1.png").scaled(iconSize,iconSize));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
-    pauseIcon->setPos(950,0);
+    pauseIcon->setPos(width-iconSize,0);
     finish->setPos(path.last().x(),path.last().y()-iconSize);
     if(background!=nullptr)
         scene->addItem(background);
@@ -317,9 +318,9 @@ QPointF Map::findPos(int i)
     QPointF fourth = {t[i].x()-t[i].range+iconSize/2,t[i].y()+iconSize/2};  //left
     if(first.y()>0&&isEmpty(first))
         return first;
-    if(second.y()<990-iconSize&&isEmpty(second))
+    if(second.y()<width-iconSize&&isEmpty(second))
         return second;
-    if(third.x()<990-iconSize&&isEmpty(third))
+    if(third.x()<width-iconSize&&isEmpty(third))
         return third;
     if(fourth.x()>0&&isEmpty(fourth))
         return fourth;
@@ -329,10 +330,5 @@ QPointF Map::findPos(int i)
 
 bool Map::isEmpty(QPointF point)
 {
-    if(classicTowerImage->pos()==point||mageTowerImage->pos()==point)
-        return false;
-    if(upgrade->pos()==point||sell->pos()==point)
-        return false;
-    else
-        return true;
+    return !(classicTowerImage->pos()==point||mageTowerImage->pos()==point||upgrade->pos()==point||sell->pos()==point);
 }
