@@ -11,10 +11,12 @@
  *
  * constructor of the map
  */
-Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource)
+Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],
+         int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource)
     : QGraphicsView(parent)
 {
     width = widthSource;
+    height = heightSource;
     path = pathSource;
     money = moneySource;
     background = backgroundSource;
@@ -46,7 +48,7 @@ void Map::settingUpScene()
 
     scene= new QGraphicsScene(this);
     setScene(scene);
-
+    setSceneRect(0,0,width,height);
     clickableItem = new QGraphicsRectItem();
     clickableItem->setPen(QPen(Qt::blue,2));
     showedPlace = new QGraphicsRectItem();
@@ -312,18 +314,18 @@ void Map::hideUpgradeSell()
 
 QPointF Map::findPos(int i)
 {
-    QPointF first = {t[i].x()+iconSize/2,t[i].y()-t[i].range+iconSize/2};   //top
-    QPointF second = {t[i].x()+iconSize/2,t[i].y()+t[i].range+iconSize/2};  //down
-    QPointF third = {t[i].x()+t[i].range+iconSize/2,t[i].y()+iconSize/2};   //right
-    QPointF fourth = {t[i].x()-t[i].range+iconSize/2,t[i].y()+iconSize/2};  //left
-    if(first.y()>0&&isEmpty(first))
-        return first;
-    if(second.y()<width-iconSize&&isEmpty(second))
-        return second;
-    if(third.x()<width-iconSize&&isEmpty(third))
-        return third;
-    if(fourth.x()>0&&isEmpty(fourth))
-        return fourth;
+    QPointF top = {t[i].x()+iconSize/2,t[i].y()-t[i].range+iconSize/2};
+    QPointF down = {t[i].x()+iconSize/2,t[i].y()+t[i].range+iconSize/2};
+    QPointF right = {t[i].x()+t[i].range+iconSize/2,t[i].y()+iconSize/2};
+    QPointF left = {t[i].x()-t[i].range+iconSize/2,t[i].y()+iconSize/2};
+    if(top.y()>0&&isEmpty(top))
+        return top;
+    if(down.y()<width-iconSize&&isEmpty(down))
+        return down;
+    if(right.x()<width-iconSize&&isEmpty(right))
+        return right;
+    if(left.x()>0&&isEmpty(left))
+        return left;
     else
         return {0,0};  //TOFIX
 }

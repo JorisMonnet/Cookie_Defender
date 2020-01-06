@@ -79,7 +79,7 @@ void Game::chooseMap(int indexMap)
         }
         file.close();
         delete currentMap;
-        currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background,window()->width());
+        currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background,window()->width(),window()->height());
         stackedWidget->setCurrentWidget(difficultyMenu);
     }
     else{
