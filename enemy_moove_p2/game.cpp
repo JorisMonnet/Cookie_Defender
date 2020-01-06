@@ -63,18 +63,18 @@ void Game::chooseMap(int indexMap)
     QFile file(QString("../maps/map%1.txt").arg(indexMap));
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QTextStream flux(&file);
-        money = flux.readLine().toInt();
-        towerNumber = flux.readLine().toInt();
+        QTextStream flow(&file);
+        money = flow.readLine().toInt();
+        towerNumber = flow.readLine().toInt();
         towerPositions=new QPoint[towerNumber];
         for(int i=0;i<towerNumber;i++){
-            QString Line =flux.readLine();
+            QString Line = flow.readLine();
             int j= Line.indexOf(',');
             towerPositions[i]=QPoint(Line.left(j).toInt(),Line.right(Line.size()-j-1).toInt());
         }
-        while(!flux.atEnd()){
-            QString Line = flux.readLine();
-            int j= Line.indexOf(',');
+        while(!flow.atEnd()){
+            QString Line = flow.readLine();
+            int j = Line.indexOf(',');
             path << QPoint(Line.left(j).toInt(),Line.right(Line.size()-j-1).toInt());
         }
         file.close();

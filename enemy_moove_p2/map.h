@@ -8,6 +8,7 @@
 
 #include "monster.h"
 #include "pausemenu.h"
+#include "tower.h"
 
 class Map : public QGraphicsView
 {

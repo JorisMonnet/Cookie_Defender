@@ -126,9 +126,8 @@ void Map::mousePressEvent(QMouseEvent *event)
                     sell->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
                     if(!scene->items().contains(sell))
                         scene->addItem(sell);
-                    if(t[i].level<t[i].maxLevel){
+                    if(t[i].level<t[i].maxLevel&&!scene->items().contains(upgrade)){
                         upgrade->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                        if(!scene->items().contains(upgrade))
                             scene->addItem(upgrade);
                     }
                 }
