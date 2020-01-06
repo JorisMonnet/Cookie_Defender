@@ -15,13 +15,13 @@ MainMenu::MainMenu(QWidget *parent)
     QPushButton *exit = new QPushButton(tr("Exit game"));
 
     QVBoxLayout *vLay = new QVBoxLayout;
-    vLay->addStretch(5);
+    vLay->addStretch();
     vLay->addWidget(play);
     vLay->addWidget(encyclo);
     vLay->addWidget(options);
     vLay->addWidget(sounds);
     vLay->addWidget(exit);
-    vLay->addStretch(5);
+    vLay->addStretch();
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
     mainLayout->addStretch(5);

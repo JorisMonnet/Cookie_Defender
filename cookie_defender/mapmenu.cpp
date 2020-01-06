@@ -15,14 +15,14 @@ MapMenu::MapMenu(QWidget *parent): QWidget(parent)
     mapGroup->setId(map1,1);
     mapGroup->addButton(map2);
     mapGroup->setId(map2,2);
-    vLay->addStretch(5);
+    vLay->addStretch();
     vLay->addWidget(map1);
     vLay->addWidget(map2);
     vLay->addWidget(exit);
-    vLay->addStretch(5);
-    mainLay->addStretch(5);
+    vLay->addStretch();
+    mainLay->addStretch();
     mainLay->addLayout(vLay);
-    mainLay->addStretch(5);
+    mainLay->addStretch();
     connect(exit,&QPushButton::clicked,this,[=]{emit exitMapMenu();});
     connect(mapGroup, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),[=](int indexMap){
         emit mapChosen(indexMap);

@@ -100,7 +100,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         scene->removeItem(&t[indexTower]);
         scene->addItem(&towerPlacement[indexTower]);
     }
-    else
+    else{
         for (int i=0;i<towerNumber;i++)
             if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
                 if(scene->items().contains(upgrade)){
@@ -144,6 +144,7 @@ void Map::mousePressEvent(QMouseEvent *event)
                     }
                 }
             }
+    }
     QGraphicsView::mousePressEvent(event);
 }
 void Map::mouseMoveEvent(QMouseEvent*event)
