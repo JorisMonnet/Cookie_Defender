@@ -6,8 +6,6 @@
 #include <QVector>
 #include <QTimer>
 
-#include "classictower.h"
-#include "magetower.h"
 #include "monster.h"
 #include "pausemenu.h"
 
