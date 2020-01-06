@@ -13,6 +13,10 @@ public:
     void hideRange(QGraphicsScene *scene);
     void set(int level);
     bool isPlaced(QGraphicsScene *scene);
+    void shotTower(Monster*target);
+    bool hasTarget(Monster*target);
+    QLine getAimLine(Monster *target);
+
     int damage;
     int range;
     int cost=100;
@@ -22,8 +26,7 @@ public:
     const int maxLevel = 3;
     bool isShowingRange=false;
     QGraphicsEllipseItem *showedRange=nullptr;
-    void shotTower(Monster*target);
-    bool hasTarget(Monster*target);
+
 };
 
 #endif // TOWER_H

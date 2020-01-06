@@ -9,6 +9,7 @@
 #include "tower.h"
 #include "monster.h"
 #include "pausemenu.h"
+#include "projectile.h"
 
 class Map : public QGraphicsView
 {
@@ -21,6 +22,7 @@ public:
     QTimer *timerSpawn;
     QTimer *timerTower;
     QTimer *timerWave;
+    QTimer *timerAmmo;
     int money;
 public slots :
     void gameOver();
@@ -49,6 +51,7 @@ private :
     QVector<QPointF> path;
     QPoint *towerPositions;
     Tower *t;
+    Projectile *ammo;
     int indexTower=0;
     int health=20;
     int towerNumber;

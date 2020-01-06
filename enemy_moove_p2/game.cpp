@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QString>
+
 Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
     setWindowTitle("Cookie Defender");
@@ -32,10 +33,9 @@ void Game::setGame()
     setCentralWidget(stackedWidget);
 
     QPalette pal = palette();
-    pal.setBrush(QPalette::Background,QBrush(QPixmap("../icones/menubg.png")));
+    pal.setBrush(QPalette::Window,QBrush(QPixmap("../icones/menubg.png")));
     stackedWidget->setAutoFillBackground(true);
     stackedWidget->setPalette(pal);
-
 
     connect(currentMap,&Map::pauseFunction,this,&Game::pause);
     connect(currentMap,&Map::gameEnd,this,&Game::menu);

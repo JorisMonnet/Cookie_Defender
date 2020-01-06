@@ -4,13 +4,8 @@
 
 #include <QDebug>
 //bug: when clicking on the map resizer, the monster is paused
-//bug: showed place of  tower 1
-/**
- * @brief Map::Map
- * @param parent
- *
- * constructor of the map
- */
+//bug: showed place of tower 1
+
 Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],int moneySource,QGraphicsPixmapItem *backgroundSource)
     : QGraphicsView(parent)
 {
@@ -33,10 +28,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
     settingUpScene();  
 }
-/**
- * @brief Map::settingUpScene
- * set up the scene and prepare the tower
- */
+
 void Map::settingUpScene()
 {
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -144,6 +136,7 @@ void Map::mousePressEvent(QMouseEvent *event)
     }
     QGraphicsView::mousePressEvent(event);
 }
+
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool statement=true;
@@ -168,12 +161,14 @@ void Map::mouseMoveEvent(QMouseEvent*event)
         scene->removeItem(clickableItem);
     QGraphicsView::mouseMoveEvent(event);
 }
+
 void Map::keyPressEvent(QKeyEvent*event)
 {
     if(event->key()==Qt::Key_Escape)
         pauseMenu();
     QGraphicsView::keyPressEvent(event);
 }
+
 void Map::createTower(int i)
 {
     if (money>=t[i].cost){
@@ -186,7 +181,7 @@ void Map::createTower(int i)
         mapUpdate();
     }
 }
-//detect to decide if a tower have to shot
+
 void Map::towerDetect()
 {
     for(int i=0;i<towerNumber;i++)
@@ -195,18 +190,35 @@ void Map::towerDetect()
             for(Monster *monster : vectMonster)
                 if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                     monsterToKill=vectMonster.indexOf(monster);
-            if(monsterToKill!=0)
+            if(monsterToKill!=0){
+                QLine aim = t[i].getAimLine(vectMonster.at(monsterToKill));
+                if (ammo!=nullptr)
+                    delete ammo;
+                ammo = new Projectile(QPoint(aim.x1(), aim.y1()), 1);
                 t[i].shotTower(vectMonster.at(monsterToKill));
+                if(timerAmmo != nullptr)
+                    delete timerAmmo;
+                timerAmmo = new QTimer(this);
+                int posX = aim.x1();
+                int posY = aim.y1();
+                int dx = (aim.x2() - posX) / ammo->VELOCITY;
+                int dy = (aim.y2() - posY) / ammo->VELOCITY;
+                timerAmmo->start(ammo->VELOCITY);
+                connect(timerAmmo, &QTimer::timeout, [&](){
+                    ammo->move(dx, dy, QPoint(posX, posY));
+                });
+            }
         }
 }
 
 void Map::aliveMonster()
 {
-    for(Monster * monster : vectMonster)
+    for(Monster *monster : vectMonster)
         if(monster->hp<=0){
             money+=monster->reward;
-            vectMonster.remove(vectMonster.indexOf(monster));
+            vectMonster.remove(vectMonster.indexOf(monster)); //TOFIX bug when a monster is killed
             delete monster;
+            mapUpdate();
         }
 }
 
@@ -222,10 +234,7 @@ void Map::showPlace(int i)
     showedPlace->setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].towerSize,t[i].towerSize);
     scene->addItem(showedPlace);
 }
-/**
- * @brief Map::moveMonster
- * make the monsters move along a defined path
- */
+
 void Map::moveMonster()
 {
     for(Monster * monster : vectMonster){
@@ -247,10 +256,7 @@ void Map::waveMonster()
     int k=timerSpawn->interval();
     timerSpawn->setInterval(k-(k/2));
 }
-/**
- * @brief Map::attackMonster
- * giving dammages to the heart
- */
+
 void Map::attackMonster(Monster * monster)
 {
     health-=monster->dammage;

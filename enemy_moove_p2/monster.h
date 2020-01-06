@@ -1,13 +1,3 @@
-/**
-* Creeps class :
-* -move
-* -attack
-* -set the basics parameters
-*
-* @author	Adrien Paysant/Ugo Crucy/Joris Monnet
-* @version	1.0
-*/
-
 #ifndef MONSTER_H
 #define MONSTER_H
 
