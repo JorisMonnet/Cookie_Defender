@@ -53,6 +53,7 @@ private :
     int indexTower=0;
     int health=20;
     int towerNumber;
+    const int iconSize = 50;
     void createClickableItem(double x,double y,int width,int height);
     void createTower(int index,int type);
     void showPlace(int index);

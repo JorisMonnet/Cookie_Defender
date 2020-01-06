@@ -51,14 +51,14 @@ void Map::settingUpScene()
     clickableItem->setPen(QPen(Qt::blue,2));
     showedPlace = new QGraphicsRectItem();
     showedPlace->setPen(QPen(Qt::blue,2));
-    upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(50,50));
-    sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(50,50));
-    classicTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/classictower1.png").scaled(50,50));
-    mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/magetower1.png").scaled(50,50));
+    upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
+    sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
+    classicTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/classictower1.png").scaled(iconSize,iconSize));
+    mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/magetower1.png").scaled(iconSize,iconSize));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
-    pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(50,50));
+    pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
     pauseIcon->setPos(950,0);
-    finish->setPos(path.last().x(),path.last().y()-50);
+    finish->setPos(path.last().x(),path.last().y()-iconSize);
     if(background!=nullptr)
         scene->addItem(background);
     scene->addItem(finish);
@@ -87,18 +87,18 @@ void Map::mousePressEvent(QMouseEvent *event)
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
 
-    if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),50,50).contains(event->pos()))
+    if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),iconSize,iconSize).contains(event->pos()))
         createTower(indexTower,1);
-    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),50,50).contains(event->pos()))
+    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),iconSize,iconSize).contains(event->pos()))
         createTower(indexTower,2);
-    else if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
+    else if(QRectF(pauseIcon->x(),pauseIcon->y(),iconSize,iconSize).contains(event->pos()))
         pauseMenu();
-    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos())&&t[indexTower].cost<=money){
+    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),iconSize,iconSize).contains(event->pos())&&t[indexTower].cost<=money){
             money-=t[indexTower].cost;
             hideUpgradeSell();
             t[indexTower].set(t[indexTower].level+1);
     }
-    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos())){
+    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),iconSize,iconSize).contains(event->pos())){
         money+=t[indexTower].cost/2;
         t[indexTower].set(1);
         hideUpgradeSell();
@@ -157,16 +157,16 @@ void Map::mouseMoveEvent(QMouseEvent*event)
     if(statement&&scene->items().contains(showedPlace))
         scene->removeItem(showedPlace);
 
-    if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
-        createClickableItem(pauseIcon->x(),pauseIcon->y(),50,50);
-    else if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),50,50).contains(event->pos()))
-        createClickableItem(classicTowerImage->x(),classicTowerImage->y(),50,50);
-    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),50,50).contains(event->pos()))
-        createClickableItem(mageTowerImage->x(),mageTowerImage->y(),50,50);
-    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos()))
-        createClickableItem(upgrade->x(),upgrade->y(),50,50);
-    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos()))
-        createClickableItem(sell->x(),sell->y(),50,50);
+    if(QRectF(pauseIcon->x(),pauseIcon->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(pauseIcon->x(),pauseIcon->y(),iconSize,iconSize);
+    else if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(classicTowerImage->x(),classicTowerImage->y(),iconSize,iconSize);
+    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(mageTowerImage->x(),mageTowerImage->y(),iconSize,iconSize);
+    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(upgrade->x(),upgrade->y(),iconSize,iconSize);
+    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(sell->x(),sell->y(),iconSize,iconSize);
     else if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
     QGraphicsView::mouseMoveEvent(event);
@@ -301,20 +301,20 @@ void Map::hideUpgradeSell()
 
 QPointF Map::findPos(int i)
 {
-    QPointF first = {t[i].x()+25,t[i].y()-t[i].range+25};   //top
-    QPointF second = {t[i].x()+25,t[i].y()+t[i].range+25};  //down
-    QPointF third = {t[i].x()+t[i].range+25,t[i].y()+25};   //right
-    QPointF fourth = {t[i].x()-t[i].range+25,t[i].y()+25};  //left
+    QPointF first = {t[i].x()+iconSize/2,t[i].y()-t[i].range+iconSize/2};   //top
+    QPointF second = {t[i].x()+iconSize/2,t[i].y()+t[i].range+iconSize/2};  //down
+    QPointF third = {t[i].x()+t[i].range+iconSize/2,t[i].y()+iconSize/2};   //right
+    QPointF fourth = {t[i].x()-t[i].range+iconSize/2,t[i].y()+iconSize/2};  //left
     if(first.y()>0&&isEmpty(first))
         return first;
-    if(second.y()<940&&isEmpty(second))
+    if(second.y()<990-iconSize&&isEmpty(second))
         return second;
-    if(third.x()<940&&isEmpty(third))
+    if(third.x()<990-iconSize&&isEmpty(third))
         return third;
     if(fourth.x()>0&&isEmpty(fourth))
         return fourth;
     else
-        return {0,0};
+        return {0,0};  //TOFIX
 }
 
 bool Map::isEmpty(QPointF point)
