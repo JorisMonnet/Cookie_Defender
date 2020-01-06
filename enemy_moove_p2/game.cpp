@@ -29,7 +29,14 @@ void Game::setGame()
     stackedWidget->addWidget(encyclopedia);
     stackedWidget->addWidget(mapMenu);
     stackedWidget->addWidget(difficultyMenu);
-    setCentralWidget(stackedWidget);
+    stackedWidget->setFixedSize(1000,1000);
+
+    QScrollArea *scrollarea = new QScrollArea;
+    scrollarea->setWidget(stackedWidget);
+    scrollarea->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scrollarea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    scrollarea->setWidgetResizable(false);
+    setCentralWidget(scrollarea);
 
     QPalette pal = palette();
     pal.setBrush(QPalette::Window,QBrush(QPixmap("../icones/menubg.png")));

@@ -46,7 +46,6 @@ void Map::settingUpScene()
     scene= new QGraphicsScene(this);
     setScene(scene);
 
-
     clickableItem = new QGraphicsRectItem();
     clickableItem->setPen(QPen(Qt::blue,2));
     showedPlace = new QGraphicsRectItem();
@@ -186,9 +185,9 @@ void Map::keyPressEvent(QKeyEvent*event)
 }
 void Map::createTower(int i,int type)
 {
+    t[i].type=type;
+    t[i].set(1);
     if (money>=t[i].cost){
-        t[i].type=type;
-        t[i].set(1);
         t[i].setPos(towerPositions[i]);
         scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
