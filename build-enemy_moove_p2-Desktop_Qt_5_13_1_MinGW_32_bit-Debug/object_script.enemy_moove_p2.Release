@@ -16,4 +16,5 @@ release/moc_game.o
 release/moc_map.o
 release/moc_mapmenu.o
 release/moc_pausemenu.o
+release/moc_projectile.o
 release/moc_soundboxes.o

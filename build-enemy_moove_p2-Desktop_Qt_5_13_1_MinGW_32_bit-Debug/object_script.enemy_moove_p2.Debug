@@ -16,4 +16,5 @@ debug/moc_game.o
 debug/moc_map.o
 debug/moc_mapmenu.o
 debug/moc_pausemenu.o
+debug/moc_projectile.o
 debug/moc_soundboxes.o
