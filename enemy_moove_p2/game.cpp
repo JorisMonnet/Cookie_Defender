@@ -32,7 +32,7 @@ void Game::setGame()
     setCentralWidget(stackedWidget);
 
     QPalette pal = palette();
-    pal.setBrush(QPalette::Background,QBrush(QPixmap("../icones/menubg.png")));
+    pal.setBrush(QPalette::Window,QBrush(QPixmap("../icones/menubg.png")));
     stackedWidget->setAutoFillBackground(true);
     stackedWidget->setPalette(pal);
 

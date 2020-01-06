@@ -123,19 +123,19 @@ void Map::mousePressEvent(QMouseEvent *event)
                 indexTower=i;
                 if(t[i].isPlaced(scene)){
                     t[i].showRange(scene,true);
-                    sell->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
+                    sell->setPos(findPos(i));
                     if(!scene->items().contains(sell))
                         scene->addItem(sell);
                     if(t[i].level<t[i].maxLevel&&!scene->items().contains(upgrade)){
-                        upgrade->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                            scene->addItem(upgrade);
+                        upgrade->setPos(findPos(i));
+                        scene->addItem(upgrade);
                     }
                 }
                 else{
                     t[i].setPos(towerPositions[i]);
                     t[i].showRange(scene,false);
-                    classicTowerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                    mageTowerImage->setPos(t[i].x()+t[i].range+25,t[i].y()+25);
+                    mageTowerImage->setPos(findPos(i));
+                    classicTowerImage->setPos(findPos(i));
                     if(!scene->items().contains(classicTowerImage)){
                         scene->addItem(classicTowerImage);
                         scene->addItem(mageTowerImage);
@@ -297,4 +297,32 @@ void Map::hideUpgradeSell()
     scene->removeItem(upgrade);
     t[indexTower].hideRange(scene);
     mapUpdate();
+}
+
+QPointF Map::findPos(int i)
+{
+    QPointF first = {t[i].x()+25,t[i].y()-t[i].range+25};   //top
+    QPointF second = {t[i].x()+25,t[i].y()+t[i].range+25};  //down
+    QPointF third = {t[i].x()+t[i].range+25,t[i].y()+25};   //right
+    QPointF fourth = {t[i].x()-t[i].range+25,t[i].y()+25};  //left
+    if(first.y()>0&&isEmpty(first))
+        return first;
+    if(second.y()<940&&isEmpty(second))
+        return second;
+    if(third.x()<940&&isEmpty(third))
+        return third;
+    if(fourth.x()>0&&isEmpty(fourth))
+        return fourth;
+    else
+        return {0,0};
+}
+
+bool Map::isEmpty(QPointF point)
+{
+    if(classicTowerImage->pos()==point||mageTowerImage->pos()==point)
+        return false;
+    if(upgrade->pos()==point||sell->pos()==point)
+        return false;
+    else
+        return true;
 }

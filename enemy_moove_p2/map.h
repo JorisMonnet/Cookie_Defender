@@ -60,6 +60,8 @@ private :
     void settingUpScene();
     void attackMonster(Monster *);
     void hideUpgradeSell();
+    QPointF findPos(int indexTower);
+    bool isEmpty(QPointF point);
 signals:
    void pauseFunction();
    void gameEnd();
