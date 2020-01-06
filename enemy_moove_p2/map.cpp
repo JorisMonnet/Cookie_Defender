@@ -108,13 +108,19 @@ void Map::mousePressEvent(QMouseEvent *event)
     else{
         for (int i=0;i<towerNumber;i++)
             if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
-                if(scene->items().contains(upgrade))
+                if(scene->items().contains(upgrade)){
                     scene->removeItem(upgrade);
-                if(scene->items().contains(sell))
+                    upgrade->setPos(0,0);
+                }
+                if(scene->items().contains(sell)){
                     scene->removeItem(sell);
+                    sell->setPos(0,0);
+                }
                 else if(scene->items().contains(classicTowerImage)){
                     scene->removeItem(classicTowerImage);
+                    classicTowerImage->setPos(0,0);
                     scene->removeItem(mageTowerImage);
+                    mageTowerImage->setPos(0,0);
                 }
                 t[i].hideRange(scene);
             }
@@ -123,20 +129,21 @@ void Map::mousePressEvent(QMouseEvent *event)
                 indexTower=i;
                 if(t[i].isPlaced(scene)){
                     t[i].showRange(scene,true);
-                    sell->setPos(findPos(i));
-                    if(!scene->items().contains(sell))
-                        scene->addItem(sell);
                     if(t[i].level<t[i].maxLevel&&!scene->items().contains(upgrade)){
                         upgrade->setPos(findPos(i));
                         scene->addItem(upgrade);
+                    }
+                    if(!scene->items().contains(sell)){
+                        scene->addItem(sell);
+                        sell->setPos(findPos(i));
                     }
                 }
                 else{
                     t[i].setPos(towerPositions[i]);
                     t[i].showRange(scene,false);
-                    mageTowerImage->setPos(findPos(i));
-                    classicTowerImage->setPos(findPos(i));
-                    if(!scene->items().contains(classicTowerImage)){
+                    if(!scene->items().contains(classicTowerImage)&&!scene->items().contains(mageTowerImage)){
+                        classicTowerImage->setPos(findPos(i));
+                        mageTowerImage->setPos(findPos(i));
                         scene->addItem(classicTowerImage);
                         scene->addItem(mageTowerImage);
                     }
@@ -188,7 +195,9 @@ void Map::createTower(int i,int type)
         money-=t[i].cost;
         t[i].hideRange(scene);
         scene->removeItem(classicTowerImage);
+        classicTowerImage->setPos(0,0);
         scene->removeItem(mageTowerImage);
+        mageTowerImage->setPos(0,0);
         mapUpdate();
     }
 }
@@ -294,7 +303,9 @@ void Map::pauseMenu()
 void Map::hideUpgradeSell()
 {
     scene->removeItem(sell);
+    sell->setPos(0,0);
     scene->removeItem(upgrade);
+    upgrade->setPos(0,0);
     t[indexTower].hideRange(scene);
     mapUpdate();
 }
