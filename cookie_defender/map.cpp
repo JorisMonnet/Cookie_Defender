@@ -4,11 +4,25 @@
 
 #include <QDebug>
 //bug: when clicking on the map resizer, the monster is paused
+<<<<<<< HEAD:enemy_moove_p2/map.cpp
 //bug: showed place of tower 1
 
 Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],int moneySource,QGraphicsPixmapItem *backgroundSource)
+=======
+//bug: showed place of  tower 1
+/**
+ * @brief Map::Map
+ * @param parent
+ *
+ * constructor of the map
+ */
+Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],
+         int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource)
+>>>>>>> d5bb291ff8810280491d43ac932f6b446b64bc06:cookie_defender/map.cpp
     : QGraphicsView(parent)
 {
+    width = widthSource;
+    height = heightSource;
     path = pathSource;
     money = moneySource;
     background = backgroundSource;
@@ -37,19 +51,19 @@ void Map::settingUpScene()
 
     scene= new QGraphicsScene(this);
     setScene(scene);
-
-
+    setSceneRect(0,0,width,height);
     clickableItem = new QGraphicsRectItem();
     clickableItem->setPen(QPen(Qt::blue,2));
     showedPlace = new QGraphicsRectItem();
     showedPlace->setPen(QPen(Qt::blue,2));
-    upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(50,50));
-    sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(50,50));
-    towerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower1.png").scaled(50,50));
+    upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
+    sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
+    classicTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/classictower1.png").scaled(iconSize,iconSize));
+    mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/magetower1.png").scaled(iconSize,iconSize));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
-    pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(50,50));
-    pauseIcon->setPos(950,0);
-    finish->setPos(path.last().x(),path.last().y()-50);
+    pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
+    pauseIcon->setPos(width-iconSize,0);
+    finish->setPos(path.last().x(),path.last().y()-iconSize);
     if(background!=nullptr)
         scene->addItem(background);
     scene->addItem(finish);
@@ -78,37 +92,41 @@ void Map::mousePressEvent(QMouseEvent *event)
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
 
-    if(scene->items().contains(towerImage)&&QRectF(towerImage->x(),towerImage->y(),50,50).contains(event->pos()))
-        createTower(indexTower);
-    else if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
+    if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),iconSize,iconSize).contains(event->pos()))
+        createTower(indexTower,1);
+    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),iconSize,iconSize).contains(event->pos()))
+        createTower(indexTower,2);
+    else if(QRectF(pauseIcon->x(),pauseIcon->y(),iconSize,iconSize).contains(event->pos()))
         pauseMenu();
-    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos())&&t[indexTower].cost<=money){
+    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),iconSize,iconSize).contains(event->pos())&&t[indexTower].cost<=money){
             money-=t[indexTower].cost;
-            scene->removeItem(sell);
-            scene->removeItem(upgrade);
-            t[indexTower].hideRange(scene);
+            hideUpgradeSell();
             t[indexTower].set(t[indexTower].level+1);
-            mapUpdate();    
     }
-    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos())){
+    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),iconSize,iconSize).contains(event->pos())){
         money+=t[indexTower].cost/2;
         t[indexTower].set(1);
-        scene->removeItem(sell);
-        scene->removeItem(upgrade);
-        t[indexTower].hideRange(scene);
+        hideUpgradeSell();
         scene->removeItem(&t[indexTower]);
         scene->addItem(&towerPlacement[indexTower]);
-        mapUpdate();
     }
     else{
         for (int i=0;i<towerNumber;i++)
             if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
-                if(scene->items().contains(upgrade))
+                if(scene->items().contains(upgrade)){
                     scene->removeItem(upgrade);
-                if(scene->items().contains(sell))
+                    upgrade->setPos(0,0);
+                }
+                if(scene->items().contains(sell)){
                     scene->removeItem(sell);
-                else if(scene->items().contains(towerImage))
-                    scene->removeItem(towerImage);
+                    sell->setPos(0,0);
+                }
+                else if(scene->items().contains(classicTowerImage)){
+                    scene->removeItem(classicTowerImage);
+                    classicTowerImage->setPos(0,0);
+                    scene->removeItem(mageTowerImage);
+                    mageTowerImage->setPos(0,0);
+                }
                 t[i].hideRange(scene);
             }
         for(int i=0;i<towerNumber;i++)
@@ -116,21 +134,24 @@ void Map::mousePressEvent(QMouseEvent *event)
                 indexTower=i;
                 if(t[i].isPlaced(scene)){
                     t[i].showRange(scene,true);
-                    sell->setPos(t[i].x()+25,t[i].y()+t[i].range+25);
-                    if(!scene->items().contains(sell))
+                    if(t[i].level<t[i].maxLevel&&!scene->items().contains(upgrade)){
+                        upgrade->setPos(findPos(i));
+                        scene->addItem(upgrade);
+                    }
+                    if(!scene->items().contains(sell)){
                         scene->addItem(sell);
-                    if(t[i].level<t[i].maxLevel){
-                        upgrade->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                        if(!scene->items().contains(upgrade))
-                            scene->addItem(upgrade);
+                        sell->setPos(findPos(i));
                     }
                 }
                 else{
                     t[i].setPos(towerPositions[i]);
                     t[i].showRange(scene,false);
-                    towerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                    if(!scene->items().contains(towerImage))
-                        scene->addItem(towerImage);
+                    if(!scene->items().contains(classicTowerImage)&&!scene->items().contains(mageTowerImage)){
+                        classicTowerImage->setPos(findPos(i));
+                        mageTowerImage->setPos(findPos(i));
+                        scene->addItem(classicTowerImage);
+                        scene->addItem(mageTowerImage);
+                    }
                 }
             }
     }
@@ -149,14 +170,16 @@ void Map::mouseMoveEvent(QMouseEvent*event)
     if(statement&&scene->items().contains(showedPlace))
         scene->removeItem(showedPlace);
 
-    if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
-        createClickableItem(pauseIcon->x(),pauseIcon->y(),50,50);
-    else if(scene->items().contains(towerImage)&&QRectF(towerImage->x(),towerImage->y(),50,50).contains(event->pos()))
-        createClickableItem(towerImage->x(),towerImage->y(),50,50);
-    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos()))
-        createClickableItem(upgrade->x(),upgrade->y(),50,50);
-    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos()))
-        createClickableItem(sell->x(),sell->y(),50,50);
+    if(QRectF(pauseIcon->x(),pauseIcon->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(pauseIcon->x(),pauseIcon->y(),iconSize,iconSize);
+    else if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(classicTowerImage->x(),classicTowerImage->y(),iconSize,iconSize);
+    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(mageTowerImage->x(),mageTowerImage->y(),iconSize,iconSize);
+    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(upgrade->x(),upgrade->y(),iconSize,iconSize);
+    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),iconSize,iconSize).contains(event->pos()))
+        createClickableItem(sell->x(),sell->y(),iconSize,iconSize);
     else if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
     QGraphicsView::mouseMoveEvent(event);
@@ -168,16 +191,25 @@ void Map::keyPressEvent(QKeyEvent*event)
         pauseMenu();
     QGraphicsView::keyPressEvent(event);
 }
+<<<<<<< HEAD:enemy_moove_p2/map.cpp
 
 void Map::createTower(int i)
+=======
+void Map::createTower(int i,int type)
+>>>>>>> d5bb291ff8810280491d43ac932f6b446b64bc06:cookie_defender/map.cpp
 {
+    t[i].type=type;
+    t[i].set(1);
     if (money>=t[i].cost){
         t[i].setPos(towerPositions[i]);
         scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
         money-=t[i].cost;
         t[i].hideRange(scene);
-        scene->removeItem(towerImage);
+        scene->removeItem(classicTowerImage);
+        classicTowerImage->setPos(0,0);
+        scene->removeItem(mageTowerImage);
+        mageTowerImage->setPos(0,0);
         mapUpdate();
     }
 }
@@ -289,4 +321,37 @@ void Map::pauseMenu()
     timer->stop();
     timerSpawn->stop();
     emit pauseFunction();
+}
+
+void Map::hideUpgradeSell()
+{
+    scene->removeItem(sell);
+    sell->setPos(0,0);
+    scene->removeItem(upgrade);
+    upgrade->setPos(0,0);
+    t[indexTower].hideRange(scene);
+    mapUpdate();
+}
+
+QPointF Map::findPos(int i)
+{
+    QPointF top = {t[i].x()+iconSize/2,t[i].y()-t[i].range+iconSize/2};
+    QPointF down = {t[i].x()+iconSize/2,t[i].y()+t[i].range+iconSize/2};
+    QPointF right = {t[i].x()+t[i].range+iconSize/2,t[i].y()+iconSize/2};
+    QPointF left = {t[i].x()-t[i].range+iconSize/2,t[i].y()+iconSize/2};
+    if(top.y()>0&&isEmpty(top))
+        return top;
+    if(down.y()<width-iconSize&&isEmpty(down))
+        return down;
+    if(right.x()<width-iconSize&&isEmpty(right))
+        return right;
+    if(left.x()>0&&isEmpty(left))
+        return left;
+    else
+        return {0,0};  //TOFIX
+}
+
+bool Map::isEmpty(QPointF point)
+{
+    return !(classicTowerImage->pos()==point||mageTowerImage->pos()==point||upgrade->pos()==point||sell->pos()==point);
 }

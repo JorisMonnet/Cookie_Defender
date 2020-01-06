@@ -6,17 +6,20 @@
 #include <QVector>
 #include <QTimer>
 
-#include "tower.h"
 #include "monster.h"
 #include "pausemenu.h"
+<<<<<<< HEAD:enemy_moove_p2/map.h
 #include "projectile.h"
+=======
+#include "tower.h"
+>>>>>>> d5bb291ff8810280491d43ac932f6b446b64bc06:cookie_defender/map.h
 
 class Map : public QGraphicsView
 {
     Q_OBJECT
 public:
     Map(QGraphicsView *parent = nullptr, QVector<QPointF> path={{0,0}},
-        int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr);
+        int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr,int width=1000,int height=1000);
     QGraphicsScene *scene;
     QTimer *timer;
     QTimer *timerSpawn;
@@ -39,29 +42,40 @@ private slots:
 private :
     QGraphicsPixmapItem * sell;
     QGraphicsPixmapItem * upgrade;
-    QGraphicsPixmapItem *towerImage;
+    QGraphicsPixmapItem * classicTowerImage;
+    QGraphicsPixmapItem * mageTowerImage;
     QGraphicsPixmapItem * pauseIcon;
-    QGraphicsPixmapItem *background;
+    QGraphicsPixmapItem * background;
     QGraphicsSimpleTextItem * textHealth;
     QGraphicsSimpleTextItem * textMoney;
-    QGraphicsRectItem *showedPlace;
-    QGraphicsRectItem *clickableItem;
+    QGraphicsRectItem * showedPlace;
+    QGraphicsRectItem * clickableItem;
     QVector<Monster*> vectMonster;
-    QGraphicsRectItem *towerPlacement;
+    QGraphicsRectItem * towerPlacement;
     QVector<QPointF> path;
+<<<<<<< HEAD:enemy_moove_p2/map.h
     QPoint *towerPositions;
     Tower *t;
     Projectile *ammo;
+=======
+    QPoint * towerPositions;
+    Tower * t;
+>>>>>>> d5bb291ff8810280491d43ac932f6b446b64bc06:cookie_defender/map.h
     int indexTower=0;
     int health=20;
     int towerNumber;
-
+    int width;
+    int height;
+    const int iconSize = 50;
     void createClickableItem(double x,double y,int width,int height);
-    void createTower(int index);
+    void createTower(int index,int type);
     void showPlace(int index);
     void mapUpdate();
     void settingUpScene();
     void attackMonster(Monster *);
+    void hideUpgradeSell();
+    QPointF findPos(int indexTower);
+    bool isEmpty(QPointF point);
 signals:
    void pauseFunction();
    void gameEnd();

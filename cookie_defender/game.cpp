@@ -5,8 +5,8 @@
 
 Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
-    setWindowTitle("Cookie Defender");
-    setFixedSize(1000,1000);
+    setWindowFlag(Qt::FramelessWindowHint);
+    //setFixedSize(1000,1000);
     currentMap = new Map();
     currentMap->timer->stop();
     currentMap->timerSpawn->stop();
@@ -55,36 +55,36 @@ void Game::setGame()
 void Game::chooseMap(int indexMap)
 {
     QVector<QPointF> path;
-    int towerNumber=4,money=500;
+    int towerNumber,money;
     QPoint *towerPositions= new QPoint;
     this->indexMap=indexMap;
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem;
-    background->setPixmap(QPixmap(QString("../icones/bg%1.jpg").arg(indexMap)).scaled(1000,1000));
+    background->setPixmap(QPixmap(QString("../icones/bg%1.jpg").arg(indexMap)).scaled(window()->width(),window()->height()));
     QFile file(QString("../maps/map%1.txt").arg(indexMap));
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        QTextStream flux(&file);
-        money = flux.readLine().toInt();
-        towerNumber = flux.readLine().toInt();
+        QTextStream flow(&file);
+        money = flow.readLine().toInt();
+        towerNumber = flow.readLine().toInt();
         towerPositions=new QPoint[towerNumber];
         for(int i=0;i<towerNumber;i++){
-            QString Line =flux.readLine();
+            QString Line = flow.readLine();
             int j= Line.indexOf(',');
             towerPositions[i]=QPoint(Line.left(j).toInt(),Line.right(Line.size()-j-1).toInt());
         }
-        while(!flux.atEnd()){
-            QString Line = flux.readLine();
-            int j= Line.indexOf(',');
+        while(!flow.atEnd()){
+            QString Line = flow.readLine();
+            int j = Line.indexOf(',');
             path << QPoint(Line.left(j).toInt(),Line.right(Line.size()-j-1).toInt());
         }
         file.close();
+        delete currentMap;
+        currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background,window()->width(),window()->height());
+        stackedWidget->setCurrentWidget(difficultyMenu);
     }
     else{
         //implements if the map doesn't exist
     }
-    delete currentMap;
-    currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background);
-    stackedWidget->setCurrentWidget(difficultyMenu);
 }
 
 void Game::startMap(int difficulty)
