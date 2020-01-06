@@ -60,7 +60,6 @@ private :
     void createTower(int index,int type);
     void showPlace(int index);
     void mapUpdate();
-    void settingUpScene();
     void attackMonster(Monster *);
     void hideUpgradeSell();
     QPointF findPos(int indexTower);

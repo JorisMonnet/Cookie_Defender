@@ -34,14 +34,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
-    settingUpScene();  
-}
-/**
- * @brief Map::settingUpScene
- * set up the scene and prepare the tower
- */
-void Map::settingUpScene()
-{
+
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setMouseTracking(true);
@@ -107,7 +100,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         scene->removeItem(&t[indexTower]);
         scene->addItem(&towerPlacement[indexTower]);
     }
-    else{
+    else
         for (int i=0;i<towerNumber;i++)
             if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
                 if(scene->items().contains(upgrade)){
@@ -151,7 +144,6 @@ void Map::mousePressEvent(QMouseEvent *event)
                     }
                 }
             }
-    }
     QGraphicsView::mousePressEvent(event);
 }
 void Map::mouseMoveEvent(QMouseEvent*event)
