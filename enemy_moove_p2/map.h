@@ -6,7 +6,8 @@
 #include <QVector>
 #include <QTimer>
 
-#include "tower.h"
+#include "classictower.h"
+#include "magetower.h"
 #include "monster.h"
 #include "pausemenu.h"
 
@@ -37,28 +38,29 @@ private slots:
 private :
     QGraphicsPixmapItem * sell;
     QGraphicsPixmapItem * upgrade;
-    QGraphicsPixmapItem *towerImage;
+    QGraphicsPixmapItem * classicTowerImage;
+    QGraphicsPixmapItem * mageTowerImage;
     QGraphicsPixmapItem * pauseIcon;
-    QGraphicsPixmapItem *background;
+    QGraphicsPixmapItem * background;
     QGraphicsSimpleTextItem * textHealth;
     QGraphicsSimpleTextItem * textMoney;
-    QGraphicsRectItem *showedPlace;
-    QGraphicsRectItem *clickableItem;
+    QGraphicsRectItem * showedPlace;
+    QGraphicsRectItem * clickableItem;
     QVector<Monster*> vectMonster;
-    QGraphicsRectItem *towerPlacement;
+    QGraphicsRectItem * towerPlacement;
     QVector<QPointF> path;
-    QPoint *towerPositions;
-    Tower *t;
+    QPoint * towerPositions;
+    Tower * t;
     int indexTower=0;
     int health=20;
     int towerNumber;
-
     void createClickableItem(double x,double y,int width,int height);
-    void createTower(int index);
+    void createTower(int index,int type);
     void showPlace(int index);
     void mapUpdate();
     void settingUpScene();
     void attackMonster(Monster *);
+    void hideUpgradeSell();
 signals:
    void pauseFunction();
    void gameEnd();

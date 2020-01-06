@@ -1,6 +1,8 @@
+debug/classictower.o
 debug/difficultymenu.o
 debug/encyclopedia.o
 debug/game.o
+debug/magetower.o
 debug/main.o
 debug/mainmenu.o
 debug/map.o

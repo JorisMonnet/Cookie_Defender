@@ -1,6 +1,8 @@
+release/classictower.o
 release/difficultymenu.o
 release/encyclopedia.o
 release/game.o
+release/magetower.o
 release/main.o
 release/mainmenu.o
 release/map.o

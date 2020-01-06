@@ -12,17 +12,31 @@ Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 void Tower::set(int level)
 {
     int x=level-1;
-    cost=100+x*50;
-    range=150+x*35;
-    speed=2+x;
-    damage=10+x*5;
     this->level=level;
-    setPixmap(QPixmap(QString("../icones/tower%1.png").arg(level)).scaled(towerSize,towerSize));
+    switch(type)
+    {
+        case 1: cost=100+x*50;
+                range=150+x*35;
+                speed=2+x;
+                damage=10+x*5;
+                setPixmap(QPixmap(QString("../icones/classictower%1.png").arg(level)).scaled(towerSize,towerSize));
+            break;
+        case 2: cost=150+x*50;
+                range=140+x*35;
+                speed=2+x;
+                damage=11+x*5;
+                setPixmap(QPixmap(QString("../icones/magetower%1.png").arg(level)).scaled(towerSize,towerSize));
+    }
 }
 
 void Tower::shotTower(Monster *target)
 {
-    target->hp-=damage;
+    switch(type){
+        case 1: target->hp-=damage*(1-target->shield/100);
+            break;
+        case 2: target->hp-=damage;
+            break;
+    }
 }
 
 bool Tower::hasTarget(Monster *target)

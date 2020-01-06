@@ -53,7 +53,8 @@ void Map::settingUpScene()
     showedPlace->setPen(QPen(Qt::blue,2));
     upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(50,50));
     sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(50,50));
-    towerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower1.png").scaled(50,50));
+    classicTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/classictower1.png").scaled(50,50));
+    mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/magetower1.png").scaled(50,50));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(50,50));
     pauseIcon->setPos(950,0);
@@ -86,27 +87,23 @@ void Map::mousePressEvent(QMouseEvent *event)
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
 
-    if(scene->items().contains(towerImage)&&QRectF(towerImage->x(),towerImage->y(),50,50).contains(event->pos()))
-        createTower(indexTower);
+    if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),50,50).contains(event->pos()))
+        createTower(indexTower,1);
+    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),50,50).contains(event->pos()))
+        createTower(indexTower,2);
     else if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
         pauseMenu();
     else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos())&&t[indexTower].cost<=money){
             money-=t[indexTower].cost;
-            scene->removeItem(sell);
-            scene->removeItem(upgrade);
-            t[indexTower].hideRange(scene);
+            hideUpgradeSell();
             t[indexTower].set(t[indexTower].level+1);
-            mapUpdate();    
     }
     else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos())){
         money+=t[indexTower].cost/2;
         t[indexTower].set(1);
-        scene->removeItem(sell);
-        scene->removeItem(upgrade);
-        t[indexTower].hideRange(scene);
+        hideUpgradeSell();
         scene->removeItem(&t[indexTower]);
         scene->addItem(&towerPlacement[indexTower]);
-        mapUpdate();
     }
     else{
         for (int i=0;i<towerNumber;i++)
@@ -115,8 +112,10 @@ void Map::mousePressEvent(QMouseEvent *event)
                     scene->removeItem(upgrade);
                 if(scene->items().contains(sell))
                     scene->removeItem(sell);
-                else if(scene->items().contains(towerImage))
-                    scene->removeItem(towerImage);
+                else if(scene->items().contains(classicTowerImage)){
+                    scene->removeItem(classicTowerImage);
+                    scene->removeItem(mageTowerImage);
+                }
                 t[i].hideRange(scene);
             }
         for(int i=0;i<towerNumber;i++)
@@ -136,9 +135,12 @@ void Map::mousePressEvent(QMouseEvent *event)
                 else{
                     t[i].setPos(towerPositions[i]);
                     t[i].showRange(scene,false);
-                    towerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
-                    if(!scene->items().contains(towerImage))
-                        scene->addItem(towerImage);
+                    classicTowerImage->setPos(t[i].x()+25,t[i].y()-t[i].range+25);
+                    mageTowerImage->setPos(t[i].x()+t[i].range+25,t[i].y()+25);
+                    if(!scene->items().contains(classicTowerImage)){
+                        scene->addItem(classicTowerImage);
+                        scene->addItem(mageTowerImage);
+                    }
                 }
             }
     }
@@ -158,8 +160,10 @@ void Map::mouseMoveEvent(QMouseEvent*event)
 
     if(QRectF(pauseIcon->x(),pauseIcon->y(),50,50).contains(event->pos()))
         createClickableItem(pauseIcon->x(),pauseIcon->y(),50,50);
-    else if(scene->items().contains(towerImage)&&QRectF(towerImage->x(),towerImage->y(),50,50).contains(event->pos()))
-        createClickableItem(towerImage->x(),towerImage->y(),50,50);
+    else if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),50,50).contains(event->pos()))
+        createClickableItem(classicTowerImage->x(),classicTowerImage->y(),50,50);
+    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),50,50).contains(event->pos()))
+        createClickableItem(mageTowerImage->x(),mageTowerImage->y(),50,50);
     else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),50,50).contains(event->pos()))
         createClickableItem(upgrade->x(),upgrade->y(),50,50);
     else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),50,50).contains(event->pos()))
@@ -174,15 +178,18 @@ void Map::keyPressEvent(QKeyEvent*event)
         pauseMenu();
     QGraphicsView::keyPressEvent(event);
 }
-void Map::createTower(int i)
+void Map::createTower(int i,int type)
 {
     if (money>=t[i].cost){
+        t[i].type=type;
+        t[i].set(1);
         t[i].setPos(towerPositions[i]);
         scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
         money-=t[i].cost;
         t[i].hideRange(scene);
-        scene->removeItem(towerImage);
+        scene->removeItem(classicTowerImage);
+        scene->removeItem(mageTowerImage);
         mapUpdate();
     }
 }
@@ -283,4 +290,12 @@ void Map::pauseMenu()
     timer->stop();
     timerSpawn->stop();
     emit pauseFunction();
+}
+
+void Map::hideUpgradeSell()
+{
+    scene->removeItem(sell);
+    scene->removeItem(upgrade);
+    t[indexTower].hideRange(scene);
+    mapUpdate();
 }
