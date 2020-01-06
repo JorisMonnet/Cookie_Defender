@@ -3,8 +3,7 @@
 #include <QMessageBox>
 
 #include <QDebug>
-//bug: when clicking on the map resizer, the monster is paused
-//bug: showed place of  tower 1
+
 /**
  * @brief Map::Map
  * @param parent
@@ -58,6 +57,12 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         scene->addItem(background);
     scene->addItem(finish);
     scene->addItem(pauseIcon);
+
+    /*progBarCookie = new QProgressBar(this);
+    progBarCookie->setOrientation(Qt::Horizontal);
+    progBarCookie->setMaximum(health);
+    progBarCookie->setMinimum(0);
+    QGraphicsProxyWidget *progBarWidget = scene->addWidget(progBarCookie);*/
 
     textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
