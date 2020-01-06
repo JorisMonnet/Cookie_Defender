@@ -2,6 +2,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QString>
+
 Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
     setWindowFlag(Qt::FramelessWindowHint);
@@ -35,7 +36,6 @@ void Game::setGame()
     pal.setBrush(QPalette::Window,QBrush(QPixmap("../icones/menubg.png")));
     stackedWidget->setAutoFillBackground(true);
     stackedWidget->setPalette(pal);
-
 
     connect(currentMap,&Map::pauseFunction,this,&Game::pause);
     connect(currentMap,&Map::gameEnd,this,&Game::menu);

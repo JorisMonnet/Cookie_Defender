@@ -17,18 +17,18 @@ DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
     group->addButton(hard);
 
     QVBoxLayout *vLay = new QVBoxLayout();
-    vLay->addStretch(5);
+    vLay->addStretch();
     vLay->addWidget(easy);
     vLay->addWidget(medium);
     vLay->addWidget(hard);
-    vLay->addStretch(5);
+    vLay->addStretch();
     vLay->addWidget(exit);
-    vLay->addStretch(5);
+    vLay->addStretch();
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
-    mainLayout->addStretch(5);
+    mainLayout->addStretch();
     mainLayout->addLayout(vLay);
-    mainLayout->addStretch(5);
+    mainLayout->addStretch();
     connect(group, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),[=](int id){
         emit difficultySignal(id);
     });
