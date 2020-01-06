@@ -16,11 +16,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    classictower.cpp \
     difficultymenu.cpp \
     encyclopedia.cpp \
     game.cpp \
-    magetower.cpp \
     main.cpp \
     mainmenu.cpp \
     map.cpp \
@@ -32,11 +30,9 @@ SOURCES += \
     tower.cpp
 
 HEADERS += \
-    classictower.h \
     difficultymenu.h \
     encyclopedia.h \
     game.h \
-    magetower.h \
     mainmenu.h \
     map.h \
     mapmenu.h \
