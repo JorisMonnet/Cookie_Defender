@@ -3,4 +3,5 @@
 =======
 *.pro.user
 *.pro
+build*
 >>>>>>> monster
