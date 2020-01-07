@@ -308,9 +308,13 @@ void Map::waveMonster()
             waveCode=flow.readLine();
         }
         file.close();
+        QString string;
         for(int i=0;i<waveCode.size();i++){
             if(waveCode.at(i)=='A'){
-                numberA = waveCode.at(i+1).digitValue();
+                for(int j=i+1;j<waveCode.size();j++){
+                    string.append(waveCode.at(j));
+                }
+                numberA=string.toInt();
             }
         }
         timerSpawn->start(500);

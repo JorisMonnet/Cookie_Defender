@@ -53,7 +53,7 @@ private :
     QPoint *towerPositions;
     Tower *t;
     int indexTower=0;
-    int health=20;
+    int health=200;
     int towerNumber;
     int width;
     int height;
