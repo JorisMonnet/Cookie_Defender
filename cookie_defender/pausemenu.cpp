@@ -24,6 +24,10 @@ PauseMenu::PauseMenu(QWidget *parent): QWidget(parent)
     mainLay->addStretch();
     mainLay->addLayout(vLay);
     mainLay->addStretch();
-
 }
 
+void PauseMenu::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key()==Qt::Key_Escape)
+        emit resume->click();
+}
