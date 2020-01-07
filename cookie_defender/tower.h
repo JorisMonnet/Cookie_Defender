@@ -15,7 +15,7 @@ public:
     void shotTower(Monster*target);
     bool hasTarget(Monster*target);
     bool isPlaced(QGraphicsScene *scene);
-    QLine getAimLine(Monster *target);
+    QLineF getAimLine(Monster *target);
 
     int damage;
     int range;

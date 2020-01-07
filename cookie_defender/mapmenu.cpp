@@ -22,6 +22,7 @@ MapMenu::MapMenu(QWidget *parent): QWidget(parent)
     vLay->addStretch();
     vLay->addWidget(map1);
     vLay->addWidget(map2);
+    vLay->addStretch();
     vLay->addWidget(exit);
     vLay->addStretch();
 
@@ -29,14 +30,6 @@ MapMenu::MapMenu(QWidget *parent): QWidget(parent)
     mainLay->addLayout(vLay);
     mainLay->addStretch();
 
-    vLay->addStretch(5);
-    vLay->addWidget(map1);
-    vLay->addWidget(map2);
-    vLay->addWidget(exit);
-    vLay->addStretch();
-    mainLay->addStretch();
-    mainLay->addLayout(vLay);
-    mainLay->addStretch(5);
     connect(exit,&QPushButton::clicked,this,[=]{emit exitMapMenu();});
     connect(mapGroup, static_cast<void(QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked),[=](int indexMap){
         emit mapChosen(indexMap);

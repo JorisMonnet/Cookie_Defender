@@ -27,6 +27,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     timerSpawn= new QTimer(this);
     timerTower = new QTimer(this);
     timerWave = new QTimer(this);
+    timerAmmo = new QTimer(this);
     connect(timerTower,&QTimer::timeout,this,&Map::towerDetect);
     connect(timer,&QTimer::timeout,this,&Map::aliveMonster);
     connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
@@ -212,23 +213,26 @@ void Map::towerDetect()
             for(Monster *monster : vectMonster)
                 if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                     monsterToKill=vectMonster.indexOf(monster);
-            if(monsterToKill!=0){
-                QLine aim = t[i].getAimLine(vectMonster.at(monsterToKill));
-                if (ammo!=nullptr)
-                    delete ammo;
-                ammo = new Projectile(QPoint(aim.x1(), aim.y1()), 1);
-                t[i].shotTower(vectMonster.at(monsterToKill));
-                if(timerAmmo != nullptr)
-                    delete timerAmmo;
-                timerAmmo = new QTimer(this);
-                int posX = aim.x1();
-                int posY = aim.y1();
-                int dx = (aim.x2() - posX) / ammo->VELOCITY;
-                int dy = (aim.y2() - posY) / ammo->VELOCITY;
-                timerAmmo->start(ammo->VELOCITY);
-                connect(timerAmmo, &QTimer::timeout, [&](){
-                    ammo->move(dx, dy, QPoint(posX, posY));
+
+            if(t[i].hasTarget(vectMonster.at(monsterToKill))){
+                Projectile *ammo = new Projectile(t[i].type);
+                ammo->setPos(t[i].x()+50,t[i].y()+50);
+                scene->addItem(ammo);
+                timerAmmo->stop();
+                double dx = vectMonster.at(monsterToKill)->x();
+                double dy = vectMonster.at(monsterToKill)->y();
+                connect(timerAmmo, &QTimer::timeout, [=](){
+                    if(ammo->x()<dx)
+                        ammo->moveBy(dx/ammo->VELOCITY,0);
+                    if(ammo->y()<dy)
+                        ammo->moveBy(0,dy/ammo->VELOCITY);
+                    else{
+                        timerAmmo->stop();
+                        scene->removeItem(ammo);
+                        t[i].shotTower(vectMonster.at(monsterToKill));
+                     }
                 });
+                timerAmmo->start(/*ammo->VELOCITY*10*/500);
             }
         }
 }

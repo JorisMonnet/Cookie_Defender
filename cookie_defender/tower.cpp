@@ -49,9 +49,9 @@ bool Tower::hasTarget(Monster *target)
     return distance<=range;
 }
 
-QLine Tower::getAimLine(Monster *target)
+QLineF Tower::getAimLine(Monster *target)
 {
-    return QLine(this->x(), this->y(), target->x(), target->y());
+    return QLineF(this->x(), this->y(), target->x(), target->y());
 }
 
 void Tower::showRange(QGraphicsScene*scene,bool isFilled)
