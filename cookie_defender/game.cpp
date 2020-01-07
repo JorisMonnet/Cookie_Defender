@@ -9,7 +9,6 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
     //setFixedSize(1000,1000);
     currentMap = new Map();
     currentMap->timer->stop();
-    currentMap->timerSpawn->stop();
     currentMap->timerWave->stop();
     currentMap->timerTower->stop();
     setGame();
@@ -96,10 +95,10 @@ void Game::startMap(int difficulty)
 
 void Game::resume()
 {
+    currentMap->waveMonster();
     stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
-    currentMap->timerSpawn->start(2000);
-    currentMap->timerWave->start(50000);
+    currentMap->timerWave->start(15000);
     currentMap->timerTower->start(200);
 }
 

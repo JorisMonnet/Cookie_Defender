@@ -19,23 +19,23 @@ public:
         int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr,int width=1000,int height=1000);
     QGraphicsScene *scene;
     QTimer *timer;
-    QTimer *timerSpawn;
     QTimer *timerTower;
     QTimer *timerWave;
+    QTimer *timerSpawn;
     QTimer *timerAmmo;
     int money;
 public slots :
     void gameOver();
+    void waveMonster();
 private slots:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
     void moveMonster();
-    void spawnMonster();
     void pauseMenu();
     void towerDetect();
-    void waveMonster();
     void aliveMonster();
+    void spawnMonster();
 private :
     QGraphicsPixmapItem * sell;
     QGraphicsPixmapItem * upgrade;
@@ -58,6 +58,11 @@ private :
     int towerNumber;
     int width;
     int height;
+    int waveIndex=1;
+    int spawnCount=0;
+    //if there's other type of monster just add another numberX
+    int numberA=0;
+    QString waveCode;
     const int iconSize = 50;
     void createClickableItem(double x,double y,int width,int height);
     void createTower(int index,int type);
@@ -67,6 +72,7 @@ private :
     void hideUpgradeSell();
     QPointF findPos(int indexTower);
     bool isEmpty(QPointF point);
+
 signals:
    void pauseFunction();
    void gameEnd();
