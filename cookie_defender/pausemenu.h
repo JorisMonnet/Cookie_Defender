@@ -3,6 +3,7 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QKeyEvent>
 #include "soundboxes.h"
 class PauseMenu : public QWidget
 {
@@ -14,5 +15,6 @@ public:
     QPushButton * encyclo;
     QPushButton *exit;
     SoundBoxes *sounds;
+    void keyPressEvent(QKeyEvent *event) override;
 };
 #endif // PAUSEMENU_H
