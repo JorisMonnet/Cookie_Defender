@@ -24,9 +24,9 @@ MainMenu::MainMenu(QWidget *parent)
     vLay->addStretch();
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
-    mainLayout->addStretch(5);
+    mainLayout->addStretch();
     mainLayout->addLayout(vLay);
-    mainLayout->addStretch(5);
+    mainLayout->addStretch();
 
     connect(exit, &QPushButton::clicked, this, &QApplication::quit);
 }

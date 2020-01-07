@@ -52,7 +52,6 @@ private :
     QVector<QPointF> path;
     QPoint *towerPositions;
     Tower *t;
-    Projectile *ammo;
     int indexTower=0;
     int health=20;
     int towerNumber;

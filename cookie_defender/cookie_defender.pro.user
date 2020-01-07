@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
+<<<<<<< HEAD
 <!-- Written by QtCreator 4.10.0, 2020-01-07T10:58:55. -->
+=======
+<<<<<<< HEAD
+<!-- Written by QtCreator 4.10.0, 2020-01-07T10:17:15. -->
+=======
+<!-- Written by QtCreator 4.10.0, 2020-01-07T10:55:23. -->
+>>>>>>> 63d24fcc7d25d9536ea3d34232ab8475143e30e9
+>>>>>>> 34640776e81484f0ca7ba7f53e39dcf7e0ea548c
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -307,7 +315,11 @@
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DefaultDisplayName">cookie_defender</value>
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName"></value>
+<<<<<<< HEAD
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/dev/tower-defense/cookie_defender/cookie_defender.pro</value>
+=======
     <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">Qt4ProjectManager.Qt4RunConfiguration:C:/DEV/Qt/code_p2/tower-defense/cookie_defender/cookie_defender.pro</value>
+>>>>>>> 63d24fcc7d25d9536ea3d34232ab8475143e30e9
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="uint" key="RunConfiguration.QmlDebugServerPort">3768</value>
     <value type="bool" key="RunConfiguration.UseCppDebugger">false</value>

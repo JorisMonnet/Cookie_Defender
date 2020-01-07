@@ -7,10 +7,9 @@
 class Projectile : public QGraphicsPixmapItem
 {
 public:
-    Projectile(QPoint pos, int towerType=1);
-    void move(int dx, int dy, QPoint point);
-    const int VELOCITY = 3;
-    QPoint pos;
+    Projectile(int towerType=1);
+    void move(QPointF);
+    const int VELOCITY = 9;
 };
 
 #endif // BULLET_H
