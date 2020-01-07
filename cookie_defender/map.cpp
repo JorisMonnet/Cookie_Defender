@@ -24,10 +24,11 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     t = new Tower[towerNumber];
 
     timer = new QTimer(this);
-    timerSpawn= new QTimer(this);
     timerTower = new QTimer(this);
     timerWave = new QTimer(this);
     timerAmmo = new QTimer(this);
+    timerSpawn=new QTimer(this);
+
     connect(timerTower,&QTimer::timeout,this,&Map::towerDetect);
     connect(timer,&QTimer::timeout,this,&Map::aliveMonster);
     connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
@@ -272,15 +273,56 @@ void Map::moveMonster()
 
 void Map::spawnMonster()
 {
-    vectMonster.append(new Monster());
-    vectMonster.last()->setPos(path.first().toPoint());
-    scene->addItem(vectMonster.last());
+
+    if(numberA<=spawnCount){
+        timerSpawn->stop();
+        spawnCount=0;
+    }
+    else{
+        vectMonster.append(new Monster());
+        vectMonster.last()->setPos(path.first().toPoint());
+        scene->addItem(vectMonster.last());
+        spawnCount++;
+    }
 }
 
+//called each waveTimer => timeout()
+//use to get the right waveCode to the current waveIndex
 void Map::waveMonster()
 {
-    int k=timerSpawn->interval();
+    /*
+     *infinte wave system with difficulty auto increasing
+     * but need a continuous spawn of monster.
+     *
+    k=timerSpawn->interval();
     timerSpawn->setInterval(k-(k/2));
+    */
+
+    QFile file(QString("../wave/wave.txt"));
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QTextStream flow(&file);
+
+        for(int i=0;i<this->waveIndex;i++)
+        {
+            waveCode=flow.readLine();
+        }
+        file.close();
+        for(int i=0;i<waveCode.size();i++){
+            if(waveCode.at(i)=='A'){
+                numberA = waveCode.at(i+1).digitValue();
+            }
+        }
+        timerSpawn->start(500);
+        waveIndex++;
+    }
+    else{
+        //Catching error
+        qDebug()<<"je n'arrive pas a rentrer dans le fichier"<<endl;
+    }
+    if(waveCode=="" || waveCode=="\n"){
+        //you win the game.
+    }
 }
 
 void Map::attackMonster(Monster * monster)
@@ -301,19 +343,18 @@ void Map::mapUpdate()
 
 void Map::gameOver()
 {
-    timerSpawn->stop();
     timer->stop();
     timerWave->stop();
     timerTower->stop();
     vectMonster.clear();
-    QMessageBox::information(this,"GAME OVER (u noob)","GAME OVER !!!");
+    QMessageBox::information(this,"GAME OVER","GAME OVER !!!");
     emit gameEnd();
 }
 
 void Map::pauseMenu()
 {
     timer->stop();
-    timerSpawn->stop();
+    timerWave->stop();
     emit pauseFunction();
 }
 
