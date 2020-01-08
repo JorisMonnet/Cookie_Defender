@@ -297,7 +297,7 @@ void Map::spawnMonster()
             scene->addItem(vectMonster.last());
             spawnCountB++;
         }
-        timerSpawn->start(500);
+        timerSpawn->setInterval(500);
     }
     statement=!statement;
 }
@@ -390,10 +390,20 @@ void Map::gameWin()
         timerWave->stop();
         timerTower->stop();
         vectMonster.clear();
-        QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thank You for your Epic battle !");
+        if(health<=(stackHealth/3)){
+            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+                                                        "\ngame star: >|< ");
+        }
+        else if(health<=(2*stackHealth/3) && health>stackHealth/3){
+            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+                                                        "\ngame stars : >|< >|< ");
+        }
+        else if(health>(2*stackHealth/3)){
+            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+                                                        "\ngame stars : >|< >|< >|< ");
+        }
         emit gameEnd();
     }
-
 }
 
 void Map::pauseMenu()

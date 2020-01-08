@@ -9,18 +9,21 @@ DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
     QPushButton *easy = new QPushButton(tr("Easy"));
     QPushButton *medium = new QPushButton(tr("Medium"));
     QPushButton *hard = new QPushButton(tr("Hard"));
+    QPushButton *inf = new QPushButton(tr("Infinite"));
     QPushButton *exit = new QPushButton(tr("Exit"));
 
     QButtonGroup * group = new QButtonGroup(this);
     group->addButton(easy);
     group->addButton(medium);
     group->addButton(hard);
+    group->addButton(inf);
 
     QVBoxLayout *vLay = new QVBoxLayout();
     vLay->addStretch();
     vLay->addWidget(easy);
     vLay->addWidget(medium);
     vLay->addWidget(hard);
+    vLay->addWidget(inf);
     vLay->addStretch();
     vLay->addWidget(exit);
     vLay->addStretch();
