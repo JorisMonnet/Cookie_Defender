@@ -488,6 +488,7 @@ debug/moc_game.cpp: ../cookie_defender/game.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QPushButton \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/QKeyEvent \
 		../cookie_defender/soundboxes.h \
 		../cookie_defender/mainmenu.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QApplication \
@@ -650,6 +651,7 @@ debug/moc_map.cpp: ../cookie_defender/map.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/QKeyEvent \
 		../cookie_defender/soundboxes.h \
 		../cookie_defender/projectile.h \
 		../cookie_defender/tower.h \
@@ -878,6 +880,7 @@ debug/moc_pausemenu.cpp: ../cookie_defender/pausemenu.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/QKeyEvent \
 		../cookie_defender/soundboxes.h \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/bin/moc.exe
@@ -1367,6 +1370,7 @@ debug/game.o: ../cookie_defender/game.cpp ../cookie_defender/game.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QPushButton \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/QKeyEvent \
 		../cookie_defender/soundboxes.h \
 		../cookie_defender/mainmenu.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QApplication \
@@ -1519,6 +1523,7 @@ debug/main.o: ../cookie_defender/main.cpp ../cookie_defender/game.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QPushButton \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/QKeyEvent \
 		../cookie_defender/soundboxes.h \
 		../cookie_defender/mainmenu.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QApplication \
@@ -1802,6 +1807,7 @@ debug/map.o: ../cookie_defender/map.cpp ../cookie_defender/map.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/QKeyEvent \
 		../cookie_defender/soundboxes.h \
 		../cookie_defender/projectile.h \
 		../cookie_defender/tower.h \
@@ -2129,6 +2135,7 @@ debug/pausemenu.o: ../cookie_defender/pausemenu.cpp ../cookie_defender/pausemenu
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/QKeyEvent \
 		../cookie_defender/soundboxes.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qboxlayout.h \

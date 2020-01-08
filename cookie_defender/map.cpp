@@ -34,6 +34,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     connect(timerWave,&QTimer::timeout,this,&Map::waveMonster);
     connect(timer,&QTimer::timeout,this,&Map::moveMonster);
     connect(timerSpawn,&QTimer::timeout,this,&Map::spawnMonster);
+    connect(timer,&QTimer:: timeout,this,&Map::gameWin);
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
@@ -344,10 +345,14 @@ void Map::waveMonster()
         qDebug()<<" a ,b : "<<numberA<<", "<<numberB<<endl;
         timerSpawn->start(500);
         waveIndex++;
+
     }
     else{
         //Catching error
         qDebug()<<"je n'arrive pas a rentrer dans le fichier"<<endl;
+    }
+    if(waveCode=="" || waveCode=="\n"){
+        hasWave=true;
     }
 
 }
@@ -377,11 +382,24 @@ void Map::gameOver()
     QMessageBox::information(this,"GAME OVER","GAME OVER !!!");
     emit gameEnd();
 }
+void Map::gameWin()
+{
+    if(vectMonster.isEmpty()&& hasWave){
+        timer->stop();
+        timerWave->stop();
+        timerTower->stop();
+        vectMonster.clear();
+        QMessageBox::information(this,"Congratulations","You win the Cookie's War\n Sevenans Thank You for your Epic battle !");
+        emit gameEnd();
+    }
+
+}
 
 void Map::pauseMenu()
 {
     timer->stop();
     timerWave->stop();
+    timerSpawn->stop();
     emit pauseFunction();
 }
 

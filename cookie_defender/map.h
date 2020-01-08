@@ -27,6 +27,7 @@ public:
 public slots :
     void gameOver();
     void waveMonster();
+    void gameWin();
 private slots:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
@@ -59,7 +60,7 @@ private :
     int height;
     int waveIndex=1;
     bool statement=true;
-
+    bool hasWave=false;
     //if there's other type of monster just add another numberX
     int numberA=0;
     int spawnCountA=0;
@@ -75,7 +76,6 @@ private :
     void hideUpgradeSell();
     QPointF findPos(int indexTower);
     bool isEmpty(QPointF point);
-    bool isWin();
 
 signals:
    void pauseFunction();
