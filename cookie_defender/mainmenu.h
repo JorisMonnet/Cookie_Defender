@@ -12,6 +12,7 @@ public:
     QPushButton *options;
     QPushButton *encyclo;
     QPushButton *play;
+    QPushButton *story;
 };
 
 #endif // MAINMENU_H

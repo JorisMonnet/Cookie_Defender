@@ -9,6 +9,7 @@ MainMenu::MainMenu(QWidget *parent)
     play = new QPushButton(tr("Play"));
     encyclo = new QPushButton(tr("Encyclopedia"));
     options = new QPushButton(tr("Options"));
+    story = new QPushButton(tr("The Cookie Story..."));
 
     SoundBoxes *sounds = new SoundBoxes(this);
 
@@ -20,6 +21,9 @@ MainMenu::MainMenu(QWidget *parent)
     vLay->addWidget(encyclo);
     vLay->addWidget(options);
     vLay->addWidget(sounds);
+    vLay->addWidget(story);
+    vLay->addStretch();
+    //add a picture of cookie defender
     vLay->addWidget(exit);
     vLay->addStretch();
 
