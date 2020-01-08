@@ -297,6 +297,7 @@ void Map::spawnMonster()
             scene->addItem(vectMonster.last());
             spawnCountB++;
         }
+        timerSpawn->start(500);
     }
     statement=!statement;
 }
@@ -379,7 +380,7 @@ void Map::gameOver()
     timerWave->stop();
     timerTower->stop();
     vectMonster.clear();
-    QMessageBox::information(this,"GAME OVER","GAME OVER !!!");
+    QMessageBox::information(this,"GAME OVER","GAME OVER !!");
     emit gameEnd();
 }
 void Map::gameWin()
@@ -389,7 +390,7 @@ void Map::gameWin()
         timerWave->stop();
         timerTower->stop();
         vectMonster.clear();
-        QMessageBox::information(this,"Congratulations","You win the Cookie's War\n Sevenans Thank You for your Epic battle !");
+        QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thank You for your Epic battle !");
         emit gameEnd();
     }
 
@@ -399,6 +400,7 @@ void Map::pauseMenu()
 {
     timer->stop();
     timerWave->stop();
+    remaingTimeSpawn=timerSpawn->remainingTime();
     timerSpawn->stop();
     emit pauseFunction();
 }

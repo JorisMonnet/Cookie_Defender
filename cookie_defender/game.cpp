@@ -100,6 +100,7 @@ void Game::resume()
     currentMap->timer->start(15);
     currentMap->timerWave->start(15000);
     currentMap->timerTower->start(1000);
+    currentMap->timerSpawn->start(currentMap->remaingTimeSpawn);
 }
 
 void Game::menu()
