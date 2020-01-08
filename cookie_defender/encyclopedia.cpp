@@ -12,7 +12,7 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     mageTower->set(1);
     Tower *classicTower = new Tower();
 
-    Monster *monster = new Monster();
+    Monster *monster = new Monster('A');
 
     QGridLayout * grid = new QGridLayout(this);
 

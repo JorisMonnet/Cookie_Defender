@@ -1,9 +1,21 @@
 #include "monster.h"
 #include "math.h"
 
-Monster::Monster() : QGraphicsPixmapItem()
+Monster::Monster(char x) : QGraphicsPixmapItem()
 {
-    setPixmap(QPixmap("../icones/rogue.png").scaled(size,size));
+    switch(x)
+    {
+        case 'A':
+        setPixmap(QPixmap("../icones/rogue.png").scaled(size,size));
+            break;
+        case 'B':
+        setPixmap(QPixmap("../icones/troll.png").scaled(size,size));
+        this->reward*=2;
+        this->velocity/=2;
+        this->dammage*=2;
+            break;
+    }
+
 }
 
 void Monster::move(QVector<QPointF>path)

@@ -58,9 +58,13 @@ private :
     int width;
     int height;
     int waveIndex=1;
-    int spawnCount=0;
+    bool statement=true;
+
     //if there's other type of monster just add another numberX
     int numberA=0;
+    int spawnCountA=0;
+    int numberB=0;
+    int spawnCountB=0;
     QString waveCode;
     const int iconSize = 50;
     void createClickableItem(double x,double y,int width,int height);
@@ -71,6 +75,7 @@ private :
     void hideUpgradeSell();
     QPointF findPos(int indexTower);
     bool isEmpty(QPointF point);
+    bool isWin();
 
 signals:
    void pauseFunction();

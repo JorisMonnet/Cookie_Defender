@@ -246,6 +246,7 @@ void Map::aliveMonster()
             vectMonster.remove(vectMonster.indexOf(monster)); //TOFIX bug when a monster is killed
             delete monster;
             mapUpdate();
+            //test if win !
         }
 }
 
@@ -274,16 +275,29 @@ void Map::moveMonster()
 void Map::spawnMonster()
 {
 
-    if(numberA<=spawnCount){
+    if(numberA<=spawnCountA && numberB<=spawnCountB){
         timerSpawn->stop();
-        spawnCount=0;
+        spawnCountA=0;
+        spawnCountB=0;
+        numberA=0;
+        numberB=0;
     }
     else{
-        vectMonster.append(new Monster());
-        vectMonster.last()->setPos(path.first().toPoint());
-        scene->addItem(vectMonster.last());
-        spawnCount++;
+        if(statement && spawnCountA<numberA){
+            vectMonster.append(new Monster('A'));
+            vectMonster.last()->setPos(path.first().toPoint());
+            scene->addItem(vectMonster.last());
+            spawnCountA++;
+
+        }
+        if(!statement && spawnCountB<numberB){
+            vectMonster.append(new Monster('B'));
+            vectMonster.last()->setPos(path.first().toPoint());
+            scene->addItem(vectMonster.last());
+            spawnCountB++;
+        }
     }
+    statement=!statement;
 }
 
 //called each waveTimer => timeout()
@@ -311,12 +325,23 @@ void Map::waveMonster()
         QString string;
         for(int i=0;i<waveCode.size();i++){
             if(waveCode.at(i)=='A'){
-                for(int j=i+1;j<waveCode.size();j++){
-                    string.append(waveCode.at(j));
+                for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='B';j++){
+                    if(waveCode.at(j).isDigit())
+                        string.append(waveCode.at(j));
                 }
                 numberA=string.toInt();
             }
+            string.clear();
+
+            if(waveCode.at(i)=='B'){
+                for(int j=i+1;j<waveCode.size();j++){
+                    if(waveCode.at(j).isDigit())
+                        string.append(waveCode.at(j));
+                }
+                numberB=string.toInt();
+            }
         }
+        qDebug()<<" a ,b : "<<numberA<<", "<<numberB<<endl;
         timerSpawn->start(500);
         waveIndex++;
     }
@@ -324,9 +349,7 @@ void Map::waveMonster()
         //Catching error
         qDebug()<<"je n'arrive pas a rentrer dans le fichier"<<endl;
     }
-    if(waveCode=="" || waveCode=="\n"){
-        //you win the game.
-    }
+
 }
 
 void Map::attackMonster(Monster * monster)
