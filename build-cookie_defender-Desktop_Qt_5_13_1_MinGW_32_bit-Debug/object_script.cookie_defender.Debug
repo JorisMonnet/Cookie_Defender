@@ -9,6 +9,7 @@ debug/monster.o
 debug/pausemenu.o
 debug/projectile.o
 debug/soundboxes.o
+debug/story.o
 debug/tower.o
 debug/moc_difficultymenu.o
 debug/moc_encyclopedia.o
@@ -17,3 +18,4 @@ debug/moc_map.o
 debug/moc_mapmenu.o
 debug/moc_pausemenu.o
 debug/moc_soundboxes.o
+debug/moc_story.o

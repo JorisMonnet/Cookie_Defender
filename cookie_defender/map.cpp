@@ -314,7 +314,7 @@ void Map::waveMonster()
     timerSpawn->setInterval(k-(k/2));
     */
 
-    QFile file(QString("../wave/wave.txt"));
+    QFile file(QString("../wave/wave1.txt"));
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream flow(&file);

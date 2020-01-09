@@ -27,6 +27,7 @@ SOURCES += \
     pausemenu.cpp \
     projectile.cpp \
     soundboxes.cpp \
+    story.cpp \
     tower.cpp
 
 HEADERS += \
@@ -40,6 +41,7 @@ HEADERS += \
     pausemenu.h \
     projectile.h \
     soundboxes.h \
+    story.h \
     tower.h
 
 # Default rules for deployment.

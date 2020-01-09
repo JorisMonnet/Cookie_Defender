@@ -23,6 +23,7 @@ void Game::setGame()
     mapMenu = new MapMenu();
     difficultyMenu = new DifficultyMenu();
     encyclopedia = new Encyclopedia();
+    story= new Story();
     stackedWidget = new QStackedWidget();
     stackedWidget->addWidget(mainMenu);
     stackedWidget->addWidget(currentMap);
@@ -30,6 +31,7 @@ void Game::setGame()
     stackedWidget->addWidget(encyclopedia);
     stackedWidget->addWidget(mapMenu);
     stackedWidget->addWidget(difficultyMenu);
+    stackedWidget->addWidget(story);
     setCentralWidget(stackedWidget);
 
     QPalette pal = palette();
@@ -46,6 +48,8 @@ void Game::setGame()
     connect(pauseMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
     connect(pauseMenu->exit,&QPushButton::clicked,currentMap,&Map::gameOver);
     connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
+    connect(mainMenu->story,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(story);});
+    connect(story,&Story::finishStory,this,[=]{stackedWidget->setCurrentWidget(mainMenu);});
     //connect(mainMenu->options,&QPushButton::clicked,this,&Game::?);
     connect(mainMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
     connect(encyclopedia,&Encyclopedia::finishEncyclo,this,[=]{stackedWidget->setCurrentIndex(lastIndex);});

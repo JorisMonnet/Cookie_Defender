@@ -7,6 +7,7 @@
 #include "mainmenu.h"
 #include "mapmenu.h"
 #include "map.h"
+#include "story.h"
 #include "difficultymenu.h"
 #include "encyclopedia.h"
 
@@ -30,6 +31,7 @@ private:
     QStackedWidget *stackedWidget;
     Encyclopedia *encyclopedia;
     Map *currentMap;
+    Story *story;
     int indexMap;
     int lastIndex=0;
     int difficulty=0;
