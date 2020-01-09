@@ -6,11 +6,11 @@
 
 DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
 {
-    QPushButton *easy = new QPushButton(tr("Easy"));
-    QPushButton *medium = new QPushButton(tr("Medium"));
-    QPushButton *hard = new QPushButton(tr("Hard"));
-    QPushButton *infinite = new QPushButton(tr("Infinite"));
-    QPushButton *exit = new QPushButton(tr("Exit"));
+    QPushButton *easy = new QPushButton(tr("E&asy"));
+    QPushButton *medium = new QPushButton(tr("&Medium"));
+    QPushButton *hard = new QPushButton(tr("&Hard"));
+    QPushButton *infinite = new QPushButton(tr("&Infinite"));
+    QPushButton *exit = new QPushButton(tr("&Exit"));
 
     QButtonGroup * group = new QButtonGroup(this);
     group->addButton(easy);

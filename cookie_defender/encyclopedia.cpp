@@ -40,7 +40,7 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     monsterText->setText(QString(tr("Monster 1 \nDamage : %1\nVelocity : %2\nHealth : %3")).arg(monster->dammage).arg(monster->velocity).arg(monster->hp));
     grid->addWidget(monsterText,2,6);
 
-    QPushButton *exit = new QPushButton(tr("exit"));
+    QPushButton *exit = new QPushButton(tr("&Exit"));
     connect(exit,&QPushButton::clicked,this,[=]{emit finishEncyclo();});
     grid->addWidget(exit,6,2);
     //to do create label with tower and monsters attributes

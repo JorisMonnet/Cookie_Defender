@@ -7,10 +7,10 @@
 MainMenu::MainMenu(QWidget *parent)
     : QWidget(parent)
 {
-    play = new QPushButton(tr("Play"));
-    encyclo = new QPushButton(tr("Encyclopedia"));
-    options = new QPushButton(tr("Options"));
-    story = new QPushButton(tr("The Cookie Story..."));
+    play = new QPushButton(tr("&Play"));
+    encyclo = new QPushButton(tr("&Encyclopedia"));
+    options = new QPushButton(tr("&Options"));
+    story = new QPushButton(tr("The Cookie &Story"));
 
     SoundBoxes *sounds = new SoundBoxes(this);
 

@@ -10,9 +10,9 @@ MapMenu::MapMenu(QWidget *parent): QWidget(parent)
     QHBoxLayout * mainLay = new QHBoxLayout(this);
     QButtonGroup * mapGroup = new QButtonGroup();
 
-    map1 = new QPushButton(tr("Map Grass"));
-    map2 = new QPushButton(tr("Map Sand"));
-    exit = new QPushButton(tr("Exit"));
+    map1 = new QPushButton(tr("Map &Grass"));
+    map2 = new QPushButton(tr("Map &Sand"));
+    exit = new QPushButton(tr("&Exit"));
 
 
     mapGroup->addButton(map1);
