@@ -2,6 +2,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QButtonGroup>
+#include <QLabel>
 
 MapMenu::MapMenu(QWidget *parent): QWidget(parent)
 {
@@ -12,6 +13,7 @@ MapMenu::MapMenu(QWidget *parent): QWidget(parent)
     map1 = new QPushButton(tr("Map Grass"));
     map2 = new QPushButton(tr("Map Sand"));
     exit = new QPushButton(tr("Exit"));
+
 
     mapGroup->addButton(map1);
     mapGroup->setId(map1,1);

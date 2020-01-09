@@ -1,5 +1,6 @@
 #include "mainmenu.h"
 #include "soundboxes.h"
+#include <QLabel>
 
 #include <QVBoxLayout>
 
@@ -14,6 +15,9 @@ MainMenu::MainMenu(QWidget *parent)
     SoundBoxes *sounds = new SoundBoxes(this);
 
     QPushButton *exit = new QPushButton(tr("Exit game"));
+    QPixmap pix("../icones/logo2.png");
+    QLabel *lab=new QLabel();
+    lab->setPixmap(pix.scaled(2*this->width()/3,2*this->height()/3,Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation));
 
     QVBoxLayout *vLay = new QVBoxLayout;
     vLay->addStretch();
@@ -22,9 +26,8 @@ MainMenu::MainMenu(QWidget *parent)
     vLay->addWidget(options);
     vLay->addWidget(sounds);
     vLay->addWidget(story);
-    vLay->addStretch();
-    //add a picture of cookie defender
     vLay->addWidget(exit);
+    vLay->addWidget(lab);
     vLay->addStretch();
 
     QHBoxLayout *mainLayout = new QHBoxLayout(this);
