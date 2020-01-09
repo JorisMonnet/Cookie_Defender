@@ -14,7 +14,8 @@ MapMenu::MapMenu(QWidget *parent): QWidget(parent)
     map2 = new QPushButton(tr("Map &Sand"));
     exit = new QPushButton(tr("&Exit"));
 
-
+    QPixmap *grass=new QPixmap("../icones/miniaGrass.png");
+    QPixmap *sand=new QPixmap("../icones/miniaSand.png");
     mapGroup->addButton(map1);
     mapGroup->setId(map1,1);
     mapGroup->addButton(map2);
