@@ -322,7 +322,9 @@ void Map::waveMonster()
         for(int i=0;i<this->waveIndex;i++)
         {
             waveCode=flow.readLine();
+
         }
+        qDebug()<<waveCode<<endl;
         file.close();
         QString string;
         for(int i=0;i<waveCode.size();i++){
@@ -331,7 +333,7 @@ void Map::waveMonster()
                     if(waveCode.at(j).isDigit())
                         string.append(waveCode.at(j));
                 }
-                numberA=string.toInt();
+                numberA+=string.toInt();
             }
             string.clear();
 
@@ -340,10 +342,12 @@ void Map::waveMonster()
                     if(waveCode.at(j).isDigit())
                         string.append(waveCode.at(j));
                 }
-                numberB=string.toInt();
+                numberB+=string.toInt();
             }
         }
+
         qDebug()<<" a ,b : "<<numberA<<", "<<numberB<<endl;
+        qDebug()<<"spawn count  a ,b : "<<spawnCountA<<", "<<spawnCountB<<endl;
         timerSpawn->start(500);
         waveIndex++;
 
@@ -356,6 +360,8 @@ void Map::waveMonster()
         hasWave=true;
     }
 
+    timerWave->setInterval(15000);
+    waveCode.clear();
 }
 
 void Map::attackMonster(Monster * monster)
@@ -409,6 +415,7 @@ void Map::gameWin()
 void Map::pauseMenu()
 {
     timer->stop();
+    remaingTimeWave=timerWave->remainingTime();
     timerWave->stop();
     remaingTimeSpawn=timerSpawn->remainingTime();
     timerSpawn->stop();

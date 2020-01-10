@@ -25,6 +25,7 @@ public:
     QTimer *timerAmmo;
     int money;
     int remaingTimeSpawn=0;
+    int remaingTimeWave=0;
 public slots :
     void gameOver();
     void waveMonster();

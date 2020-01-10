@@ -100,10 +100,9 @@ void Game::startMap(int difficulty)
 
 void Game::resume()
 {
-    currentMap->waveMonster();
     stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
-    currentMap->timerWave->start(15000);
+    currentMap->timerWave->start(currentMap->remaingTimeWave);
     currentMap->timerTower->start(1000);
     currentMap->timerSpawn->start(currentMap->remaingTimeSpawn);
 }
