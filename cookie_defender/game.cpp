@@ -41,19 +41,22 @@ void Game::setGame()
 
     connect(currentMap,&Map::pauseFunction,this,&Game::pause);
     connect(currentMap,&Map::gameEnd,this,&Game::menu);
-    connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
-    connect(difficultyMenu,&DifficultyMenu::difficultySignal,this,&Game::startMap);
+    connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,&Game::menu);
+    connect(difficultyMenu,&DifficultyMenu::difficultySignal,this,[=](int arg){
+        difficulty=arg;
+        stackedWidget->setCurrentWidget(mapMenu);
+    });
     connect(pauseMenu->resume,&QPushButton::clicked,this,&Game::resume);
     connect(pauseMenu->restart,&QPushButton::clicked,this,[=]{chooseMap(indexMap);});
     connect(pauseMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
     connect(pauseMenu->exit,&QPushButton::clicked,currentMap,&Map::gameOver);
-    connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(mapMenu);});
+    connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(difficultyMenu);});
     connect(mainMenu->story,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(story);});
     connect(story,&Story::finishStory,this,[=]{stackedWidget->setCurrentWidget(mainMenu);});
     //connect(mainMenu->options,&QPushButton::clicked,this,&Game::?);
     connect(mainMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
     connect(encyclopedia,&Encyclopedia::finishEncyclo,this,[=]{stackedWidget->setCurrentIndex(lastIndex);});
-    connect(mapMenu,&MapMenu::exitMapMenu,this,&Game::menu);
+    connect(mapMenu,&MapMenu::exitMapMenu,this,[=]{stackedWidget->setCurrentWidget(difficultyMenu);});
     connect(mapMenu,&MapMenu::mapChosen,this,&Game::chooseMap);
 }
 void Game::chooseMap(int indexMap)
@@ -83,17 +86,17 @@ void Game::chooseMap(int indexMap)
         }
         file.close();
         delete currentMap;
-        currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background,window()->width(),window()->height());
-        stackedWidget->setCurrentWidget(difficultyMenu);
+        currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background,window()->width(),window()->height(),difficulty);
+        stackedWidget->addWidget(currentMap);
+        startMap();
     }
     else{
         //implements if the map doesn't exist
     }
 }
 
-void Game::startMap(int difficulty)
+void Game::startMap()
 {
-    this->difficulty=difficulty;
     setGame();
     resume();
 }
