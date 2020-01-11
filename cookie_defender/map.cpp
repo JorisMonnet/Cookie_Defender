@@ -283,15 +283,11 @@ int waveCodeTest(int i,QString waveCode,char x)
 void Map::spawnMonster()
 {
     if(difficulty==0){
-        if(infiniteSpawn++%2==1){
+        if(infiniteSpawn%2==1)
             addMonster('A');
-            qDebug()<<"je fais spawn A"<<endl;
-    }
-        else if(infiniteSpawn++%3==2){
+        else if(infiniteSpawn%3==2)
             addMonster('B');
-            qDebug()<<"je fais spawn A"<<endl;
-    }
-        qDebug()<<"je sort de spawn"<<endl;
+        infiniteSpawn++;
     }
     else{
         if(numberA<=spawnCountA && numberB<=spawnCountB){
@@ -318,7 +314,6 @@ void Map::waveMonster()
     if(difficulty==0){
         timerSpawn->start(countTimeInf);
         countTimeInf=countTimeInf-countTimeInf/50;
-        qDebug()<<"je le timerSpawn : "<<countTimeInf<<endl;
     }
     else{
         QFile file(QString("../wave/wave%1.txt").arg(difficulty));
