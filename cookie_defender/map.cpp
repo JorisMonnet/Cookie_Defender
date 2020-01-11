@@ -219,10 +219,8 @@ void Map::towerDetect()
                     if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                         monsterToKill=vectMonster.indexOf(monster);
 
-                if(t[i].hasTarget(vectMonster.at(monsterToKill))){
+                if(t[i].hasTarget(vectMonster.at(monsterToKill)))
                     Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
-                    qDebug()<<1;
-                }
         }
 }
 
@@ -375,22 +373,16 @@ void Map::gameOver()
 void Map::gameWin()
 {
     if(vectMonster.isEmpty()&& hasWave){
+        QString string;
         timer->stop();
         timerWave->stop();
         timerTower->stop();
         vectMonster.clear();
-        if(health<=(stackHealth/3)){
-            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
-                                                    "\ngame star: >|< ");
-        }
-        else if(health<=(2*stackHealth/3) && health>stackHealth/3){
-            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
-                                                   "\ngame stars : >|< >|< ");
-        }
-        else if(health>(2*stackHealth/3)){
-            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
-                                                    "\ngame stars : >|< >|< >|< ");
-        }
+        for(int i=0;i<3;i++)
+            if(health>i*stackHealth/3)
+                string.append(">|< ");
+        QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+                                                "\ngame star: "+string);
         emit gameEnd();
     }
 }

@@ -24,5 +24,4 @@ void Projectile::move()
     }
     else
         delete this;
-
 }
