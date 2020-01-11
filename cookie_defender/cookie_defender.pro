@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     difficultymenu.cpp \
     encyclopedia.cpp \
+    encyclowidg.cpp \
     game.cpp \
     main.cpp \
     mainmenu.cpp \
@@ -33,6 +34,7 @@ SOURCES += \
 HEADERS += \
     difficultymenu.h \
     encyclopedia.h \
+    encyclowidg.h \
     game.h \
     mainmenu.h \
     map.h \
@@ -48,3 +50,6 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+FORMS += \
+    formEncyclo.ui

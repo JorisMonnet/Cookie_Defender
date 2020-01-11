@@ -2,6 +2,7 @@
 #define ENCYCLOPEDIA_H
 
 #include <QWidget>
+#include "ui_formEncyclo.h"
 
 class Encyclopedia : public QWidget
 {
