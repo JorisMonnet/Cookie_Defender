@@ -12,11 +12,12 @@ public:
 private :
      QString getSpecs(int index,bool testBool);
      QPixmap getPix(int index,bool testBool);
+     int howManyFiles(QString fold);
      int indexMonster=0;
      int indexTower=0;
      bool testBool;
-     const int number_monster=2;
-     const int number_tower=2;
+     int number_monster;
+     int number_tower;
 
 public slots:
 private slots :
