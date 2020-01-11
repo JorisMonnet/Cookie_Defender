@@ -26,6 +26,8 @@ public:
     int money;
     int remaingTimeSpawn=0;
     int remaingTimeWave=0;
+    int difficulty;
+    int countTimeInf = 1020;
 public slots :
     void gameOver();
     void waveMonster();
@@ -56,13 +58,13 @@ private :
     QPoint *towerPositions;
     Tower *t;
     int indexTower=0;
-    int health=20;
-    const int stackHealth=20;
+    int health=200;
+    int stackHealth;
     int towerNumber;
     int width;
     int height;
     int infiniteSpawn=1;
-    int difficulty;
+    bool hasBeen=true;
     int waveIndex=1;
     bool statement=true;
     bool hasWave=false;

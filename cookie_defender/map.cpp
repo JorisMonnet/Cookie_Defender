@@ -14,6 +14,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
          int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource,int difficultySource)
     : QGraphicsView(parent)
 {
+    stackHealth=health;
     difficulty=difficultySource;
     width = widthSource;
     height = heightSource;
@@ -210,29 +211,29 @@ void Map::createTower(int i,int type)
 
 void Map::towerDetect()
 {
-    for(int i=0;i<towerNumber;i++)
-        if(t[i].isPlaced(scene)){
-            int monsterToKill=0;
-            for(Monster *monster : vectMonster)
-                if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
-                    monsterToKill=vectMonster.indexOf(monster);
+    if(!vectMonster.isEmpty())
+        for(int i=0;i<towerNumber;i++)
+            if(t[i].isPlaced(scene)){
+                int monsterToKill=0;
+                for(Monster *monster : vectMonster)
+                    if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
+                        monsterToKill=vectMonster.indexOf(monster);
 
-            qDebug()<<monsterToKill;
-            if(t[i].hasTarget(vectMonster.at(monsterToKill))&&monsterToKill<=vectMonster.size())
-                Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
+                if(t[i].hasTarget(vectMonster.at(monsterToKill)))
+                    Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
         }
 }
 
 void Map::aliveMonster()
 {
-    for(Monster *monster : vectMonster)
-        if(monster->hp<=0){
-            money+=monster->reward;
-            vectMonster.removeAll(monster); //TOFIX bug when a monster is killed
-            delete monster;
-            mapUpdate();
-            //test if win !
-        }
+    if(!vectMonster.isEmpty())
+        for(Monster *monster : vectMonster)
+            if(monster->hp<=0){
+                money+=monster->reward;
+                vectMonster.removeAll(monster); //TOFIX bug when a monster is killed
+                delete monster;
+                mapUpdate();
+            }
 }
 
 void Map::createClickableItem(double x,double y,int width,int height)
@@ -250,11 +251,33 @@ void Map::showPlace(int i)
 
 void Map::moveMonster()
 {
-    for(Monster * monster : vectMonster){
-        monster->move(path);
-        if(monster->pos() == path.last().toPoint())
-            attackMonster(monster);
+    if(!vectMonster.isEmpty())
+        for(Monster * monster : vectMonster){
+            monster->move(path);
+            if(monster->pos() == path.last().toPoint())
+                attackMonster(monster);
+        }
+}
+
+void Map::addMonster(char x)
+{
+    vectMonster.append(new Monster(x));
+    vectMonster.last()->setPos(path.first().toPoint());
+    scene->addItem(vectMonster.last());
+
+}
+
+int waveCodeTest(int i,QString waveCode,char x)
+{
+    QString string;
+    if(waveCode.at(i)==x){
+        for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='A' && waveCode.at(j)!='B';j++){
+            if(waveCode.at(j).isDigit())
+                string.append(waveCode.at(j));
+        }
+        return string.toInt();
     }
+    return 0;
 }
 
 void Map::spawnMonster()
@@ -262,12 +285,13 @@ void Map::spawnMonster()
     if(difficulty==0){
         if(infiniteSpawn%2==1){
             addMonster('A');
-            infiniteSpawn++;
+            qDebug()<<"je fais spawn A"<<endl;
         }
-        if(infiniteSpawn%5==1){
+        else if(infiniteSpawn++%3==2){
             addMonster('B');
-            infiniteSpawn++;
+            qDebug()<<"je fais spawn A"<<endl;
         }
+        qDebug()<<"je sort de spawn"<<endl;
     }
     else{
         if(numberA<=spawnCountA && numberB<=spawnCountB){
@@ -287,25 +311,15 @@ void Map::spawnMonster()
         statement=!statement;
     }
 }
-void Map::addMonster(char c)
-{
-    vectMonster.append(new Monster(c));
-    vectMonster.last()->setPos(path.first().toPoint());
-    scene->addItem(vectMonster.last());
-}
 //called each waveTimer => timeout()
 //use to get the right waveCode to the current waveIndex
 void Map::waveMonster()
 {
-    /*
-     *infinte wave system with difficulty auto increasing
-     * but need a continuous spawn of monster.
-     **/
     if(difficulty==0){
-        int k=timerSpawn->interval();
-        k=k-k/10;
-        timerSpawn->setInterval(k);
-        }
+        timerSpawn->start(countTimeInf);
+        countTimeInf=countTimeInf-countTimeInf/50;
+        qDebug()<<"je le timerSpawn : "<<countTimeInf<<endl;
+    }
     else{
         QFile file(QString("../wave/wave%1.txt").arg(difficulty));
         if(file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -318,34 +332,22 @@ void Map::waveMonster()
             file.close();
             QString string;
             for(int i=0;i<waveCode.size();i++){
-                if(waveCode.at(i)=='A'){
-                    for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='B';j++){
-                        if(waveCode.at(j).isDigit())
-                            string.append(waveCode.at(j));
-                    }
-                    numberA+=string.toInt();
-                }
-                string.clear();
-                if(waveCode.at(i)=='B'){
-                    for(int j=i+1;j<waveCode.size();j++){
-                        if(waveCode.at(j).isDigit())
-                            string.append(waveCode.at(j));
-                    }
-                    numberB+=string.toInt();
-                }
+                 numberA+=waveCodeTest(i,waveCode,'A');
+                 numberB+=waveCodeTest(i,waveCode,'B');
             }
             timerSpawn->start(500);
             waveIndex++;
         }
         else{
             //Catching error
-            qDebug()<<"je n'arrive pas a rentrer dans le fichier"<<endl;
+            qDebug()<<"Can't find file"<<endl;
+            emit gameWin();
         }
         if(waveCode=="" || waveCode=="\n")
             hasWave=true;
-        timerWave->setInterval(15000);
         waveCode.clear();
     }
+    timerWave->setInterval(15000);
 }
 
 void Map::attackMonster(Monster * monster)
