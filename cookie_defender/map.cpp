@@ -26,7 +26,6 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     timer = new QTimer(this);
     timerTower = new QTimer(this);
     timerWave = new QTimer(this);
-    timerAmmo = new QTimer(this);
     timerSpawn=new QTimer(this);
 
     connect(timerTower,&QTimer::timeout,this,&Map::towerDetect);
@@ -216,26 +215,8 @@ void Map::towerDetect()
                 if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                     monsterToKill=vectMonster.indexOf(monster);
 
-            if(t[i].hasTarget(vectMonster.at(monsterToKill))){
-                Projectile *ammo = new Projectile(t[i].type);
-                ammo->setPos(t[i].x()+50,t[i].y()+50);
-                scene->addItem(ammo);
-                timerAmmo->stop();
-                double dx = vectMonster.at(monsterToKill)->x();
-                double dy = vectMonster.at(monsterToKill)->y();
-                connect(timerAmmo, &QTimer::timeout, [=](){
-                    if(ammo->x()<dx)
-                        ammo->moveBy(dx/ammo->VELOCITY,0);
-                    if(ammo->y()<dy)
-                        ammo->moveBy(0,dy/ammo->VELOCITY);
-                    else{
-                        timerAmmo->stop();
-                        scene->removeItem(ammo);
-                        t[i].shotTower(vectMonster.at(monsterToKill));
-                     }
-                });
-                timerAmmo->start(/*ammo->VELOCITY*10*/500);
-            }
+            if(t[i].hasTarget(vectMonster.at(monsterToKill)))
+                Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
         }
 }
 
@@ -244,7 +225,7 @@ void Map::aliveMonster()
     for(Monster *monster : vectMonster)
         if(monster->hp<=0){
             money+=monster->reward;
-            vectMonster.remove(vectMonster.indexOf(monster)); //TOFIX bug when a monster is killed
+            vectMonster.removeAll(monster); //TOFIX bug when a monster is killed
             delete monster;
             mapUpdate();
             //test if win !

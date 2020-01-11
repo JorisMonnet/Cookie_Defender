@@ -22,7 +22,6 @@ public:
     QTimer *timerTower;
     QTimer *timerWave;
     QTimer *timerSpawn;
-    QTimer *timerAmmo;
     int money;
     int remaingTimeSpawn=0;
     int remaingTimeWave=0;
