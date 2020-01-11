@@ -24,12 +24,10 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     towerPositions = towerPositionsSource;
     towerPlacement = new QGraphicsRectItem[towerNumber];
     t = new Tower[towerNumber];
-    stackHealth=health;
 
     timer = new QTimer(this);
     timerTower = new QTimer(this);
     timerWave = new QTimer(this);
-    timerAmmo = new QTimer(this);
     timerSpawn=new QTimer(this);
 
     connect(timerTower,&QTimer::timeout,this,&Map::towerDetect);
@@ -85,8 +83,6 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     }
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
-    if(difficulty==0)
-        timerSpawn->start(1000);
 }
 
 void Map::mousePressEvent(QMouseEvent *event)
@@ -221,26 +217,8 @@ void Map::towerDetect()
                 if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                     monsterToKill=vectMonster.indexOf(monster);
 
-            if(t[i].hasTarget(vectMonster.at(monsterToKill))){
-                Projectile *ammo = new Projectile(t[i].type);
-                ammo->setPos(t[i].x()+50,t[i].y()+50);
-                scene->addItem(ammo);
-                timerAmmo->stop();
-                double dx = vectMonster.at(monsterToKill)->x();
-                double dy = vectMonster.at(monsterToKill)->y();
-                connect(timerAmmo, &QTimer::timeout, [=](){
-                    if(ammo->x()<dx)
-                        ammo->moveBy(dx/ammo->VELOCITY,0);
-                    if(ammo->y()<dy)
-                        ammo->moveBy(0,dy/ammo->VELOCITY);
-                    else{
-                        timerAmmo->stop();
-                        scene->removeItem(ammo);
-                        t[i].shotTower(vectMonster.at(monsterToKill));
-                     }
-                });
-                timerAmmo->start(/*ammo->VELOCITY*10*/500);
-            }
+            if(t[i].hasTarget(vectMonster.at(monsterToKill)))
+                Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
         }
 }
 
@@ -249,7 +227,7 @@ void Map::aliveMonster()
     for(Monster *monster : vectMonster)
         if(monster->hp<=0){
             money+=monster->reward;
-            vectMonster.remove(vectMonster.indexOf(monster)); //TOFIX bug when a monster is killed
+            vectMonster.removeAll(monster); //TOFIX bug when a monster is killed
             delete monster;
             mapUpdate();
             //test if win !
@@ -281,19 +259,14 @@ void Map::moveMonster()
 void Map::spawnMonster()
 {
     if(difficulty==0){
-        if(infiniteSpawn%2==1 || infiniteSpawn%5==1){
-            vectMonster.append(new Monster('A'));
-            vectMonster.last()->setPos(path.first().toPoint());
-            scene->addItem(vectMonster.last());
-            infiniteSpawn++;
+        if(infiniteSpawn++%2==1){
+            addMonster('A');
+            //infiniteSpawn++;
         }
-        else{
-            vectMonster.append(new Monster('B'));
-            vectMonster.last()->setPos(path.first().toPoint());
-            scene->addItem(vectMonster.last());
-            infiniteSpawn++;
+        if(infiniteSpawn++%5==1){
+            addMonster('B');
+            //infiniteSpawn++;
         }
-
     }
     else{
         if(numberA<=spawnCountA && numberB<=spawnCountB){
@@ -304,32 +277,33 @@ void Map::spawnMonster()
             numberB=0;
         }
         else{
-            if(statement && spawnCountA<numberA){
-                vectMonster.append(new Monster('A'));
-                vectMonster.last()->setPos(path.first().toPoint());
-                scene->addItem(vectMonster.last());
-                spawnCountA++;
-            }
-            if(!statement && spawnCountB<numberB){
-                vectMonster.append(new Monster('B'));
-                vectMonster.last()->setPos(path.first().toPoint());
-                scene->addItem(vectMonster.last());
-                spawnCountB++;
-            }
+            if(statement && spawnCountA++<numberA)
+                addMonster('A');
+            else if(!statement && spawnCountB++<numberB)
+                addMonster('B');
             timerSpawn->setInterval(500);
         }
         statement=!statement;
     }
 }
-
+void Map::addMonster(char c)
+{
+    vectMonster.append(new Monster(c));
+    vectMonster.last()->setPos(path.first().toPoint());
+    scene->addItem(vectMonster.last());
+}
 //called each waveTimer => timeout()
 //use to get the right waveCode to the current waveIndex
 void Map::waveMonster()
 {
-  if(difficulty==0){
+    /*
+     *infinte wave system with difficulty auto increasing
+     * but need a continuous spawn of monster.
+     **/
+    if(difficulty==0){
         int k=timerSpawn->interval();
-        k=k-5*k/100;
-        timerSpawn->start(k);
+        k=k-k/10;
+        timerSpawn->setInterval(k);
         }
     else{
         QFile file(QString("../wave/wave%1.txt").arg(difficulty));

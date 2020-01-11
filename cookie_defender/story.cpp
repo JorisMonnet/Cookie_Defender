@@ -9,10 +9,10 @@ Story::Story(QWidget *parent) : QWidget(parent)
     QLabel *lab= new QLabel();
     lab->setTextFormat(Qt::AutoText);
     lab->setText(tr("For thousands of centuries, in the small funny village of Sevenans,\n"
-                    "the Cook family hide and protect the sacred cookie's recipe of aunty Georgia.\n"
+                    "the Cook family hides and protects the sacred cookie's recipe of aunty Georgia.\n"
                     "This cookie is full of flavor and crispy but also with a bit of honey....\n"
                     "Hum this cookie is damn perfect !\n"
-                    "By the past and currently the Cookie's War tear all the Sevenans's scholar on break time.\n\n"
+                    "By the past and currently the Cookie's War tears all the Sevenans's scholar on break time.\n\n"
                     "We need you ! The cookie needs you !\n"
                     "The war never stops ! \n"
                     "Go on soldier ! "));

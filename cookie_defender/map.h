@@ -23,7 +23,6 @@ public:
     QTimer *timerTower;
     QTimer *timerWave;
     QTimer *timerSpawn;
-    QTimer *timerAmmo;
     int money;
     int remaingTimeSpawn=0;
     int remaingTimeWave=0;
@@ -83,6 +82,7 @@ private :
     void hideUpgradeSell();
     QPointF findPos(int indexTower);
     bool isEmpty(QPointF point);
+    void addMonster(char c);
 
 signals:
    void pauseFunction();
