@@ -6,10 +6,10 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     switch(x)
     {
         case 'A':
-        setPixmap(QPixmap("../icones/rogue.png").scaled(size,size));
+        setPixmap(QPixmap("../icones/monster/rogue.png").scaled(size,size));
             break;
         case 'B':
-        setPixmap(QPixmap("../icones/troll.png").scaled(size,size));
+        setPixmap(QPixmap("../icones/monster/troll.png").scaled(size,size));
         reward*=2;
         velocity/=2;
         dammage*=2;

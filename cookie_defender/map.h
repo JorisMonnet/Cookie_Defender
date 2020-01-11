@@ -58,7 +58,7 @@ private :
     QPoint *towerPositions;
     Tower *t;
     int indexTower=0;
-    int health=200;
+    int health=20;
     int stackHealth;
     int towerNumber;
     int width;
