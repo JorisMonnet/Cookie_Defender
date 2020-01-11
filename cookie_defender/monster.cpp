@@ -1,5 +1,6 @@
 #include "monster.h"
 #include "math.h"
+#include <QDebug>
 
 Monster::Monster(char x) : QGraphicsPixmapItem()
 {
@@ -12,31 +13,31 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
         setPixmap(QPixmap("../icones/monster/troll.png").scaled(size,size));
         reward*=2;
         velocity/=2;
-        dammage*=2;
+        damage*=2;
             break;
     }
 
 }
 
-void Monster::move(QVector<QPointF>path)
+void Monster::move(QVector<QPointF>path,int *health)
 {
     for(int i=0;i<=velocity;i++){
-        if(pos()==path.last())
+        if(pos()==path.last()){
+            setPos(path.first().toPoint());
+            pathIndex=0;
+            *health-=damage;
             return;
+        }
         if(x() < path.at(pathIndex).x())
             setX(x()+1);
-        if(x() > path.at(pathIndex).x())
+        else if(x() > path.at(pathIndex).x())
             setX(x()-1);
         if(y() < path.at(pathIndex).y())
             setY(y()+1);
-        if(y() > path.at(pathIndex).y())
+        else if(y() > path.at(pathIndex).y())
             setY(y()-1);
         if(pos() == path.at(pathIndex).toPoint())
             pathIndex++;
-    }
-    if(pos()==path.last()){
-        setPos(path.first().toPoint());
-        pathIndex=0;
     }
 }
 

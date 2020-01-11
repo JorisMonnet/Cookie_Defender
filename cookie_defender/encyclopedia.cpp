@@ -40,7 +40,7 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     grid->addWidget(monsterImage,1,6);
 
     QLabel *monsterText = new QLabel;
-    monsterText->setText(QString(tr("Zombie \nDamage : %1\nVelocity : %2\nHealth : %3")).arg(monster->dammage).arg(monster->velocity).arg(monster->hp));
+    monsterText->setText(QString(tr("Zombie \nDamage : %1\nVelocity : %2\nHealth : %3")).arg(monster->damage).arg(monster->velocity).arg(monster->hp));
     grid->addWidget(monsterText,2,6);
 
     QLabel *monster2Image = new QLabel;
@@ -48,7 +48,7 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     grid->addWidget(monster2Image,1,7);
 
     QLabel *monster2Text = new QLabel;
-    monster2Text->setText(QString(tr("Troll  \nDamage : %1\nVelocity : %2\nHealth : %3")).arg(monster2->dammage).arg(monster2->velocity).arg(monster2->hp));
+    monster2Text->setText(QString(tr("Troll  \nDamage : %1\nVelocity : %2\nHealth : %3")).arg(monster2->damage).arg(monster2->velocity).arg(monster2->hp));
     grid->addWidget(monster2Text,2,7);
 
     classicTowerText->setFont(QFont("Brush Script MT",15));

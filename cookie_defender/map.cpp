@@ -174,7 +174,7 @@ void Map::mouseMoveEvent(QMouseEvent*event)
             statement = false;
             createClickableItem(listIcon[i]->x(),listIcon[i]->y(),iconSize);
             }
-    if(statement)
+    if(statement&&scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
     QGraphicsView::mouseMoveEvent(event);
 }
@@ -188,9 +188,9 @@ void Map::keyPressEvent(QKeyEvent*event)
 
 void Map::createTower(int i,int type)
 {
-    t[i].type=type;
-    t[i].set(1);
     if (money>=t[i].cost){
+        t[i].type=type;
+        t[i].set(1);
         t[i].setPos(towerPositions[i]);
         scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
@@ -241,13 +241,9 @@ void Map::createClickableItem(double x,double y,int size)
 void Map::moveMonster()
 {
     if(!vectMonster.isEmpty())
-        for(Monster * monster : vectMonster){
-            monster->move(path);
-            if(monster->pos() == path.last().toPoint()){
-                health-=monster->dammage;
-                mapUpdate();
-            }
-        }
+        for(Monster * monster : vectMonster)
+            monster->move(path,&health);
+    mapUpdate();
 }
 
 void Map::addMonster(char x)
@@ -408,7 +404,7 @@ QPointF Map::findPos(int i)
     if(left.x()>0&&isEmpty(left))
         return left;
     else
-        return {0,0};  //TOFIX
+        qDebug()<< "erreur position des icones";
 }
 
 bool Map::isEmpty(QPointF point)
