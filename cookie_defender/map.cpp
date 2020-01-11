@@ -51,8 +51,8 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     showedPlace->setPen(QPen(Qt::blue,2));
     upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
     sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
-    classicTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/classictower1.png").scaled(iconSize,iconSize));
-    mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/magetower1.png").scaled(iconSize,iconSize));
+    classicTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/classicTower/classictower1.png").scaled(iconSize,iconSize));
+    mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/mageTower/magetower1.png").scaled(iconSize,iconSize));
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
     pauseIcon->setPos(width-iconSize,0);
@@ -367,7 +367,10 @@ void Map::gameOver()
     timerWave->stop();
     timerTower->stop();
     vectMonster.clear();
-    QMessageBox::information(this,"GAME OVER","GAME OVER !!");
+    if(difficulty==0)
+        QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
+    else
+        QMessageBox::information(this,"GAME OVER","GAME OVER !!");
     emit gameEnd();
 }
 void Map::gameWin()
