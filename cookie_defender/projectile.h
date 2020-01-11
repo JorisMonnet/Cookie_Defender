@@ -12,7 +12,7 @@ class Projectile : public QObject, public QGraphicsPixmapItem
 {
 public:
     Projectile(Tower *t, QGraphicsScene *scene=nullptr,Monster *monsterTargetedSource=nullptr);
-    const int velocity = 5;
+    const int velocity = 6;
     QTimer *timer;
     QLineF line;
     Monster *target;

@@ -219,8 +219,10 @@ void Map::towerDetect()
                     if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                         monsterToKill=vectMonster.indexOf(monster);
 
-                if(t[i].hasTarget(vectMonster.at(monsterToKill)))
+                if(t[i].hasTarget(vectMonster.at(monsterToKill))){
                     Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
+                    qDebug()<<1;
+                }
         }
 }
 
@@ -230,7 +232,7 @@ void Map::aliveMonster()
         for(Monster *monster : vectMonster)
             if(monster->hp<=0){
                 money+=monster->reward;
-                vectMonster.removeAll(monster); //TOFIX bug when a monster is killed
+                vectMonster.removeAll(monster);
                 delete monster;
                 mapUpdate();
             }
