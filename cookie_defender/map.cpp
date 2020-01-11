@@ -259,17 +259,39 @@ void Map::moveMonster()
         }
 }
 
+void Map::addMonster(char x)
+{
+    vectMonster.append(new Monster(x));
+    vectMonster.last()->setPos(path.first().toPoint());
+    scene->addItem(vectMonster.last());
+
+}
+
+int waveCodeTest(int i,QString waveCode,char x)
+{
+    QString string;
+    if(waveCode.at(i)==x){
+        for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='A' && waveCode.at(j)!='B';j++){
+            if(waveCode.at(j).isDigit())
+                string.append(waveCode.at(j));
+        }
+        return string.toInt();
+    }
+    return 0;
+}
+
 void Map::spawnMonster()
 {
     if(difficulty==0){
         if(infiniteSpawn++%2==1){
             addMonster('A');
-            //infiniteSpawn++;
-        }
-        if(infiniteSpawn++%5==1){
+            qDebug()<<"je fais spawn A"<<endl;
+    }
+        else if(infiniteSpawn++%3==2){
             addMonster('B');
-            //infiniteSpawn++;
-        }
+            qDebug()<<"je fais spawn A"<<endl;
+    }
+        qDebug()<<"je sort de spawn"<<endl;
     }
     else{
         if(numberA<=spawnCountA && numberB<=spawnCountB){
@@ -289,40 +311,15 @@ void Map::spawnMonster()
         statement=!statement;
     }
 }
-void Map::addMonster(char x)
-{
-    vectMonster.append(new Monster(x));
-    vectMonster.last()->setPos(path.first().toPoint());
-    scene->addItem(vectMonster.last());
-
-}
-
-int waveCodeTest(int i,QString waveCode,char x)
-{
-    QString string;
-    if(waveCode.at(i)==x){
-        for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='A' && waveCode.at(j)!='B';j++){
-            if(waveCode.at(j).isDigit())
-                string.append(waveCode.at(j));
-        }
-        qDebug()<<"affichage de string : "<<string<<endl;
-        return string.toInt();
-    }
-    return 0;
-}
 //called each waveTimer => timeout()
 //use to get the right waveCode to the current waveIndex
 void Map::waveMonster()
 {
-    /*
-     *infinte wave system with difficulty auto increasing
-     * but need a continuous spawn of monster.
-     **/
     if(difficulty==0){
-        int k=timerSpawn->interval();
-        k=k-k/10;
-        timerSpawn->setInterval(k);
-        }
+        timerSpawn->start(countTimeInf);
+        countTimeInf=countTimeInf-countTimeInf/50;
+        qDebug()<<"je le timerSpawn : "<<countTimeInf<<endl;
+    }
     else{
         QFile file(QString("../wave/wave%1.txt").arg(difficulty));
         if(file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -343,13 +340,14 @@ void Map::waveMonster()
         }
         else{
             //Catching error
-            qDebug()<<"je n'arrive pas a rentrer dans le fichier"<<endl;
+            qDebug()<<"Can't find file"<<endl;
+            emit gameWin();
         }
         if(waveCode=="" || waveCode=="\n")
             hasWave=true;
-        timerWave->setInterval(15000);
         waveCode.clear();
     }
+    timerWave->setInterval(15000);
 }
 
 void Map::attackMonster(Monster * monster)

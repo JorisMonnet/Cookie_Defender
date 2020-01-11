@@ -26,6 +26,8 @@ public:
     int money;
     int remaingTimeSpawn=0;
     int remaingTimeWave=0;
+    int difficulty;
+    int countTimeInf = 1020;
 public slots :
     void gameOver();
     void waveMonster();
@@ -62,7 +64,6 @@ private :
     int width;
     int height;
     int infiniteSpawn=1;
-    int difficulty;
     bool hasBeen=true;
     int waveIndex=1;
     bool statement=true;
