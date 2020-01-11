@@ -9,6 +9,10 @@ class EncycloWidg : public QWidget, public Ui::formEncyclo
     Q_OBJECT
 public:
      EncycloWidg(QWidget *parent = nullptr);
+private :
+     QString getSpecs();
+     QPixmap getPix();
+     int index=0;
 
 public slots:
 private slots :
