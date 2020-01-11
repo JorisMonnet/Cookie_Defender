@@ -64,6 +64,7 @@ private :
     int height;
     int infiniteSpawn=1;
     int difficulty;
+    bool hasBeen=true;
     int waveIndex=1;
     bool statement=true;
     bool hasWave=false;

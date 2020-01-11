@@ -84,6 +84,8 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     }
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
+    if(difficulty==0)
+        timerSpawn->start(1000);
 }
 
 void Map::mousePressEvent(QMouseEvent *event)
@@ -278,18 +280,19 @@ void Map::moveMonster()
 void Map::spawnMonster()
 {
     if(difficulty==0){
-        if(infiniteSpawn%2==1){
+        if(infiniteSpawn%2==1 || infiniteSpawn%5==1){
             vectMonster.append(new Monster('A'));
             vectMonster.last()->setPos(path.first().toPoint());
             scene->addItem(vectMonster.last());
             infiniteSpawn++;
         }
-        if(infiniteSpawn%5==1){
+        else{
             vectMonster.append(new Monster('B'));
             vectMonster.last()->setPos(path.first().toPoint());
             scene->addItem(vectMonster.last());
             infiniteSpawn++;
         }
+
     }
     else{
         if(numberA<=spawnCountA && numberB<=spawnCountB){
@@ -322,14 +325,10 @@ void Map::spawnMonster()
 //use to get the right waveCode to the current waveIndex
 void Map::waveMonster()
 {
-    /*
-     *infinte wave system with difficulty auto increasing
-     * but need a continuous spawn of monster.
-     **/
-    if(difficulty==0){
+  if(difficulty==0){
         int k=timerSpawn->interval();
-        k=k-k/10;
-        timerSpawn->setInterval(k);
+        k=k-5*k/100;
+        timerSpawn->start(k);
         }
     else{
         QFile file(QString("../wave/wave%1.txt").arg(difficulty));
