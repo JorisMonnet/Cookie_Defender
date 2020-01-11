@@ -23,7 +23,7 @@ public:
     int speed;
     int level;
     int type=1;   //type 1 = classsic tower type 2 = mageTower
-    const int towerSize=100;
+    const int size=100;
     const int maxLevel = 3;
     bool isShowingRange=false;
     QGraphicsEllipseItem *showedRange=nullptr;

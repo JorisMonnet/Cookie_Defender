@@ -10,6 +10,10 @@
  *
  * constructor of the map
  */
+enum listIcon{
+    classicTowerImage,mageTowerImage,pauseIcon,upgrade,sell
+};
+
 Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],
          int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource,int difficultySource)
     : QGraphicsView(parent)
@@ -47,15 +51,15 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     setSceneRect(0,0,width,height);
     clickableItem = new QGraphicsRectItem();
     clickableItem->setPen(QPen(Qt::blue,2));
-    showedPlace = new QGraphicsRectItem();
-    showedPlace->setPen(QPen(Qt::blue,2));
-    upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
-    sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
-    classicTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/classicTower/classictower1.png").scaled(iconSize,iconSize));
-    mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/mageTower/magetower1.png").scaled(iconSize,iconSize));
-    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
-    pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
+
+    listIcon[0]= upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
+    listIcon[1]= sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
+    listIcon[2]= classicTowerImage= new QGraphicsPixmapItem(QPixmap("../icones/tower/classictower/classictower1.png").scaled(iconSize,iconSize));
+    listIcon[3]= mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/magetower/magetower1.png").scaled(iconSize,iconSize));
+    listIcon[4]= pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
     pauseIcon->setPos(width-iconSize,0);
+
+    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
     if(background!=nullptr)
         scene->addItem(background);
@@ -77,7 +81,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
 
     for(int i=0;i<towerNumber;i++)
     {
-        towerPlacement[i].setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].towerSize,t[i].towerSize);
+        towerPlacement[i].setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].size,t[i].size);
         towerPlacement[i].setBrush(QBrush(Qt::red));
         towerPlacement[i].setPen(QPen(Qt::red));
         scene->addItem(&towerPlacement[i]);
@@ -163,23 +167,14 @@ void Map::mouseMoveEvent(QMouseEvent*event)
     for(int i=0;i<towerNumber;i++)
         if(towerPlacement[i].contains(event->pos())){
             statement=false;
-            if(!scene->items().contains(showedPlace))
-                showPlace(i);
+            createClickableItem(towerPositions[i].x(),towerPositions[i].y(),t[i].size);
         }
-    if(statement&&scene->items().contains(showedPlace))
-        scene->removeItem(showedPlace);
-
-    if(QRectF(pauseIcon->x(),pauseIcon->y(),iconSize,iconSize).contains(event->pos()))
-        createClickableItem(pauseIcon->x(),pauseIcon->y(),iconSize,iconSize);
-    else if(scene->items().contains(classicTowerImage)&&QRectF(classicTowerImage->x(),classicTowerImage->y(),iconSize,iconSize).contains(event->pos()))
-        createClickableItem(classicTowerImage->x(),classicTowerImage->y(),iconSize,iconSize);
-    else if(scene->items().contains(mageTowerImage)&&QRectF(mageTowerImage->x(),mageTowerImage->y(),iconSize,iconSize).contains(event->pos()))
-        createClickableItem(mageTowerImage->x(),mageTowerImage->y(),iconSize,iconSize);
-    else if(scene->items().contains(upgrade)&&QRectF(upgrade->x(),upgrade->y(),iconSize,iconSize).contains(event->pos()))
-        createClickableItem(upgrade->x(),upgrade->y(),iconSize,iconSize);
-    else if(scene->items().contains(sell)&&QRectF(sell->x(),sell->y(),iconSize,iconSize).contains(event->pos()))
-        createClickableItem(sell->x(),sell->y(),iconSize,iconSize);
-    else if(scene->items().contains(clickableItem))
+    for(int i=0;i<iconNumber;i++)
+        if(QRectF(listIcon[i]->x(),listIcon[i]->y(),iconSize,iconSize).contains(event->pos())){
+            statement = false;
+            createClickableItem(listIcon[i]->x(),listIcon[i]->y(),iconSize);
+            }
+    if(statement)
         scene->removeItem(clickableItem);
     QGraphicsView::mouseMoveEvent(event);
 }
@@ -236,17 +231,11 @@ void Map::aliveMonster()
             }
 }
 
-void Map::createClickableItem(double x,double y,int width,int height)
+void Map::createClickableItem(double x,double y,int size)
 {
-    clickableItem->setRect(x,y,width,height);
+    clickableItem->setRect(x,y,size,size);
     if(!scene->items().contains(clickableItem))
         scene->addItem(clickableItem);
-}
-
-void Map::showPlace(int i)
-{
-    showedPlace->setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].towerSize,t[i].towerSize);
-    scene->addItem(showedPlace);
 }
 
 void Map::moveMonster()
@@ -254,8 +243,10 @@ void Map::moveMonster()
     if(!vectMonster.isEmpty())
         for(Monster * monster : vectMonster){
             monster->move(path);
-            if(monster->pos() == path.last().toPoint())
-                attackMonster(monster);
+            if(monster->pos() == path.last().toPoint()){
+                health-=monster->dammage;
+                mapUpdate();
+            }
         }
 }
 
@@ -345,14 +336,6 @@ void Map::waveMonster()
     timerWave->setInterval(15000);
 }
 
-void Map::attackMonster(Monster * monster)
-{
-    health-=monster->dammage;
-    monster->setPos(path.first().toPoint());
-    monster->pathIndex=0;
-    mapUpdate();
-}
-
 void Map::mapUpdate()
 {
     textMoney->setText(QString("Money: ")+QString::number(money));
@@ -430,6 +413,8 @@ QPointF Map::findPos(int i)
 
 bool Map::isEmpty(QPointF point)
 {
-    return !(classicTowerImage->pos()==point||mageTowerImage->pos()==point||
-             upgrade->pos()==point||sell->pos()==point);
+    for(int i=0;i<iconNumber;i++)
+       if(listIcon[i]->pos()==point)
+           return false;
+    return true;
 }

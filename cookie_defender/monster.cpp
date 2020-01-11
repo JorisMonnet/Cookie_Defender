@@ -34,6 +34,10 @@ void Monster::move(QVector<QPointF>path)
         if(pos() == path.at(pathIndex).toPoint())
             pathIndex++;
     }
+    if(pos()==path.last()){
+        setPos(path.first().toPoint());
+        pathIndex=0;
+    }
 }
 
 double Monster::toCookie(QVector<QPointF> path)

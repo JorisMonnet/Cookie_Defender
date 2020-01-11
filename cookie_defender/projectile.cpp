@@ -4,7 +4,7 @@
 Projectile::Projectile(Tower *tsource, QGraphicsScene *sceneSource, Monster *targetSource)
     :target(targetSource),t(tsource),scene(sceneSource)
 {
-    setPixmap(QPixmap(QString("../icones/projectile%1.png").arg(t->type)).scaled(20,20));
+    setPixmap(QPixmap(QString("../icones/projectile%1.png").arg(t->type)).scaled(30,30));
     timer = new QTimer(this);
     timer->start(10);
     connect(timer,&QTimer::timeout,this,&Projectile::move);
@@ -16,6 +16,7 @@ void Projectile::move()
 {
     if(scene->items().contains(target)){
         QLineF line = QLineF(x(),y(),target->x()+target->size/2,target->y()+target->size/2);
+        setRotation(-line.angle());
         moveBy(velocity*qCos(qDegreesToRadians(-line.angle())),velocity*qSin(qDegreesToRadians(-line.angle())));
         if(target->collidingItems().contains(this)){
             t->shotTower(target);

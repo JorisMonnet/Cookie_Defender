@@ -19,13 +19,13 @@ void Tower::set(int level)
                 range=150+x*35;
                 speed=2+x;
                 damage=10+x*5;
-                setPixmap(QPixmap(QString("../icones/tower/classicTower/classictower%1.png").arg(level)).scaled(towerSize,towerSize));
+                setPixmap(QPixmap(QString("../icones/tower/classictower/classictower%1.png").arg(level)).scaled(size,size));
             break;
         case 2: cost=150+x*50;
                 range=130+x*35;
                 speed=2+x;
                 damage=11+x*5;
-                setPixmap(QPixmap(QString("../icones/tower/mageTower/magetower%1.png").arg(level)).scaled(towerSize,towerSize));
+                setPixmap(QPixmap(QString("../icones/tower/magetower/magetower%1.png").arg(level)).scaled(size,size));
             break;
     }
 }
@@ -45,7 +45,7 @@ bool Tower::hasTarget(Monster *target)
     //taking the center of the monster..
     double xM = target->x() + target->size/2;
     double yM = target->y() + target->size/2;
-    double distance = sqrt(pow((xM-(this->x()+towerSize/2)),2)+ pow((yM-(this->y()+towerSize/2)),2));
+    double distance = sqrt(pow((xM-(this->x()+size/2)),2)+ pow((yM-(this->y()+size/2)),2));
     return distance<=range;
 }
 
@@ -57,7 +57,7 @@ QLineF Tower::getAimLine(Monster *target)
 void Tower::showRange(QGraphicsScene*scene,bool isFilled)
 {
     if(!scene->items().contains(showedRange)){
-        showedRange->setRect(pos().rx()-range+towerSize/2, pos().ry()-range+towerSize/2, range*2, range*2);
+        showedRange->setRect(pos().rx()-range+size/2, pos().ry()-range+size/2, range*2, range*2);
         showedRange->setPen(QPen(Qt::black,3));
         if(isFilled)
             showedRange->setBrush(QBrush(QColor(0,0,0,128)));

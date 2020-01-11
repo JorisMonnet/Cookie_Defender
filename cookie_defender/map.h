@@ -42,6 +42,9 @@ private slots:
     void aliveMonster();
     void spawnMonster();
 private :
+    static const int iconNumber=5;
+
+    QGraphicsPixmapItem * listIcon[iconNumber];
     QGraphicsPixmapItem * sell;
     QGraphicsPixmapItem * upgrade;
     QGraphicsPixmapItem * classicTowerImage;
@@ -50,13 +53,13 @@ private :
     QGraphicsPixmapItem * background;
     QGraphicsSimpleTextItem * textHealth;
     QGraphicsSimpleTextItem * textMoney;
-    QGraphicsRectItem * showedPlace;
     QGraphicsRectItem * clickableItem;
     QVector<Monster*> vectMonster;
     QGraphicsRectItem * towerPlacement;
     QVector<QPointF> path;
     QPoint *towerPositions;
     Tower *t;
+
     int indexTower=0;
     int health=20;
     int stackHealth;
@@ -75,9 +78,8 @@ private :
     int spawnCountB=0;
     QString waveCode;
     const int iconSize = 50;
-    void createClickableItem(double x,double y,int width,int height);
+    void createClickableItem(double x,double y,int size);
     void createTower(int index,int type);
-    void showPlace(int index);
     void mapUpdate();
     void attackMonster(Monster *);
     void hideUpgradeSell();
