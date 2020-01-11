@@ -24,6 +24,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     towerPositions = towerPositionsSource;
     towerPlacement = new QGraphicsRectItem[towerNumber];
     t = new Tower[towerNumber];
+    stackHealth=health;
 
     timer = new QTimer(this);
     timerTower = new QTimer(this);
