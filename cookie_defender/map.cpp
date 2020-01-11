@@ -259,13 +259,13 @@ void Map::moveMonster()
 void Map::spawnMonster()
 {
     if(difficulty==0){
-        if(infiniteSpawn%2==1){
+        if(infiniteSpawn++%2==1){
             addMonster('A');
-            infiniteSpawn++;
+            //infiniteSpawn++;
         }
-        if(infiniteSpawn%5==1){
+        if(infiniteSpawn++%5==1){
             addMonster('B');
-            infiniteSpawn++;
+            //infiniteSpawn++;
         }
     }
     else{
@@ -277,12 +277,10 @@ void Map::spawnMonster()
             numberB=0;
         }
         else{
-            if(statement && spawnCountA++<numberA){
+            if(statement && spawnCountA++<numberA)
                 addMonster('A');
-            }
-            if(!statement && spawnCountB++<numberB){
+            else if(!statement && spawnCountB++<numberB)
                 addMonster('B');
-            }
             timerSpawn->setInterval(500);
         }
         statement=!statement;
