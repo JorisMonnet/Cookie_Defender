@@ -54,9 +54,9 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
 
     listIcon[0]= upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
     listIcon[1]= sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
-    listIcon[2]= classicTowerImage= new QGraphicsPixmapItem(QPixmap("../icones/tower/classictower/classictower1.png").scaled(iconSize,iconSize));
-    listIcon[3]= mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/magetower/magetower1.png").scaled(iconSize,iconSize));
-    listIcon[4]= pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
+    listIcon[2]= pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
+    listIcon[3]= classicTowerImage= new QGraphicsPixmapItem(QPixmap("../icones/tower/classictower/classictower1.png").scaled(iconSize,iconSize));
+    listIcon[4]= mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/magetower/magetower1.png").scaled(iconSize,iconSize));
     pauseIcon->setPos(width-iconSize,0);
 
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
@@ -65,12 +65,6 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         scene->addItem(background);
     scene->addItem(finish);
     scene->addItem(pauseIcon);
-
-    /*progBarCookie = new QProgressBar(this);
-    progBarCookie->setOrientation(Qt::Horizontal);
-    progBarCookie->setMaximum(health);
-    progBarCookie->setMinimum(0);
-    QGraphicsProxyWidget *progBarWidget = scene->addWidget(progBarCookie);*/
 
     textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
@@ -142,8 +136,8 @@ void Map::mousePressEvent(QMouseEvent *event)
                         scene->addItem(upgrade);
                     }
                     if(!scene->items().contains(sell)){
-                        scene->addItem(sell);
                         sell->setPos(findPos(i));
+                        scene->addItem(sell);
                     }
                 }
                 else{
@@ -308,9 +302,7 @@ void Map::waveMonster()
         {
             QTextStream flow(&file);
             for(int i=0;i<this->waveIndex;i++)
-            {
                 waveCode=flow.readLine();
-            }
             file.close();
             QString string;
             for(int i=0;i<waveCode.size();i++){
@@ -404,7 +396,7 @@ QPointF Map::findPos(int i)
     if(left.x()>0&&isEmpty(left))
         return left;
     else
-        qDebug()<< "erreur position des icones";
+        return {0,0};
 }
 
 bool Map::isEmpty(QPointF point)
