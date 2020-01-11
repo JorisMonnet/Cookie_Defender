@@ -217,7 +217,8 @@ void Map::towerDetect()
                 if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                     monsterToKill=vectMonster.indexOf(monster);
 
-            if(t[i].hasTarget(vectMonster.at(monsterToKill)))
+            qDebug()<<monsterToKill;
+            if(t[i].hasTarget(vectMonster.at(monsterToKill))&&monsterToKill<=vectMonster.size())
                 Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
         }
 }
@@ -259,13 +260,13 @@ void Map::moveMonster()
 void Map::spawnMonster()
 {
     if(difficulty==0){
-        if(infiniteSpawn++%2==1){
+        if(infiniteSpawn%2==1){
             addMonster('A');
-            //infiniteSpawn++;
+            infiniteSpawn++;
         }
-        if(infiniteSpawn++%5==1){
+        if(infiniteSpawn%5==1){
             addMonster('B');
-            //infiniteSpawn++;
+            infiniteSpawn++;
         }
     }
     else{
@@ -374,26 +375,24 @@ void Map::gameOver()
 }
 void Map::gameWin()
 {
-    if(difficulty!=0){
-        if(vectMonster.isEmpty()&& hasWave){
-            timer->stop();
-            timerWave->stop();
-            timerTower->stop();
-            vectMonster.clear();
-            if(health<=(stackHealth/3)){
-                QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
-                                                        "\ngame star: >|< ");
-            }
-            else if(health<=(2*stackHealth/3) && health>stackHealth/3){
-                QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
-                                                        "\ngame stars : >|< >|< ");
-            }
-            else if(health>(2*stackHealth/3)){
-                QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
-                                                        "\ngame stars : >|< >|< >|< ");
-            }
-            emit gameEnd();
+    if(vectMonster.isEmpty()&& hasWave){
+        timer->stop();
+        timerWave->stop();
+        timerTower->stop();
+        vectMonster.clear();
+        if(health<=(stackHealth/3)){
+            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+                                                    "\ngame star: >|< ");
         }
+        else if(health<=(2*stackHealth/3) && health>stackHealth/3){
+            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+                                                   "\ngame stars : >|< >|< ");
+        }
+        else if(health>(2*stackHealth/3)){
+            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+                                                    "\ngame stars : >|< >|< >|< ");
+        }
+        emit gameEnd();
     }
 }
 
@@ -437,5 +436,6 @@ QPointF Map::findPos(int i)
 
 bool Map::isEmpty(QPointF point)
 {
-    return !(classicTowerImage->pos()==point||mageTowerImage->pos()==point||upgrade->pos()==point||sell->pos()==point);
+    return !(classicTowerImage->pos()==point||mageTowerImage->pos()==point||
+             upgrade->pos()==point||sell->pos()==point);
 }
