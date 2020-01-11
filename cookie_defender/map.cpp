@@ -260,15 +260,11 @@ void Map::spawnMonster()
 {
     if(difficulty==0){
         if(infiniteSpawn%2==1){
-            vectMonster.append(new Monster('A'));
-            vectMonster.last()->setPos(path.first().toPoint());
-            scene->addItem(vectMonster.last());
+            addMonster('A');
             infiniteSpawn++;
         }
         if(infiniteSpawn%5==1){
-            vectMonster.append(new Monster('B'));
-            vectMonster.last()->setPos(path.first().toPoint());
-            scene->addItem(vectMonster.last());
+            addMonster('B');
             infiniteSpawn++;
         }
     }
@@ -281,24 +277,23 @@ void Map::spawnMonster()
             numberB=0;
         }
         else{
-            if(statement && spawnCountA<numberA){
-                vectMonster.append(new Monster('A'));
-                vectMonster.last()->setPos(path.first().toPoint());
-                scene->addItem(vectMonster.last());
-                spawnCountA++;
+            if(statement && spawnCountA++<numberA){
+                addMonster('A');
             }
-            if(!statement && spawnCountB<numberB){
-                vectMonster.append(new Monster('B'));
-                vectMonster.last()->setPos(path.first().toPoint());
-                scene->addItem(vectMonster.last());
-                spawnCountB++;
+            if(!statement && spawnCountB++<numberB){
+                addMonster('B');
             }
             timerSpawn->setInterval(500);
         }
         statement=!statement;
     }
 }
-
+void Map::addMonster(char c)
+{
+    vectMonster.append(new Monster(c));
+    vectMonster.last()->setPos(path.first().toPoint());
+    scene->addItem(vectMonster.last());
+}
 //called each waveTimer => timeout()
 //use to get the right waveCode to the current waveIndex
 void Map::waveMonster()

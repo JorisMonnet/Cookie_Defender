@@ -10,9 +10,9 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
             break;
         case 'B':
         setPixmap(QPixmap("../icones/troll.png").scaled(size,size));
-        this->reward*=2;
-        this->velocity/=2;
-        this->dammage*=2;
+        reward*=2;
+        velocity/=2;
+        dammage*=2;
             break;
     }
 

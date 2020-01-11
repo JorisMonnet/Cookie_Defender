@@ -7,7 +7,6 @@
 Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
     setWindowFlag(Qt::FramelessWindowHint);
-    //setFixedSize(1000,1000);
     currentMap = new Map();
     currentMap->timer->stop();
     currentMap->timerWave->stop();

@@ -81,6 +81,7 @@ private :
     void hideUpgradeSell();
     QPointF findPos(int indexTower);
     bool isEmpty(QPointF point);
+    void addMonster(char c);
 
 signals:
    void pauseFunction();
