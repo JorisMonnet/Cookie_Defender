@@ -25,7 +25,9 @@ class Ui_formEncyclo
 public:
     QVBoxLayout *verticalLayout_6;
     QLabel *labelTitleEncyclo;
+    QSpacerItem *verticalSpacer_3;
     QHBoxLayout *horizontalLayout_2;
+    QSpacerItem *horizontalSpacer_3;
     QVBoxLayout *verticalLayout_4;
     QLabel *labelTowerText;
     QLabel *labelTowerPix;
@@ -40,6 +42,7 @@ public:
     QHBoxLayout *horizontalLayout_5;
     QPushButton *btnMonster;
     QLabel *labelMonsterCarac;
+    QSpacerItem *horizontalSpacer_4;
     QHBoxLayout *horizontalLayout_3;
     QSpacerItem *horizontalSpacer_2;
     QLabel *labelTowerLvl;
@@ -49,7 +52,7 @@ public:
     {
         if (formEncyclo->objectName().isEmpty())
             formEncyclo->setObjectName(QString::fromUtf8("formEncyclo"));
-        formEncyclo->resize(579, 450);
+        formEncyclo->resize(697, 528);
         verticalLayout_6 = new QVBoxLayout(formEncyclo);
         verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         labelTitleEncyclo = new QLabel(formEncyclo);
@@ -58,8 +61,16 @@ public:
 
         verticalLayout_6->addWidget(labelTitleEncyclo);
 
+        verticalSpacer_3 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Preferred);
+
+        verticalLayout_6->addItem(verticalSpacer_3);
+
         horizontalLayout_2 = new QHBoxLayout();
         horizontalLayout_2->setObjectName(QString::fromUtf8("horizontalLayout_2"));
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_3);
+
         verticalLayout_4 = new QVBoxLayout();
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         labelTowerText = new QLabel(formEncyclo);
@@ -69,6 +80,11 @@ public:
 
         labelTowerPix = new QLabel(formEncyclo);
         labelTowerPix->setObjectName(QString::fromUtf8("labelTowerPix"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(labelTowerPix->sizePolicy().hasHeightForWidth());
+        labelTowerPix->setSizePolicy(sizePolicy);
 
         verticalLayout_4->addWidget(labelTowerPix);
 
@@ -80,11 +96,11 @@ public:
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
         btnTower = new QPushButton(formEncyclo);
         btnTower->setObjectName(QString::fromUtf8("btnTower"));
-        QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
-        sizePolicy.setHorizontalStretch(0);
-        sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(btnTower->sizePolicy().hasHeightForWidth());
-        btnTower->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Fixed, QSizePolicy::Fixed);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(btnTower->sizePolicy().hasHeightForWidth());
+        btnTower->setSizePolicy(sizePolicy1);
 
         horizontalLayout_6->addWidget(btnTower);
 
@@ -108,6 +124,8 @@ public:
 
         labelMonsterPix = new QLabel(formEncyclo);
         labelMonsterPix->setObjectName(QString::fromUtf8("labelMonsterPix"));
+        sizePolicy.setHeightForWidth(labelMonsterPix->sizePolicy().hasHeightForWidth());
+        labelMonsterPix->setSizePolicy(sizePolicy);
 
         verticalLayout_5->addWidget(labelMonsterPix);
 
@@ -119,8 +137,8 @@ public:
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
         btnMonster = new QPushButton(formEncyclo);
         btnMonster->setObjectName(QString::fromUtf8("btnMonster"));
-        sizePolicy.setHeightForWidth(btnMonster->sizePolicy().hasHeightForWidth());
-        btnMonster->setSizePolicy(sizePolicy);
+        sizePolicy1.setHeightForWidth(btnMonster->sizePolicy().hasHeightForWidth());
+        btnMonster->setSizePolicy(sizePolicy1);
 
         horizontalLayout_5->addWidget(btnMonster);
 
@@ -134,6 +152,10 @@ public:
 
 
         horizontalLayout_2->addLayout(verticalLayout_5);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_4);
 
 
         verticalLayout_6->addLayout(horizontalLayout_2);

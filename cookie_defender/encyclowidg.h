@@ -10,9 +10,10 @@ class EncycloWidg : public QWidget, public Ui::formEncyclo
 public:
      EncycloWidg(QWidget *parent = nullptr);
 private :
-     QString getSpecs(int index,bool testBool);
-     QPixmap getPix(int index,bool testBool);
+     QString getSpecs(int index);
+     QPixmap getPix(int index);
      int howManyFiles(QString fold);
+     void set();
      int indexMonster=0;
      int indexTower=0;
      bool testBool;
