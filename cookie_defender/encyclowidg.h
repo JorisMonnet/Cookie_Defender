@@ -10,9 +10,13 @@ class EncycloWidg : public QWidget, public Ui::formEncyclo
 public:
      EncycloWidg(QWidget *parent = nullptr);
 private :
-     QString getSpecs();
-     QPixmap getPix();
-     int index=0;
+     QString getSpecs(int index,bool testBool);
+     QPixmap getPix(int index,bool testBool);
+     int indexMonster=0;
+     int indexTower=0;
+     bool testBool;
+     const int number_monster=2;
+     const int number_tower=2;
 
 public slots:
 private slots :
