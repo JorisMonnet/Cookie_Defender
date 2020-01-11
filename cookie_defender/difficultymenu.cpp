@@ -3,6 +3,7 @@
 #include <QButtonGroup>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
+#include <QDebug>
 
 DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
 {
@@ -14,9 +15,13 @@ DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
 
     QButtonGroup * group = new QButtonGroup(this);
     group->addButton(easy);
+    group->setId(easy,1);
     group->addButton(medium);
+    group->setId(medium,2);
     group->addButton(hard);
+    group->setId(hard,3);
     group->addButton(infinite);
+    group->setId(infinite,0);
 
     QVBoxLayout *vLay = new QVBoxLayout();
     vLay->addStretch();

@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_Game_t {
-    QByteArrayData data[8];
-    char stringdata0[58];
+    QByteArrayData data[7];
+    char stringdata0[47];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -38,12 +38,11 @@ QT_MOC_LITERAL(2, 12, 0), // ""
 QT_MOC_LITERAL(3, 13, 5), // "pause"
 QT_MOC_LITERAL(4, 19, 9), // "chooseMap"
 QT_MOC_LITERAL(5, 29, 8), // "indexMap"
-QT_MOC_LITERAL(6, 38, 8), // "startMap"
-QT_MOC_LITERAL(7, 47, 10) // "difficulty"
+QT_MOC_LITERAL(6, 38, 8) // "startMap"
 
     },
     "Game\0resume\0\0pause\0chooseMap\0indexMap\0"
-    "startMap\0difficulty"
+    "startMap"
 };
 #undef QT_MOC_LITERAL
 
@@ -65,14 +64,14 @@ static const uint qt_meta_data_Game[] = {
        3,    0,   40,    2, 0x08 /* Private */,
        4,    1,   41,    2, 0x08 /* Private */,
        4,    0,   44,    2, 0x28 /* Private | MethodCloned */,
-       6,    1,   45,    2, 0x08 /* Private */,
+       6,    0,   45,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,    5,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Int,    7,
+    QMetaType::Void,
 
        0        // eod
 };
@@ -87,7 +86,7 @@ void Game::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void *
         case 1: _t->pause(); break;
         case 2: _t->chooseMap((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: _t->chooseMap(); break;
-        case 4: _t->startMap((*reinterpret_cast< int(*)>(_a[1]))); break;
+        case 4: _t->startMap(); break;
         default: ;
         }
     }

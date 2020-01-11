@@ -16,7 +16,8 @@ class Map : public QGraphicsView
     Q_OBJECT
 public:
     Map(QGraphicsView *parent = nullptr, QVector<QPointF> path={{0,0}},
-        int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr,int width=1000,int height=1000);
+        int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr,
+        int width=1000,int height=1000,int difficulty=1);
     QGraphicsScene *scene;
     QTimer *timer;
     QTimer *timerTower;
@@ -60,6 +61,8 @@ private :
     int towerNumber;
     int width;
     int height;
+    int infiniteSpawn=1;
+    int difficulty;
     int waveIndex=1;
     bool statement=true;
     bool hasWave=false;

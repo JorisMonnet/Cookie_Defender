@@ -3,6 +3,7 @@
 #include <QMessageBox>
 
 #include <QDebug>
+
 /**
  * @brief Map::Map
  * @param parent
@@ -10,9 +11,10 @@
  * constructor of the map
  */
 Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],
-         int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource)
+         int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource,int difficultySource)
     : QGraphicsView(parent)
 {
+    difficulty=difficultySource;
     width = widthSource;
     height = heightSource;
     path = pathSource;
@@ -256,31 +258,45 @@ void Map::moveMonster()
 
 void Map::spawnMonster()
 {
-
-    if(numberA<=spawnCountA && numberB<=spawnCountB){
-        timerSpawn->stop();
-        spawnCountA=0;
-        spawnCountB=0;
-        numberA=0;
-        numberB=0;
-    }
-    else{
-        if(statement && spawnCountA<numberA){
+    if(difficulty==0){
+        if(infiniteSpawn%2==1){
             vectMonster.append(new Monster('A'));
             vectMonster.last()->setPos(path.first().toPoint());
             scene->addItem(vectMonster.last());
-            spawnCountA++;
-
+            infiniteSpawn++;
         }
-        if(!statement && spawnCountB<numberB){
+        if(infiniteSpawn%5==1){
             vectMonster.append(new Monster('B'));
             vectMonster.last()->setPos(path.first().toPoint());
             scene->addItem(vectMonster.last());
-            spawnCountB++;
+            infiniteSpawn++;
         }
-        timerSpawn->setInterval(500);
     }
-    statement=!statement;
+    else{
+        if(numberA<=spawnCountA && numberB<=spawnCountB){
+            timerSpawn->stop();
+            spawnCountA=0;
+            spawnCountB=0;
+            numberA=0;
+            numberB=0;
+        }
+        else{
+            if(statement && spawnCountA<numberA){
+                vectMonster.append(new Monster('A'));
+                vectMonster.last()->setPos(path.first().toPoint());
+                scene->addItem(vectMonster.last());
+                spawnCountA++;
+            }
+            if(!statement && spawnCountB<numberB){
+                vectMonster.append(new Monster('B'));
+                vectMonster.last()->setPos(path.first().toPoint());
+                scene->addItem(vectMonster.last());
+                spawnCountB++;
+            }
+            timerSpawn->setInterval(500);
+        }
+        statement=!statement;
+    }
 }
 
 //called each waveTimer => timeout()
@@ -290,59 +306,52 @@ void Map::waveMonster()
     /*
      *infinte wave system with difficulty auto increasing
      * but need a continuous spawn of monster.
-     *
-    k=timerSpawn->interval();
-    timerSpawn->setInterval(k-(k/2));
-    */
-
-    QFile file(QString("../wave/wave1.txt"));
-    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-    {
-        QTextStream flow(&file);
-
-        for(int i=0;i<this->waveIndex;i++)
-        {
-            waveCode=flow.readLine();
-
+     **/
+    if(difficulty==0){
+        int k=timerSpawn->interval();
+        k=k-k/10;
+        timerSpawn->setInterval(k);
         }
-        qDebug()<<waveCode<<endl;
-        file.close();
-        QString string;
-        for(int i=0;i<waveCode.size();i++){
-            if(waveCode.at(i)=='A'){
-                for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='B';j++){
-                    if(waveCode.at(j).isDigit())
-                        string.append(waveCode.at(j));
-                }
-                numberA+=string.toInt();
-            }
-            string.clear();
-
-            if(waveCode.at(i)=='B'){
-                for(int j=i+1;j<waveCode.size();j++){
-                    if(waveCode.at(j).isDigit())
-                        string.append(waveCode.at(j));
-                }
-                numberB+=string.toInt();
-            }
-        }
-
-        qDebug()<<" a ,b : "<<numberA<<", "<<numberB<<endl;
-        qDebug()<<"spawn count  a ,b : "<<spawnCountA<<", "<<spawnCountB<<endl;
-        timerSpawn->start(500);
-        waveIndex++;
-
-    }
     else{
-        //Catching error
-        qDebug()<<"je n'arrive pas a rentrer dans le fichier"<<endl;
+        QFile file(QString("../wave/wave%1.txt").arg(difficulty));
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            QTextStream flow(&file);
+            for(int i=0;i<this->waveIndex;i++)
+            {
+                waveCode=flow.readLine();
+            }
+            file.close();
+            QString string;
+            for(int i=0;i<waveCode.size();i++){
+                if(waveCode.at(i)=='A'){
+                    for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='B';j++){
+                        if(waveCode.at(j).isDigit())
+                            string.append(waveCode.at(j));
+                    }
+                    numberA+=string.toInt();
+                }
+                string.clear();
+                if(waveCode.at(i)=='B'){
+                    for(int j=i+1;j<waveCode.size();j++){
+                        if(waveCode.at(j).isDigit())
+                            string.append(waveCode.at(j));
+                    }
+                    numberB+=string.toInt();
+                }
+            }
+            timerSpawn->start(500);
+            waveIndex++;
+        }
+        else{
+            //Catching error
+            qDebug()<<"je n'arrive pas a rentrer dans le fichier"<<endl;
+        }
+        if(waveCode=="" || waveCode=="\n")
+            hasWave=true;
+        timerWave->setInterval(15000);
+        waveCode.clear();
     }
-    if(waveCode=="" || waveCode=="\n"){
-        hasWave=true;
-    }
-
-    timerWave->setInterval(15000);
-    waveCode.clear();
 }
 
 void Map::attackMonster(Monster * monster)
@@ -372,24 +381,26 @@ void Map::gameOver()
 }
 void Map::gameWin()
 {
-    if(vectMonster.isEmpty()&& hasWave){
-        timer->stop();
-        timerWave->stop();
-        timerTower->stop();
-        vectMonster.clear();
-        if(health<=(stackHealth/3)){
-            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+    if(difficulty!=0){
+        if(vectMonster.isEmpty()&& hasWave){
+            timer->stop();
+            timerWave->stop();
+            timerTower->stop();
+            vectMonster.clear();
+            if(health<=(stackHealth/3)){
+                QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
                                                         "\ngame star: >|< ");
-        }
-        else if(health<=(2*stackHealth/3) && health>stackHealth/3){
-            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+            }
+            else if(health<=(2*stackHealth/3) && health>stackHealth/3){
+                QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
                                                         "\ngame stars : >|< >|< ");
-        }
-        else if(health>(2*stackHealth/3)){
-            QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+            }
+            else if(health>(2*stackHealth/3)){
+                QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
                                                         "\ngame stars : >|< >|< >|< ");
+            }
+            emit gameEnd();
         }
-        emit gameEnd();
     }
 }
 

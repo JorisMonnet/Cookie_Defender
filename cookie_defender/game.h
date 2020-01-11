@@ -20,7 +20,7 @@ private slots :
     void resume();
     void pause();
     void chooseMap(int indexMap=1);
-    void startMap(int difficulty);
+    void startMap();
 private:
     void menu();
     void setGame();
