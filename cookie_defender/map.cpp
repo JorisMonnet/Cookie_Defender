@@ -14,6 +14,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
          int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource,int difficultySource)
     : QGraphicsView(parent)
 {
+    stackHealth=health;
     difficulty=difficultySource;
     width = widthSource;
     height = heightSource;
@@ -83,6 +84,9 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     }
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
+
+
+
 }
 
 void Map::mousePressEvent(QMouseEvent *event)
@@ -230,7 +234,6 @@ void Map::aliveMonster()
             vectMonster.removeAll(monster); //TOFIX bug when a monster is killed
             delete monster;
             mapUpdate();
-            //test if win !
         }
 }
 
@@ -286,11 +289,25 @@ void Map::spawnMonster()
         statement=!statement;
     }
 }
-void Map::addMonster(char c)
+void Map::addMonster(char x)
 {
-    vectMonster.append(new Monster(c));
+    vectMonster.append(new Monster(x));
     vectMonster.last()->setPos(path.first().toPoint());
     scene->addItem(vectMonster.last());
+}
+
+int waveCodeTest(int i,QString waveCode,char x)
+{
+    QString string;
+    if(waveCode.at(i)==x){
+        for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='A' && waveCode.at(j)!='B';j++){
+            if(waveCode.at(j).isDigit())
+                string.append(waveCode.at(j));
+        }
+        qDebug()<<"affichage de string : "<<string<<endl;
+        return string.toInt();
+    }
+    return 0;
 }
 //called each waveTimer => timeout()
 //use to get the right waveCode to the current waveIndex
@@ -317,21 +334,8 @@ void Map::waveMonster()
             file.close();
             QString string;
             for(int i=0;i<waveCode.size();i++){
-                if(waveCode.at(i)=='A'){
-                    for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='B';j++){
-                        if(waveCode.at(j).isDigit())
-                            string.append(waveCode.at(j));
-                    }
-                    numberA+=string.toInt();
-                }
-                string.clear();
-                if(waveCode.at(i)=='B'){
-                    for(int j=i+1;j<waveCode.size();j++){
-                        if(waveCode.at(j).isDigit())
-                            string.append(waveCode.at(j));
-                    }
-                    numberB+=string.toInt();
-                }
+                 numberA+=waveCodeTest(i,waveCode,'A');
+                 numberB+=waveCodeTest(i,waveCode,'B');
             }
             timerSpawn->start(500);
             waveIndex++;
