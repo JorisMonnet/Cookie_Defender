@@ -84,9 +84,6 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     }
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
-
-
-
 }
 
 void Map::mousePressEvent(QMouseEvent *event)
@@ -214,27 +211,29 @@ void Map::createTower(int i,int type)
 
 void Map::towerDetect()
 {
-    for(int i=0;i<towerNumber;i++)
-        if(t[i].isPlaced(scene)){
-            int monsterToKill=0;
-            for(Monster *monster : vectMonster)
-                if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
-                    monsterToKill=vectMonster.indexOf(monster);
+    if(!vectMonster.isEmpty())
+        for(int i=0;i<towerNumber;i++)
+            if(t[i].isPlaced(scene)){
+                int monsterToKill=0;
+                for(Monster *monster : vectMonster)
+                    if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
+                        monsterToKill=vectMonster.indexOf(monster);
 
-            if(t[i].hasTarget(vectMonster.at(monsterToKill)))
-                Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
+                if(t[i].hasTarget(vectMonster.at(monsterToKill)))
+                    Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
         }
 }
 
 void Map::aliveMonster()
 {
-    for(Monster *monster : vectMonster)
-        if(monster->hp<=0){
-            money+=monster->reward;
-            vectMonster.removeAll(monster); //TOFIX bug when a monster is killed
-            delete monster;
-            mapUpdate();
-        }
+    if(!vectMonster.isEmpty())
+        for(Monster *monster : vectMonster)
+            if(monster->hp<=0){
+                money+=monster->reward;
+                vectMonster.removeAll(monster); //TOFIX bug when a monster is killed
+                delete monster;
+                mapUpdate();
+            }
 }
 
 void Map::createClickableItem(double x,double y,int width,int height)
@@ -252,11 +251,12 @@ void Map::showPlace(int i)
 
 void Map::moveMonster()
 {
-    for(Monster * monster : vectMonster){
-        monster->move(path);
-        if(monster->pos() == path.last().toPoint())
-            attackMonster(monster);
-    }
+    if(!vectMonster.isEmpty())
+        for(Monster * monster : vectMonster){
+            monster->move(path);
+            if(monster->pos() == path.last().toPoint())
+                attackMonster(monster);
+        }
 }
 
 void Map::spawnMonster()
@@ -294,6 +294,7 @@ void Map::addMonster(char x)
     vectMonster.append(new Monster(x));
     vectMonster.last()->setPos(path.first().toPoint());
     scene->addItem(vectMonster.last());
+
 }
 
 int waveCodeTest(int i,QString waveCode,char x)
