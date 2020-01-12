@@ -19,8 +19,6 @@ private :
      bool testBool;
      int number_monster;
      int number_tower;
-
-public slots:
 private slots :
     void  on_btnTower_clicked();
     void  on_btnMonster_clicked();

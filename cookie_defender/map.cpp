@@ -55,13 +55,13 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     listIcon[3]= new QGraphicsPixmapItem(QPixmap("../icones/tower/classictower/classictower1.png").scaled(iconSize,iconSize));
     listIcon[4]= new QGraphicsPixmapItem(QPixmap("../icones/tower/magetower/magetower1.png").scaled(iconSize,iconSize));
     listIcon[0]->setPos(width-iconSize,0);
-    scene->addItem(listIcon[0]);
+
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
     if(background!=nullptr)
         scene->addItem(background);
     scene->addItem(finish);
-
+    scene->addItem(listIcon[0]);
     textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
     textHealth->setPos(0,0);
@@ -381,9 +381,11 @@ void Map::gameWin()
 void Map::pauseMenu()
 {
     timer->stop();
-    remainingTimeWave=timerWave->remainingTime();
+    if(remainingTimeWave>=0)
+        remainingTimeWave=timerWave->remainingTime();
     timerWave->stop();
-    remainingTimeSpawn=timerSpawn->remainingTime();
+    if(remainingTimeSpawn>=0)
+        remainingTimeSpawn=timerSpawn->remainingTime();
     timerSpawn->stop();
     emit pauseFunction();
 }
