@@ -1599,13 +1599,19 @@ debug/encyclowidg.o: ../cookie_defender/encyclowidg.cpp ../cookie_defender/encyc
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QLabel \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlabel.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QDir \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qdir.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qfileinfo.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QFileInfo \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QFile \
 		../cookie_defender/tower.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QGraphicsPixmapItem \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgraphicsitem.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QGraphicsScene \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgraphicsscene.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qpen.h \
-		../cookie_defender/monster.h
+		../cookie_defender/monster.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\encyclowidg.o ..\cookie_defender\encyclowidg.cpp
 
 debug/game.o: ../cookie_defender/game.cpp ../cookie_defender/game.h \

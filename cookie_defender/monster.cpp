@@ -1,23 +1,38 @@
 #include "monster.h"
 #include "math.h"
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
 
 Monster::Monster(char x) : QGraphicsPixmapItem()
 {
-    switch(x)
-    {
-        case 'A':
-        setPixmap(QPixmap("../icones/monster/rogue.png").scaled(size,size));
-            break;
-        case 'B':
-        setPixmap(QPixmap("../icones/monster/troll.png").scaled(size,size));
-        hp*=3;
-        reward*=2;
-        velocity/=2;
-        damage*=2;
-        name="Troll";
-            break;
-    }
+    QString string;
+    int nameFileCount=x-'A';
+    QString nameFromFile="";
+    int hpCoef=1;
+    int rewardCoef=1;
+    int velocityCoef=1;
+    int damageCoef=1;
 
+    QFile file("../icones/monster/data.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QString lineRead;
+        QTextStream flow(&file);
+        for(int i=0;i<nameFileCount+1;i++){
+            lineRead=flow.readLine();
+            qDebug()<<"line lue : "<<lineRead<<endl;
+        }
+        hp*=hpCoef;
+        reward*=rewardCoef;
+        velocity/=velocityCoef;
+        damage*=damageCoef;
+        file.close();
+    }
+    else{
+        //Catching error
+        qDebug()<<"Can't find file"<<endl;
+    }
 }
 
 void Monster::move(QVector<QPointF>path)

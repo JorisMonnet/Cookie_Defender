@@ -88,6 +88,7 @@ void EncycloWidg::setSpecs()
         labelMonsterCarac_speed->setText(QString("Speed : %1").arg(monster->velocity));
         labelMonsterCarac_reward->setText(QString("HP : %1").arg(monster->reward));
         labelMonsterText->setText(monster->name);
+        delete monster;
     }
     else{
         Tower *tower=new Tower();
@@ -99,6 +100,7 @@ void EncycloWidg::setSpecs()
         labelTowerCarac_damage->setText(QString("Damage : %1").arg(tower->damage));
         labelTowerCarac_fireRate->setText(QString("FireRate : %1").arg(tower->speed));
         labelTowerText->setText(tower->name);
+        delete tower;
     }
 }
 
