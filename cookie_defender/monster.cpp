@@ -14,6 +14,8 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     int velocityCoef=1;
     int damageCoef=1;
 
+    setPixmap(QPixmap(QString("../icones/monster/%1.png").arg(x)).scaled(size,size));
+
     QFile file("../icones/monster/data.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -54,8 +56,6 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
             }
             damageCoef=string.toInt();
         }
-
-
         name=nameFromFile;
         hp*=hpCoef;
         reward*=rewardCoef;
