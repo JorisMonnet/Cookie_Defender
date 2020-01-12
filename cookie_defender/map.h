@@ -80,6 +80,7 @@ private :
     int howManyFiles(QString fold);
     int numberOfMonster=0;
     int *waveTab;
+    bool isSpawnDone();
 signals:
    void pauseFunction();
    void gameEnd();
