@@ -54,8 +54,8 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
 
     listIcon[0]= upgrade = new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
     listIcon[1]= sell = new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
-    listIcon[2]= classicTowerImage= new QGraphicsPixmapItem(QPixmap("../icones/tower/classicTower/classictower1.png").scaled(iconSize,iconSize));
-    listIcon[3]= mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/mageTower/magetower1.png").scaled(iconSize,iconSize));
+    listIcon[2]= classicTowerImage= new QGraphicsPixmapItem(QPixmap("../icones/tower/classictower/classictower1.png").scaled(iconSize,iconSize));
+    listIcon[3]= mageTowerImage = new QGraphicsPixmapItem(QPixmap("../icones/tower/magetower/magetower1.png").scaled(iconSize,iconSize));
     listIcon[4]= pauseIcon = new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
     pauseIcon->setPos(width-iconSize,0);
 
