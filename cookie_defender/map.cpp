@@ -1,7 +1,9 @@
 #include "map.h"
 #include "monster.h"
 #include <QMessageBox>
-
+#include <QDir>
+#include <QFileInfo>
+#include <QFile>
 #include <QDebug>
 
 /**
@@ -82,6 +84,10 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     }
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
+
+    numberOfMonster=howManyFiles("../icones/monster")-2;
+    if(numberOfMonster>0)
+        waveTab= new int [numberOfMonster];
 }
 
 void Map::mousePressEvent(QMouseEvent *event)
