@@ -308,6 +308,9 @@ void Map::spawnMonster()
     if(difficulty==0){
         for(int i=0;i<=numberOfMonster-1;i++){
             if(infiniteSpawn%(rand()%5+2)==2){
+                qDebug()<<rand()%5+2<<endl;
+                qDebug()<<infiniteSpawn%rand()%5+2<<endl;
+                qDebug()<<"\n"<<endl;
                 addMonster(QChar(65+i).toLatin1());
                 infiniteSpawn++;
             }

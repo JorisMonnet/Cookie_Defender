@@ -20,17 +20,18 @@ Story::Story(QWidget *parent) : QWidget(parent)
     lab->setFont(QFont("Brush Script MT",25));
 
     QPushButton *exit = new QPushButton(tr("&Exit"));
+    QHBoxLayout *hLay =new QHBoxLayout();
+    hLay->addStretch();
+    hLay->addWidget(exit);
+    hLay->addStretch();
+
     QVBoxLayout *vLay = new QVBoxLayout();
     vLay->addStretch();
     vLay->addWidget(lab);
     vLay->addStretch();
-    vLay->addWidget(exit);
+    vLay->addItem(hLay);
     vLay->addStretch();
-
-    QHBoxLayout *mainLayout = new QHBoxLayout(this);
-    mainLayout->addStretch();
-    mainLayout->addLayout(vLay);
-    mainLayout->addStretch();
+    setLayout(vLay);
 
 
     connect(exit,&QPushButton::clicked,this,[=]{emit finishStory();});
