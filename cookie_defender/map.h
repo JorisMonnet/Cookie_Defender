@@ -25,8 +25,8 @@ public:
     QTimer *timerWave;
     QTimer *timerSpawn;
     int money;
-    int remaingTimeSpawn=0;
-    int remaingTimeWave=0;
+    int remainingTimeSpawn=0;
+    int remainingTimeWave=0;
     int difficulty;
     int countTimeInf = 1020;
 public slots :

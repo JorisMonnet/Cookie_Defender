@@ -381,9 +381,9 @@ void Map::gameWin()
 void Map::pauseMenu()
 {
     timer->stop();
-    remaingTimeWave=timerWave->remainingTime();
+    remainingTimeWave=timerWave->remainingTime();
     timerWave->stop();
-    remaingTimeSpawn=timerSpawn->remainingTime();
+    remainingTimeSpawn=timerSpawn->remainingTime();
     timerSpawn->stop();
     emit pauseFunction();
 }
