@@ -18,14 +18,15 @@ public:
     Map(QGraphicsView *parent = nullptr, QVector<QPointF> path={{0,0}},
         int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr,
         int width=1000,int height=1000,int difficulty=1);
+    ~Map()override;
     QGraphicsScene *scene;
     QTimer *timer;
     QTimer *timerTower;
     QTimer *timerWave;
     QTimer *timerSpawn;
     int money;
-    int remaingTimeSpawn=0;
-    int remaingTimeWave=0;
+    int remainingTimeSpawn=0;
+    int remainingTimeWave=0;
     int difficulty;
     int countTimeInf = 1020;
 public slots :
@@ -43,7 +44,6 @@ private slots:
     void spawnMonster();
 private :
     static const int iconNumber=5;
-
     QGraphicsPixmapItem * listIcon[iconNumber];
     QGraphicsPixmapItem * background;
     QGraphicsSimpleTextItem * textHealth;

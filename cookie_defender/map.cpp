@@ -10,9 +10,6 @@
  *
  * constructor of the map
  */
-enum listIcon{
-    classicTowerImage,mageTowerImage,pauseIcon,upgrade,sell
-};
 
 Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource,QPoint towerPositionsSource[],
          int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource,int difficultySource)
@@ -58,14 +55,13 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     listIcon[3]= new QGraphicsPixmapItem(QPixmap("../icones/tower/classictower/classictower1.png").scaled(iconSize,iconSize));
     listIcon[4]= new QGraphicsPixmapItem(QPixmap("../icones/tower/magetower/magetower1.png").scaled(iconSize,iconSize));
     listIcon[0]->setPos(width-iconSize,0);
-    scene->addItem(listIcon[0]);
+
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
     if(background!=nullptr)
         scene->addItem(background);
     scene->addItem(finish);
-
-
+    scene->addItem(listIcon[0]);
     textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
     textHealth->setScale(1.5);
     textHealth->setPos(0,0);
@@ -73,8 +69,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     textMoney->setScale(1.5);
     textMoney->setPos(0,50);
 
-    for(int i=0;i<towerNumber;i++)
-    {
+    for(int i=0;i<towerNumber;i++){
         towerPlacement[i].setRect(towerPositions[i].rx(),towerPositions[i].ry(),t[i].size,t[i].size);
         towerPlacement[i].setBrush(QBrush(Qt::red));
         towerPlacement[i].setPen(QPen(Qt::red));
@@ -83,7 +78,10 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
 }
-
+Map::~Map()
+{
+   delete [] t;
+}
 void Map::mousePressEvent(QMouseEvent *event)
 {
     if(scene->items().contains(clickableItem))
@@ -109,10 +107,10 @@ void Map::mousePressEvent(QMouseEvent *event)
     else{
         for (int i=0;i<towerNumber;i++)
             if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
-                for(int i=1;i<iconNumber;i++)
-                    if(scene->items().contains(listIcon[i])){
-                        scene->removeItem(listIcon[i]);
-                        listIcon[i]->setPos(0,0);
+                for(int j=1;j<iconNumber;j++)
+                    if(scene->items().contains(listIcon[j])){
+                        scene->removeItem(listIcon[j]);
+                        listIcon[j]->setPos(0,0);
                     }
                 t[i].hideRange(scene);
             }
@@ -135,6 +133,7 @@ void Map::mousePressEvent(QMouseEvent *event)
     }
     QGraphicsView::mousePressEvent(event);
 }
+
 void Map::addIcon(int indexListIcon)
 {
     if(!scene->items().contains(listIcon[indexListIcon])){
@@ -142,20 +141,46 @@ void Map::addIcon(int indexListIcon)
         scene->addItem(listIcon[indexListIcon]);
     }
 }
+
+QPointF Map::findPos(int i)
+{
+    QPointF top = {t[i].x()+iconSize/2,t[i].y()-t[i].range+iconSize/2};
+    QPointF down = {t[i].x()+iconSize/2,t[i].y()+t[i].range+iconSize/2};
+    QPointF right = {t[i].x()+t[i].range+iconSize/2,t[i].y()+iconSize/2};
+    QPointF left = {t[i].x()-t[i].range+iconSize/2,t[i].y()+iconSize/2};
+    if(top.y()>0&&isEmpty(top))
+        return top;
+    if(down.y()<width-iconSize&&isEmpty(down))
+        return down;
+    if(right.x()<width-iconSize&&isEmpty(right))
+        return right;
+    if(left.x()>0&&isEmpty(left))
+        return left;
+    else
+        return {0,0};
+}
+
+bool Map::isEmpty(QPointF point)
+{
+    for(int i=0;i<iconNumber;i++)
+       if(listIcon[i]->pos()==point)
+           return false;
+    return true;
+}
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
-    bool statement=true;
+    bool isInNothing=true;
     for(int i=0;i<towerNumber;i++)
         if(towerPlacement[i].contains(event->pos())){
-            statement=false;
+            isInNothing=false;
             createClickableItem(towerPositions[i].x(),towerPositions[i].y(),t[i].size);
         }
     for(int i=0;i<iconNumber;i++)
         if(QRectF(listIcon[i]->x(),listIcon[i]->y(),iconSize,iconSize).contains(event->pos())){
-            statement = false;
+            isInNothing = false;
             createClickableItem(listIcon[i]->x(),listIcon[i]->y(),iconSize);
             }
-    if(statement&&scene->items().contains(clickableItem))
+    if(isInNothing&&scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
     QGraphicsView::mouseMoveEvent(event);
 }
@@ -191,13 +216,21 @@ void Map::towerDetect()
         for(int i=0;i<towerNumber;i++)
             if(t[i].isPlaced(scene)){
                 int monsterToKill=0;
+                QVector<Monster*>monsterTargetedList;
                 for(Monster *monster : vectMonster)
-                    if(t[i].hasTarget(monster)&&monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
-                        monsterToKill=vectMonster.indexOf(monster);
+                    if(t[i].hasTarget(monster))
+                        monsterTargetedList.append(monster);
 
-                if(t[i].hasTarget(vectMonster.at(monsterToKill)))
-                    Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(monsterToKill));
-        }
+                if(!monsterTargetedList.isEmpty()){
+                    monsterToKill=monsterTargetedList.indexOf(monsterTargetedList.first());
+                    for(Monster *monster : monsterTargetedList)
+                        if(monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
+                            monsterToKill=monsterTargetedList.indexOf(monster);
+
+                    if(t[i].hasTarget(vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill)))))
+                        Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
+                }
+            }
 }
 
 void Map::aliveMonster()
@@ -348,45 +381,22 @@ void Map::gameWin()
 void Map::pauseMenu()
 {
     timer->stop();
-    remaingTimeWave=timerWave->remainingTime();
+    if(remainingTimeWave>0)
+        remainingTimeWave=timerWave->remainingTime();
     timerWave->stop();
-    remaingTimeSpawn=timerSpawn->remainingTime();
+    if(remainingTimeSpawn>0)
+        remainingTimeSpawn=timerSpawn->remainingTime();
     timerSpawn->stop();
+    timerTower->stop();
     emit pauseFunction();
 }
 
 void Map::hideUpgradeSell()
 {
-    for(int i=1;i<2;i++){
+    for(int i=1;i<3;i++){
         scene->removeItem(listIcon[i]);
         listIcon[i]->setPos(0,0);
     }
     t[indexTower].hideRange(scene);
     mapUpdate();
-}
-
-QPointF Map::findPos(int i)
-{
-    QPointF top = {t[i].x()+iconSize/2,t[i].y()-t[i].range+iconSize/2};
-    QPointF down = {t[i].x()+iconSize/2,t[i].y()+t[i].range+iconSize/2};
-    QPointF right = {t[i].x()+t[i].range+iconSize/2,t[i].y()+iconSize/2};
-    QPointF left = {t[i].x()-t[i].range+iconSize/2,t[i].y()+iconSize/2};
-    if(top.y()>0&&isEmpty(top))
-        return top;
-    if(down.y()<width-iconSize&&isEmpty(down))
-        return down;
-    if(right.x()<width-iconSize&&isEmpty(right))
-        return right;
-    if(left.x()>0&&isEmpty(left))
-        return left;
-    else
-        return {0,0};
-}
-
-bool Map::isEmpty(QPointF point)
-{
-    for(int i=0;i<iconNumber;i++)
-       if(listIcon[i]->pos()==point)
-           return false;
-    return true;
 }
