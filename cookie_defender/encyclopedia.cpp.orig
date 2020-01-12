@@ -1,0 +1,31 @@
+#include "encyclopedia.h"
+#include <QPushButton>
+#include <QLayout>
+#include "encyclowidg.h"
+
+
+Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
+{
+
+    EncycloWidg *encycloWidg=new EncycloWidg();
+
+    QPushButton *exit = new QPushButton(tr("&Exit"));
+    exit->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
+    connect(exit,&QPushButton::clicked,this,[=]{emit finishEncyclo();});
+
+    QHBoxLayout *hLay=new QHBoxLayout();
+    hLay->addWidget(exit);
+
+    QVBoxLayout *vLay = new QVBoxLayout();
+<<<<<<< HEAD
+    hLay->addWidget(exit);
+=======
+>>>>>>> cc641ecaa0fc3fb1d9ce3a5a49c33a7ec5186bda
+    vLay->addWidget(encycloWidg);
+    vLay->addStretch();
+    vLay->addItem(hLay);
+    vLay->addStretch();
+    setLayout(vLay);
+}
+
+
