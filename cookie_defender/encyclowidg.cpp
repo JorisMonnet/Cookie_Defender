@@ -20,24 +20,31 @@ EncycloWidg::EncycloWidg(QWidget *parent) : QWidget(parent)
 void EncycloWidg::set()
 {
     testBool=true;
-    QString string = getSpecs();
+    setSpecs();
     QPixmap pix = getPix().scaled(200,200,Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation);
     labelTowerPix->setPixmap(pix);
-    labelTowerCarac->setText(string);
     //repeat for monster
     testBool=false;
-    string.clear();
-    string = getSpecs();
+    setSpecs();
     QPixmap pix2 = getPix().scaled(200,200,Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation);
     labelMonsterPix->setPixmap(pix2);
-    labelMonsterCarac->setText(string);
 
     labelTitleEncyclo->setFont(QFont("Brush Script MT",25));
     labelTowerLvl->setFont(QFont("Brush Script MT",20));
-    labelTowerText->setFont(QFont("Brush Script MT",14));
-    labelMonsterText->setFont(QFont("Brush Script MT",14));
-    labelTowerCarac->setFont(QFont("Brush Script MT",14));
-    labelMonsterCarac->setFont(QFont("Brush Script MT",14));
+
+    labelMonsterText->setFont(QFont("Brush Script MT",18));
+    labelTowerText->setFont(QFont("Brush Script MT",18));
+
+    labelMonsterCarac_hp->setFont(QFont("Brush Script MT",14));
+    labelMonsterCarac_shield->setFont(QFont("Brush Script MT",14));
+    labelMonsterCarac_damage->setFont(QFont("Brush Script MT",14));
+    labelMonsterCarac_speed->setFont(QFont("Brush Script MT",14));
+    labelMonsterCarac_reward->setFont(QFont("Brush Script MT",14));
+
+    labelTowerCarac_cost->setFont(QFont("Brush Script MT",14));
+    labelTowerCarac_range->setFont(QFont("Brush Script MT",14));
+    labelTowerCarac_damage->setFont(QFont("Brush Script MT",14));
+    labelTowerCarac_fireRate->setFont(QFont("Brush Script MT",14));
 }
 
 int EncycloWidg::howManyFiles(QString fold)
@@ -66,50 +73,33 @@ QPixmap EncycloWidg::getPix()
     return pix;
 }
 
-QString EncycloWidg::getSpecs()
+void EncycloWidg::setSpecs()
 {
-    QString string;
     QString x;
 
     if(!testBool){
         QChar x(65+indexMonster%number_monster);
         char xC=x.toLatin1();
         Monster* monster=new Monster(xC);
-        string.append("HP : ");
-        string.append(monster->hp);
-        string.append("\n");
-        string.append("Shield : ");
-        string.append(monster->shield);
-        string.append("\n");
-        string.append("Speed : ");
-        string.append(monster->velocity);
-        string.append("\n");
-        string.append("Damage : ");
-        string.append(monster->damage);
-        string.append("\n");
-        string.append("Reward : ");
-        string.append(monster->reward);
-        string.append("\n");
-        qDebug()<<string<<endl;
+
+        labelMonsterCarac_hp->setText(QString("HP : %1").arg(monster->hp));
+        labelMonsterCarac_shield->setText(QString("Shield : %1").arg(monster->shield));
+        labelMonsterCarac_damage->setText(QString("Damage : %1").arg(monster->damage));
+        labelMonsterCarac_speed->setText(QString("Speed : %1").arg(monster->velocity));
+        labelMonsterCarac_reward->setText(QString("HP : %1").arg(monster->reward));
+        labelMonsterText->setText(monster->name);
     }
     else{
         Tower *tower=new Tower();
-        tower->type=indexTower%number_tower;
+        tower->type=indexTower%number_tower+1;
         tower->set(1);
-        string.append("Cost : ");
-        string.append(tower->cost);
-        string.append("\n");
-        string.append("Damage : ");
-        string.append(tower->damage);
-        string.append("\n");
-        string.append("Range : ");
-        string.append(tower->range);
-        string.append("\n");
-        string.append("FireRate : ");
-        string.append(tower->speed);
-        string.append("\n");
+
+        labelTowerCarac_cost->setText(QString("Cost : %1").arg(tower->cost));
+        labelTowerCarac_range->setText(QString("Range : %1").arg(tower->range));
+        labelTowerCarac_damage->setText(QString("Damage : %1").arg(tower->damage));
+        labelTowerCarac_fireRate->setText(QString("FireRate : %1").arg(tower->speed));
+        labelTowerText->setText(tower->name);
     }
-    return string;
 }
 
 void EncycloWidg:: on_btnTower_clicked()

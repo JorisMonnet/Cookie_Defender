@@ -14,6 +14,7 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
         reward*=2;
         velocity/=2;
         damage*=2;
+        name="Troll";
             break;
     }
 
