@@ -1,6 +1,5 @@
 #include "monster.h"
 #include "math.h"
-#include <QDebug>
 
 Monster::Monster(char x) : QGraphicsPixmapItem()
 {

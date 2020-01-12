@@ -252,10 +252,9 @@ int waveCodeTest(int i,QString waveCode,char x)
 {
     QString string;
     if(waveCode.at(i)==x){
-        for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='A' && waveCode.at(j)!='B';j++){
+        for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='A' && waveCode.at(j)!='B';j++)
             if(waveCode.at(j).isDigit())
                 string.append(waveCode.at(j));
-        }
         return string.toInt();
     }
     return 0;
@@ -273,10 +272,8 @@ void Map::spawnMonster()
     else{
         if(numberA<=spawnCountA && numberB<=spawnCountB){
             timerSpawn->stop();
-            spawnCountA=0;
-            spawnCountB=0;
-            numberA=0;
-            numberB=0;
+            spawnCountA = spawnCountB = 0;
+            numberA = numberB = 0;
         }
         else{
             if(statement && spawnCountA++<numberA)
