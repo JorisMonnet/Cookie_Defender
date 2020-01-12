@@ -22,6 +22,8 @@ void Projectile::move()
             t->shotTower(target);
             delete this;
         }
+        if(target->x()<this->x()-t->range*1.5)
+            delete this;
     }
     else
         delete this;
