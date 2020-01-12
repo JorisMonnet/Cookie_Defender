@@ -60,8 +60,6 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
                 string.append(lineRead.at(j));
             }
             shieldCoef=string.toInt();
-            qDebug()<<shieldCoef<<endl;
-
         }
         name=nameFromFile;
         hp*=hpCoef;

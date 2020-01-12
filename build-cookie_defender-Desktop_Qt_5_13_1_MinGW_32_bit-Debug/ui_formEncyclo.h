@@ -281,7 +281,7 @@ public:
         labelMonsterCarac_speed->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         labelMonsterCarac_reward->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         btnMonster->setText(QCoreApplication::translate("formEncyclo", "Other Enemy", nullptr));
-        labelTowerLvl->setText(QCoreApplication::translate("formEncyclo", "<html><head/><body><p><span style=\" font-size:16pt;\">Tower Level Evolution :</span></p><p><span style=\" font-size:16pt;\">- Cost increases of 50 by level</span></p><p><span style=\" font-size:16pt;\">- Range increases by 35 by level</span></p><p><span style=\" font-size:16pt;\">- Firerate increases by 1 by level</span></p><p><span style=\" font-size:16pt;\">- Damage increases by 5 by level</span></p></body></html>", nullptr));
+        labelTowerLvl->setText(QCoreApplication::translate("formEncyclo", "<html><head/><body><p><span style=\" font-size:18pt;\">~MageTower shots throw the enemy's shield ~</span></p><p><span style=\" font-size:16pt;\">Tower Level Evolution :</span></p><p><span style=\" font-size:16pt;\">- Cost increases of 50 by level</span></p><p><span style=\" font-size:16pt;\">- Range increases by 35 by level</span></p><p><span style=\" font-size:16pt;\">- Firerate increases by 1 by level</span></p><p><span style=\" font-size:16pt;\">- Damage increases by 5 by level</span></p></body></html>", nullptr));
     } // retranslateUi
 
 };
