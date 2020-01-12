@@ -381,12 +381,13 @@ void Map::gameWin()
 void Map::pauseMenu()
 {
     timer->stop();
-    if(remainingTimeWave>=0)
+    if(remainingTimeWave>0)
         remainingTimeWave=timerWave->remainingTime();
     timerWave->stop();
-    if(remainingTimeSpawn>=0)
+    if(remainingTimeSpawn>0)
         remainingTimeSpawn=timerSpawn->remainingTime();
     timerSpawn->stop();
+    timerTower->stop();
     emit pauseFunction();
 }
 
