@@ -5,11 +5,14 @@
 #include <QMouseEvent>
 #include <QVector>
 #include <QTimer>
-
-#include "monster.h"
+#include <QMessageBox>
+#include <QDir>
+#include <QFileInfo>
+#include <QFile>
+#include <QDebug>
 #include "pausemenu.h"
 #include "projectile.h"
-#include "tower.h"
+
 
 class Map : public QGraphicsView
 {
@@ -80,6 +83,7 @@ private :
     int howManyFiles(QString fold);
     int numberOfMonster=0;
     int *waveTab;
+    int numberOfTowerLvl=0;
 signals:
    void pauseFunction();
    void gameEnd();

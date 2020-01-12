@@ -1,10 +1,6 @@
 #include "map.h"
 #include "monster.h"
-#include <QMessageBox>
-#include <QDir>
-#include <QFileInfo>
-#include <QFile>
-#include <QDebug>
+
 
 /**
  * @brief Map::Map
@@ -80,6 +76,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
 
+    numberOfTowerLvl = howManyFiles("../icones/tower/mageTower");
     numberOfMonster= howManyFiles("../icones/monster/pix");
     if(numberOfMonster>0){
         waveTab= new int [numberOfMonster];
@@ -306,15 +303,12 @@ int waveCodeTest(int i,QString waveCode,char x)
 void Map::spawnMonster()
 {
     if(difficulty==0){
-        for(int i=0;i<=numberOfMonster-1;i++){
-            if(infiniteSpawn%(rand()%5+2)==2){
-                qDebug()<<rand()%5+2<<endl;
-                qDebug()<<infiniteSpawn%rand()%5+2<<endl;
-                qDebug()<<"\n"<<endl;
-                addMonster(QChar(65+i).toLatin1());
-                infiniteSpawn++;
-            }
+        int x=qrand()%numberOfMonster;
+        if(infiniteSpawn%2==1){
+            addMonster(QChar(65+x).toLatin1());
+            infiniteSpawn++;
         }
+        infiniteSpawn++;
     }
     else{
         for(int i=0;i<=numberOfMonster-1;i++){
@@ -327,6 +321,7 @@ void Map::spawnMonster()
         statement=!statement;
     }
 }
+
 //called each waveTimer => timeout()
 //use to get the right waveCode to the current waveIndex
 void Map::waveMonster()
@@ -412,7 +407,7 @@ void Map::pauseMenu()
 
 void Map::hideUpgradeSell()
 {
-    for(int i=1;i<3;i++){
+    for(int i=1;i<numberOfTowerLvl;i++){
         scene->removeItem(listIcon[i]);
         listIcon[i]->setPos(0,0);
     }
