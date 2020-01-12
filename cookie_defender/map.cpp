@@ -1,7 +1,9 @@
 #include "map.h"
 #include "monster.h"
 #include <QMessageBox>
-
+#include <QDir>
+#include <QFileInfo>
+#include <QFile>
 #include <QDebug>
 
 /**
@@ -77,6 +79,27 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     }
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
+
+    numberOfMonster= howManyFiles("../icones/monster/pix");
+    if(numberOfMonster>0){
+        waveTab= new int [numberOfMonster];
+        for(int i=0;i<=numberOfMonster-1;i++)
+            waveTab[i]=0;
+    }
+
+}
+int Map::howManyFiles(QString fold)
+{
+    QDir dir = fold;
+    QFileInfoList listFold = dir.entryInfoList(QDir::Dirs | QDir::Files);
+    int numberFiles = 0;
+
+        for (int i = 0; i < listFold.size(); ++i) {
+            QFileInfo fileInfos = listFold.at(i);
+            if(fileInfos.isFile())
+                numberFiles++;
+        }
+     return numberFiles;
 }
 Map::~Map()
 {
@@ -272,7 +295,7 @@ int waveCodeTest(int i,QString waveCode,char x)
 {
     QString string;
     if(waveCode.at(i)==x){
-        for(int j=i+1;j<waveCode.size() && waveCode.at(j)!='A' && waveCode.at(j)!='B';j++)
+        for(int j=i+1;j<waveCode.size() && waveCode.at(j)!=x && waveCode.at(j).isDigit();j++)
             if(waveCode.at(j).isDigit())
                 string.append(waveCode.at(j));
         return string.toInt();
@@ -283,25 +306,20 @@ int waveCodeTest(int i,QString waveCode,char x)
 void Map::spawnMonster()
 {
     if(difficulty==0){
-        if(infiniteSpawn%2==1)
-            addMonster('A');
-        else if(infiniteSpawn%3==2)
-            addMonster('B');
-        infiniteSpawn++;
+        for(int i=0;i<=numberOfMonster-1;i++){
+            if(infiniteSpawn%(rand()%5+2)==2){
+                addMonster(QChar(65+i).toLatin1());
+                infiniteSpawn++;
+                }
+            }
     }
     else{
-        if(numberA<=spawnCountA && numberB<=spawnCountB){
-            timerSpawn->stop();
-            spawnCountA = spawnCountB = 0;
-            numberA = numberB = 0;
-        }
-        else{
-            if(statement && spawnCountA++<numberA)
-                addMonster('A');
-            else if(!statement && spawnCountB++<numberB)
-                addMonster('B');
+        for(int i=0;i<=numberOfMonster-1;i++)
+            if(waveTab[i]>0){
+                addMonster(QChar(65+i).toLatin1());
+                waveTab[i]--;
+            }
             timerSpawn->setInterval(500);
-        }
         statement=!statement;
     }
 }
@@ -315,17 +333,14 @@ void Map::waveMonster()
     }
     else{
         QFile file(QString("../wave/wave%1.txt").arg(difficulty));
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-        {
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
             QTextStream flow(&file);
             for(int i=0;i<this->waveIndex;i++)
                 waveCode=flow.readLine();
             file.close();
-            QString string;
-            for(int i=0;i<waveCode.size();i++){
-                 numberA+=waveCodeTest(i,waveCode,'A');
-                 numberB+=waveCodeTest(i,waveCode,'B');
-            }
+            for(int j=0;j<=numberOfMonster-1;j++)
+                for(int i=0;i<waveCode.size();i++)
+                    waveTab[j]+=waveCodeTest(i,waveCode,QChar(65+j).toLatin1());
             timerSpawn->start(500);
             waveIndex++;
         }

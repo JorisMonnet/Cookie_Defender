@@ -13,8 +13,7 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     int rewardCoef=1;
     int velocityCoef=1;
     int damageCoef=1;
-
-    setPixmap(QPixmap(QString("../icones/monster/%1.png").arg(x)).scaled(size,size));
+    setPixmap(QPixmap(QString("../icones/monster/pix/%1.png").arg(x-65)).scaled(size,size));
 
     QFile file("../icones/monster/data.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))

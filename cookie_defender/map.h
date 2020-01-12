@@ -66,11 +66,6 @@ private :
     int waveIndex=1;
     bool statement=true;
     bool hasWave=false;
-    //if there's other type of monster just add another numberX
-    int numberA=0;
-    int spawnCountA=0;
-    int numberB=0;
-    int spawnCountB=0;
     QString waveCode;
     const int iconSize = 50;
     void createClickableItem(double x,double y,int size);
@@ -82,6 +77,9 @@ private :
     bool isEmpty(QPointF point);
     void addMonster(char c);
     void addIcon(int indexListIcon);
+    int howManyFiles(QString fold);
+    int numberOfMonster=0;
+    int *waveTab;
 signals:
    void pauseFunction();
    void gameEnd();

@@ -13,6 +13,9 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     exit->setSizePolicy(QSizePolicy::Fixed,QSizePolicy::Fixed);
     connect(exit,&QPushButton::clicked,this,[=]{emit finishEncyclo();});
 
+    QHBoxLayout *hLay=new QHBoxLayout();
+    hLay->addWidget(exit);
+
     QVBoxLayout *vLay = new QVBoxLayout();
     QHBoxLayout *hLay = new QHBoxLayout();
     hLay->addWidget(exit);
