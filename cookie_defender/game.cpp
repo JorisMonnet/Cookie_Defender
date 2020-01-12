@@ -84,7 +84,6 @@ void Game::chooseMap(int indexMap)
             path << QPoint(Line.left(j).toInt(),Line.right(Line.size()-j-1).toInt());
         }
         file.close();
-        delete currentMap;
         currentMap = new Map(nullptr,path,towerNumber,towerPositions,money,background,window()->width(),window()->height(),difficulty);
         stackedWidget->addWidget(currentMap);
         startMap();
@@ -104,12 +103,8 @@ void Game::resume()
 {
     stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
-    if(currentMap->remaingTimeWave<=0)
-        currentMap->remaingTimeWave=0;
     currentMap->timerWave->start(currentMap->remaingTimeWave);
     currentMap->timerTower->start(1000);
-    if(currentMap->remaingTimeSpawn<=0)
-        currentMap->remaingTimeSpawn=0;
     currentMap->timerSpawn->start(currentMap->remaingTimeSpawn);
 }
 

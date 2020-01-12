@@ -78,7 +78,10 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
 }
-
+Map::~Map()
+{
+   delete [] t;
+}
 void Map::mousePressEvent(QMouseEvent *event)
 {
     if(scene->items().contains(clickableItem))

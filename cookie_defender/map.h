@@ -18,6 +18,7 @@ public:
     Map(QGraphicsView *parent = nullptr, QVector<QPointF> path={{0,0}},
         int towerNumber=0, QPoint towerPositions[]=nullptr, int money=500, QGraphicsPixmapItem *background=nullptr,
         int width=1000,int height=1000,int difficulty=1);
+    ~Map()override;
     QGraphicsScene *scene;
     QTimer *timer;
     QTimer *timerTower;

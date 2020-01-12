@@ -20,7 +20,7 @@ public:
     QString name;
     int damage;
     int range;
-    int cost=100;
+    int cost;
     int speed;
     int level;
     int type=1;   //type 1 = classsic tower type 2 = mageTower
