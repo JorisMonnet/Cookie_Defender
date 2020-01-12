@@ -251,7 +251,7 @@ void Map::towerDetect()
                             monsterToKill=monsterTargetedList.indexOf(monster);
 
                     if(t[i].hasTarget(vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill)))))
-                        /*Projectile *ammo =*/ new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
+                        new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
                 }
             }
 }
@@ -310,8 +310,8 @@ void Map::spawnMonster()
             if(infiniteSpawn%(rand()%5+2)==2){
                 addMonster(QChar(65+i).toLatin1());
                 infiniteSpawn++;
-                }
             }
+        }
     }
     else{
         for(int i=0;i<=numberOfMonster-1;i++){
