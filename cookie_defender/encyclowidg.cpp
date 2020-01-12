@@ -40,6 +40,7 @@ void EncycloWidg::set()
     labelMonsterCarac_damage->setFont(QFont("Brush Script MT",14));
     labelMonsterCarac_speed->setFont(QFont("Brush Script MT",14));
     labelMonsterCarac_reward->setFont(QFont("Brush Script MT",14));
+    labelMonsterCarac_shield->setFont(QFont("Brush Script MT",14));
 
     labelTowerCarac_cost->setFont(QFont("Brush Script MT",14));
     labelTowerCarac_range->setFont(QFont("Brush Script MT",14));

@@ -13,6 +13,7 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     int rewardCoef=1;
     int velocityCoef=1;
     int damageCoef=1;
+    int shieldCoef=1;
     setPixmap(QPixmap(QString("../icones/monster/pix/%1.png").arg(x-65)).scaled(size,size));
 
     QFile file("../icones/monster/data.txt");
@@ -54,12 +55,20 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
                 k++;
             }
             damageCoef=string.toInt();
+            string.clear();
+            for(int j=k+5;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+            }
+            shieldCoef=string.toInt();
+            qDebug()<<shieldCoef<<endl;
+
         }
         name=nameFromFile;
         hp*=hpCoef;
         reward*=rewardCoef;
         velocity/=velocityCoef;
         damage*=damageCoef;
+        shield*=shieldCoef;
 
         file.close();
     }
