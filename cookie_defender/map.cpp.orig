@@ -222,9 +222,19 @@ void Map::createClickableItem(double x,double y,int size)
 void Map::moveMonster()
 {
     if(!vectMonster.isEmpty())
+<<<<<<< HEAD
+        for(Monster * monster : vectMonster){
+            monster->move(path);
+            if(monster->pos() == path.last().toPoint()){
+                health-=monster->damage;
+                mapUpdate();
+            }
+        }
+=======
         for(Monster * monster : vectMonster)
             monster->move(path,&health);
     mapUpdate();
+>>>>>>> 77e24340f2b53f58b269b7cfb201a3676d8194ef
 }
 
 void Map::addMonster(char x)

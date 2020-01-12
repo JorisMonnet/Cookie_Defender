@@ -45,11 +45,6 @@ private :
     static const int iconNumber=5;
 
     QGraphicsPixmapItem * listIcon[iconNumber];
-    QGraphicsPixmapItem * sell;
-    QGraphicsPixmapItem * upgrade;
-    QGraphicsPixmapItem * classicTowerImage;
-    QGraphicsPixmapItem * mageTowerImage;
-    QGraphicsPixmapItem * pauseIcon;
     QGraphicsPixmapItem * background;
     QGraphicsSimpleTextItem * textHealth;
     QGraphicsSimpleTextItem * textMoney;
@@ -86,7 +81,7 @@ private :
     QPointF findPos(int indexTower);
     bool isEmpty(QPointF point);
     void addMonster(char c);
-
+    void addIcon(int indexListIcon);
 signals:
    void pauseFunction();
    void gameEnd();

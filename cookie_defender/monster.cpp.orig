@@ -19,6 +19,7 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     QFile file("../icones/monster/data.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
+<<<<<<< HEAD
         QString lineRead;
         QTextStream flow(&file);
         for(int i=0;i<nameFileCount+1;i++){
@@ -31,6 +32,19 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
                 nameFromFile.append(lineRead.at(j));
                 k++;
             }
+=======
+        case 'A':
+        setPixmap(QPixmap("../icones/monster/rogue.png").scaled(size,size));
+            break;
+        case 'B':
+        setPixmap(QPixmap("../icones/monster/troll.png").scaled(size,size));
+        hp*=3;
+        reward*=2;
+        velocity/=2;
+        damage*=2;
+        name="Troll";
+    }
+>>>>>>> 77e24340f2b53f58b269b7cfb201a3676d8194ef
 
             for(int j=k+1;lineRead.at(j)!=';';j++){
                 string.append(lineRead.at(j));
