@@ -251,7 +251,7 @@ void Map::towerDetect()
                             monsterToKill=monsterTargetedList.indexOf(monster);
 
                     if(t[i].hasTarget(vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill)))))
-                        Projectile *ammo = new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
+                        /*Projectile *ammo =*/ new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
                 }
             }
 }
@@ -314,11 +314,12 @@ void Map::spawnMonster()
             }
     }
     else{
-        for(int i=0;i<=numberOfMonster-1;i++)
+        for(int i=0;i<=numberOfMonster-1;i++){
             if(waveTab[i]>0){
                 addMonster(QChar(65+i).toLatin1());
                 waveTab[i]--;
             }
+        }
             timerSpawn->setInterval(500);
         statement=!statement;
     }

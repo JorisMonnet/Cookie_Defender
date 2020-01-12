@@ -17,7 +17,6 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     hLay->addWidget(exit);
 
     QVBoxLayout *vLay = new QVBoxLayout();
-    QHBoxLayout *hLay = new QHBoxLayout();
     hLay->addWidget(exit);
     vLay->addWidget(encycloWidg);
     vLay->addStretch();
