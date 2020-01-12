@@ -5,7 +5,6 @@
 #include <QFileInfo>
 #include <QFile>
 #include <QDebug>
-#include "encyclowidg.h"
 
 /**
  * @brief Map::Map
@@ -86,7 +85,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
 
-    numberOfMonster= howManyFiles("../icones/monster")-2;
+    numberOfMonster= howManyFiles("../icones/monster/pix");
     if(numberOfMonster>0){
         waveTab= new int [numberOfMonster];
         for(int i=0;i<=numberOfMonster-1;i++)
@@ -271,14 +270,6 @@ int waveCodeTest(int i,QString waveCode,char x)
     return 0;
 }
 
-bool Map:: isSpawnDone()
-{
-    for(int i=0;i<=numberOfMonster-1;i++)
-        if(waveTab[i]>0)
-            return false;
-    return true;
-}
-
 void Map::spawnMonster()
 {
     if(difficulty==0){
@@ -290,16 +281,12 @@ void Map::spawnMonster()
             }
     }
     else{
-        if(isSpawnDone())
-            timerSpawn->stop();
-        else{
-            for(int i=0;i<=numberOfMonster-1;i++)
-                if(waveTab[i]>0){
-                    addMonster(QChar(65+i).toLatin1());
-                    waveTab[i]--;
-                }
+        for(int i=0;i<=numberOfMonster-1;i++)
+            if(waveTab[i]>0){
+                addMonster(QChar(65+i).toLatin1());
+                waveTab[i]--;
+            }
             timerSpawn->setInterval(500);
-        }
         statement=!statement;
     }
 }

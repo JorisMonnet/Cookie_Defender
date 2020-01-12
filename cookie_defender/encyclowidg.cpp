@@ -11,8 +11,8 @@
 EncycloWidg::EncycloWidg(QWidget *parent) : QWidget(parent)
 {
    setupUi(this);
-   number_tower=howManyFiles("../encyclo/pix/tower");
-   number_monster=howManyFiles("../encyclo/pix/monster");
+   number_tower=howManyFiles("../icones/tower/pix");
+   number_monster=howManyFiles("../icones/monster/pix");
 
    set();
 }
@@ -52,7 +52,6 @@ int EncycloWidg::howManyFiles(QString fold)
     QDir dir = fold;
     QFileInfoList listFold = dir.entryInfoList(QDir::Dirs | QDir::Files);
     int numberFiles = 0;
-
         for (int i = 0; i < listFold.size(); ++i) {
             QFileInfo fileInfos = listFold.at(i);
             if(fileInfos.isFile())
@@ -66,9 +65,9 @@ QPixmap EncycloWidg::getPix()
 
     QPixmap pix;
     if(testBool)
-        pix=QPixmap(QString("../encyclo/pix/tower/%1").arg(indexTower%number_tower));
+        pix=QPixmap(QString("../icones/tower/pix/%1").arg(indexTower%number_tower));
     else
-        pix=QPixmap(QString("../encyclo/pix/monster/%1").arg(indexMonster%number_monster));
+        pix=QPixmap(QString("../icones/monster/pix/%1").arg(indexMonster%number_monster));
 
     return pix;
 }
