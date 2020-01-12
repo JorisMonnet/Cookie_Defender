@@ -43,7 +43,6 @@ private slots:
     void spawnMonster();
 private :
     static const int iconNumber=5;
-
     QGraphicsPixmapItem * listIcon[iconNumber];
     QGraphicsPixmapItem * background;
     QGraphicsSimpleTextItem * textHealth;
