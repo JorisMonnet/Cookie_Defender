@@ -21,12 +21,47 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
         QTextStream flow(&file);
         for(int i=0;i<nameFileCount+1;i++){
             lineRead=flow.readLine();
-            qDebug()<<"line lue : "<<lineRead<<endl;
+            int k=0;
+            string.clear();
+            nameFromFile.clear();
+
+            for(int j =k;lineRead.at(j)!=';';j++){
+                nameFromFile.append(lineRead.at(j));
+                k++;
+            }
+
+            for(int j=k+1;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+                k++;
+            }
+            hpCoef=string.toInt();
+            string.clear();
+            for(int j=k+2;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+                k++;
+            }
+            rewardCoef=string.toInt();
+            string.clear();
+            for(int j=k+1;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+                k++;
+            }
+            velocityCoef=string.toInt();
+            string.clear();
+            for(int j=k+2;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+                k++;
+            }
+            damageCoef=string.toInt();
         }
+
+
+        name=nameFromFile;
         hp*=hpCoef;
         reward*=rewardCoef;
         velocity/=velocityCoef;
         damage*=damageCoef;
+
         file.close();
     }
     else{
