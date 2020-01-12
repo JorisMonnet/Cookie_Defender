@@ -19,13 +19,13 @@ void Tower::set(int level)
                 range=150+x*35;
                 speed=2+x;
                 damage=10+x*5;
-                setPixmap(QPixmap(QString("../icones/tower/classictower/classictower%1.png").arg(level)).scaled(size,size));
+                name="Classic Tower";
             break;
         case 2: cost=150+x*50;
-                range=130+x*35;
+                range=120+x*35;
                 speed=2+x;
                 damage=11+x*5;
-                setPixmap(QPixmap(QString("../icones/tower/magetower/magetower%1.png").arg(level)).scaled(size,size));
+                name="Mage Tower";
             break;
     }
 }

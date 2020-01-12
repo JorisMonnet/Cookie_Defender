@@ -15,11 +15,10 @@ public:
     int velocity=2;
     int damage=2;
     int pathIndex=0;
+    QString name="Walker";
     void move(QVector<QPointF>path,int *health);
     double toCookie(QVector<QPointF>path);
     QProgressBar *lifeBar;
 };
 
 #endif // MONSTER_H
-
-

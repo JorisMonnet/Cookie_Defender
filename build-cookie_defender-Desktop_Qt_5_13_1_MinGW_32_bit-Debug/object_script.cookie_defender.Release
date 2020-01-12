@@ -1,5 +1,6 @@
 release/difficultymenu.o
 release/encyclopedia.o
+release/encyclowidg.o
 release/game.o
 release/main.o
 release/mainmenu.o
@@ -13,6 +14,7 @@ release/story.o
 release/tower.o
 release/moc_difficultymenu.o
 release/moc_encyclopedia.o
+release/moc_encyclowidg.o
 release/moc_game.o
 release/moc_map.o
 release/moc_mapmenu.o

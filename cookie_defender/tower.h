@@ -17,6 +17,7 @@ public:
     bool isPlaced(QGraphicsScene *scene);
     QLineF getAimLine(Monster *target);
 
+    QString name;
     int damage;
     int range;
     int cost=100;
