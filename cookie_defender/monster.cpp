@@ -1,22 +1,73 @@
 #include "monster.h"
 #include "math.h"
+#include <QFile>
+#include <QTextStream>
+#include <QDebug>
 
 Monster::Monster(char x) : QGraphicsPixmapItem()
 {
-    switch(x)
-    {
-        case 'A':
-        setPixmap(QPixmap("../icones/monster/rogue.png").scaled(size,size));
-            break;
-        case 'B':
-        setPixmap(QPixmap("../icones/monster/troll.png").scaled(size,size));
-        hp*=3;
-        reward*=2;
-        velocity/=2;
-        damage*=2;
-        name="Troll";
-    }
+    QString string;
+    int nameFileCount=x-'A';
+    QString nameFromFile="";
+    int hpCoef=1;
+    int rewardCoef=1;
+    int velocityCoef=1;
+    int damageCoef=1;
 
+    setPixmap(QPixmap(QString("../icones/monster/%1.png").arg(x)).scaled(size,size));
+
+    QFile file("../icones/monster/data.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
+    {
+        QString lineRead;
+        QTextStream flow(&file);
+        for(int i=0;i<nameFileCount+1;i++){
+            lineRead=flow.readLine();
+            int k=0;
+            string.clear();
+            nameFromFile.clear();
+
+            for(int j =k;lineRead.at(j)!=';';j++){
+                nameFromFile.append(lineRead.at(j));
+                k++;
+            }
+
+            for(int j=k+1;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+                k++;
+            }
+            hpCoef=string.toInt();
+            string.clear();
+            for(int j=k+2;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+                k++;
+            }
+            rewardCoef=string.toInt();
+            string.clear();
+            for(int j=k+1;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+                k++;
+            }
+            velocityCoef=string.toInt();
+            string.clear();
+            for(int j=k+2;lineRead.at(j)!=';';j++){
+                string.append(lineRead.at(j));
+                k++;
+            }
+            damageCoef=string.toInt();
+        }
+        name=nameFromFile;
+        hp*=hpCoef;
+        reward*=rewardCoef;
+        velocity/=velocityCoef;
+        damage*=damageCoef;
+
+        file.close();
+    }
+    else{
+        //Catching error
+        qDebug()<<"Can't find file"<<endl;
+    }
 }
 
 void Monster::move(QVector<QPointF>path,int *health)
