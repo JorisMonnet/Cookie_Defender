@@ -284,21 +284,18 @@ void Map::spawnMonster()
     if(difficulty==0){
         for(int i=0;i<=numberOfMonster-1;i++){
             if(infiniteSpawn%(rand()%5+2)==2){
-                addMonster(char(QChar(65+i).toLatin1()));
+                addMonster(QChar(65+i).toLatin1());
                 infiniteSpawn++;
                 }
             }
     }
     else{
-        if(isSpawnDone()){
+        if(isSpawnDone())
             timerSpawn->stop();
-            for(int i=0;i<=numberOfMonster-1;i++)
-                waveTab[i]=0;
-        }
         else{
             for(int i=0;i<=numberOfMonster-1;i++)
                 if(waveTab[i]>0){
-                    addMonster(char(QChar(65+i).toLatin1()));
+                    addMonster(QChar(65+i).toLatin1());
                     waveTab[i]--;
                 }
             timerSpawn->setInterval(500);
@@ -316,16 +313,14 @@ void Map::waveMonster()
     }
     else{
         QFile file(QString("../wave/wave%1.txt").arg(difficulty));
-        if(file.open(QIODevice::ReadOnly | QIODevice::Text))
-        {
+        if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
             QTextStream flow(&file);
             for(int i=0;i<this->waveIndex;i++)
                 waveCode=flow.readLine();
             file.close();
-            for(int j=0;j<=numberOfMonster-1;j++){
+            for(int j=0;j<=numberOfMonster-1;j++)
                 for(int i=0;i<waveCode.size();i++)
-                    waveTab[j]+=waveCodeTest(i,waveCode,char(QChar(65+j).toLatin1()));
-            }
+                    waveTab[j]+=waveCodeTest(i,waveCode,QChar(65+j).toLatin1());
             timerSpawn->start(500);
             waveIndex++;
         }
