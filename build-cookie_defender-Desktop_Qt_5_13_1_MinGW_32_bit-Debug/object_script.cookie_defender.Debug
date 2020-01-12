@@ -1,5 +1,6 @@
 debug/difficultymenu.o
 debug/encyclopedia.o
+debug/encyclowidg.o
 debug/game.o
 debug/main.o
 debug/mainmenu.o
@@ -13,6 +14,7 @@ debug/story.o
 debug/tower.o
 debug/moc_difficultymenu.o
 debug/moc_encyclopedia.o
+debug/moc_encyclowidg.o
 debug/moc_game.o
 debug/moc_map.o
 debug/moc_mapmenu.o
