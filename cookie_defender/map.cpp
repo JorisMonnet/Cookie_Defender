@@ -347,7 +347,7 @@ void Map::waveMonster()
 
 void Map::attackMonster(Monster * monster)
 {
-    health-=monster->dammage;
+    health-=monster->damage;
     monster->setPos(path.first().toPoint());
     monster->pathIndex=0;
     mapUpdate();

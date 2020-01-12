@@ -30,6 +30,8 @@ public:
     QSpacerItem *horizontalSpacer_3;
     QVBoxLayout *verticalLayout_4;
     QLabel *labelTowerText;
+    QSpacerItem *verticalSpacer_4;
+    QHBoxLayout *horizontalLayout_7;
     QLabel *labelTowerPix;
     QSpacerItem *verticalSpacer;
     QHBoxLayout *horizontalLayout_6;
@@ -37,6 +39,8 @@ public:
     QLabel *labelTowerCarac;
     QVBoxLayout *verticalLayout_5;
     QLabel *labelMonsterText;
+    QSpacerItem *verticalSpacer_5;
+    QHBoxLayout *horizontalLayout_8;
     QLabel *labelMonsterPix;
     QSpacerItem *verticalSpacer_2;
     QHBoxLayout *horizontalLayout_5;
@@ -75,9 +79,16 @@ public:
         verticalLayout_4->setObjectName(QString::fromUtf8("verticalLayout_4"));
         labelTowerText = new QLabel(formEncyclo);
         labelTowerText->setObjectName(QString::fromUtf8("labelTowerText"));
+        labelTowerText->setAlignment(Qt::AlignCenter);
 
         verticalLayout_4->addWidget(labelTowerText);
 
+        verticalSpacer_4 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        verticalLayout_4->addItem(verticalSpacer_4);
+
+        horizontalLayout_7 = new QHBoxLayout();
+        horizontalLayout_7->setObjectName(QString::fromUtf8("horizontalLayout_7"));
         labelTowerPix = new QLabel(formEncyclo);
         labelTowerPix->setObjectName(QString::fromUtf8("labelTowerPix"));
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
@@ -85,8 +96,12 @@ public:
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(labelTowerPix->sizePolicy().hasHeightForWidth());
         labelTowerPix->setSizePolicy(sizePolicy);
+        labelTowerPix->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_4->addWidget(labelTowerPix);
+        horizontalLayout_7->addWidget(labelTowerPix);
+
+
+        verticalLayout_4->addLayout(horizontalLayout_7);
 
         verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -109,6 +124,7 @@ public:
 
         labelTowerCarac = new QLabel(formEncyclo);
         labelTowerCarac->setObjectName(QString::fromUtf8("labelTowerCarac"));
+        labelTowerCarac->setAlignment(Qt::AlignCenter);
 
         verticalLayout_4->addWidget(labelTowerCarac);
 
@@ -119,15 +135,26 @@ public:
         verticalLayout_5->setObjectName(QString::fromUtf8("verticalLayout_5"));
         labelMonsterText = new QLabel(formEncyclo);
         labelMonsterText->setObjectName(QString::fromUtf8("labelMonsterText"));
+        labelMonsterText->setAlignment(Qt::AlignCenter);
 
         verticalLayout_5->addWidget(labelMonsterText);
 
+        verticalSpacer_5 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
+
+        verticalLayout_5->addItem(verticalSpacer_5);
+
+        horizontalLayout_8 = new QHBoxLayout();
+        horizontalLayout_8->setObjectName(QString::fromUtf8("horizontalLayout_8"));
         labelMonsterPix = new QLabel(formEncyclo);
         labelMonsterPix->setObjectName(QString::fromUtf8("labelMonsterPix"));
         sizePolicy.setHeightForWidth(labelMonsterPix->sizePolicy().hasHeightForWidth());
         labelMonsterPix->setSizePolicy(sizePolicy);
+        labelMonsterPix->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_5->addWidget(labelMonsterPix);
+        horizontalLayout_8->addWidget(labelMonsterPix);
+
+
+        verticalLayout_5->addLayout(horizontalLayout_8);
 
         verticalSpacer_2 = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Minimum);
 
@@ -147,6 +174,7 @@ public:
 
         labelMonsterCarac = new QLabel(formEncyclo);
         labelMonsterCarac->setObjectName(QString::fromUtf8("labelMonsterCarac"));
+        labelMonsterCarac->setAlignment(Qt::AlignCenter);
 
         verticalLayout_5->addWidget(labelMonsterCarac);
 

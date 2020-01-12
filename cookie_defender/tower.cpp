@@ -22,7 +22,7 @@ void Tower::set(int level)
                 setPixmap(QPixmap(QString("../icones/tower/classicTower/classictower%1.png").arg(level)).scaled(towerSize,towerSize));
             break;
         case 2: cost=150+x*50;
-                range=130+x*35;
+                range=120+x*35;
                 speed=2+x;
                 damage=11+x*5;
                 setPixmap(QPixmap(QString("../icones/tower/mageTower/magetower%1.png").arg(level)).scaled(towerSize,towerSize));
