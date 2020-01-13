@@ -16,7 +16,9 @@ public:
     bool hasTarget(Monster*target);
     bool isPlaced(QGraphicsScene *scene);
     QLineF getAimLine(Monster *target);
-
+    int searchCaracMonster(QString lineRead);
+    bool shield;
+    int countSearchCarac=0;
     QString name;
     int damage;
     int range;

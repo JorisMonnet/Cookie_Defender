@@ -4,14 +4,13 @@
         <file>icones/monster/pix/1.png</file>
         <file>icones/monster/data.txt</file>
         <file>icones/monster/readme.txt</file>
-        <file>icones/tower/classicTower/classictower1.png</file>
-        <file>icones/tower/classicTower/classictower2.png</file>
-        <file>icones/tower/classicTower/classictower3.png</file>
-        <file>icones/tower/mageTower/magetower1.png</file>
-        <file>icones/tower/mageTower/magetower2.png</file>
-        <file>icones/tower/mageTower/magetower3.png</file>
-        <file>icones/tower/pix/0.png</file>
-        <file>icones/tower/pix/1.png</file>
+        <file>icones/tower/1/1.png</file>
+        <file>icones/tower/1/2.png</file>
+        <file>icones/tower/1/3.png</file>
+        <file>icones/tower/2/1.png</file>
+        <file>icones/tower/2/2.png</file>
+        <file>icones/tower/2/3.png</file>
+        <file>icones/tower/data.txt</file>
         <file>icones/bg1.jpg</file>
         <file>icones/bg2.jpg</file>
         <file>icones/Cookie.png</file>

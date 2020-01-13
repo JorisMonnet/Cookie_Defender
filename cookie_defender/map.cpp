@@ -25,6 +25,10 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     towerPlacement = new QGraphicsRectItem[towerNumber];
     t = new Tower[towerNumber];
 
+    iconNumber=howManyFiles(":/icones/tower")+2;
+
+    listIcon=new QGraphicsPixmapItem*[iconNumber];
+
     timer = new QTimer(this);
     timerTower = new QTimer(this);
     timerWave = new QTimer(this);
@@ -50,9 +54,11 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     listIcon[0]= new QGraphicsPixmapItem(QPixmap(":/icones/pause.png").scaled(iconSize,iconSize));
     listIcon[1]= new QGraphicsPixmapItem(QPixmap(":/icones/sell.png").scaled(iconSize,iconSize));
     listIcon[2]= new QGraphicsPixmapItem(QPixmap(":/icones/upgrade.png").scaled(iconSize,iconSize));
-    listIcon[3]= new QGraphicsPixmapItem(QPixmap(":/icones/tower/classicTower/classictower1.png").scaled(iconSize,iconSize));
-    listIcon[4]= new QGraphicsPixmapItem(QPixmap(":/icones/tower/mageTower/magetower1.png").scaled(iconSize,iconSize));
     listIcon[0]->setPos(width-iconSize,0);
+    for(int i=3;i<iconNumber;i++)
+    {
+        listIcon[i]= new QGraphicsPixmapItem(QPixmap(QString(":/icones/tower/%1/1.png").arg(i-2)).scaled(iconSize,iconSize));
+    }
 
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap(":/icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
@@ -100,7 +106,7 @@ int Map::howManyFiles(QString fold)
     int numberFiles = 0;
         for (int i = 0; i < listFold.size(); ++i) {
             QFileInfo fileInfos = listFold.at(i);
-            if(fileInfos.isFile())
+            if(fileInfos.isFile()|| fileInfos.isDir())
                 numberFiles++;
         }
      return numberFiles;
