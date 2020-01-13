@@ -3,7 +3,7 @@
 #include <QButtonGroup>
 #include <QVBoxLayout>
 #include <QHBoxLayout>
-#include <QDebug>
+
 
 DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
 {

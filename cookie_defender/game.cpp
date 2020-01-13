@@ -1,8 +1,7 @@
 #include "game.h"
-#include <QFile>
 #include <QTextStream>
 #include <QString>
-#include <QDebug>
+
 
 Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
