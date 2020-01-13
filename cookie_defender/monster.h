@@ -9,19 +9,19 @@ class Monster : public QGraphicsPixmapItem
 public:
     Monster(char);
     const int size=40;
-    int hp=20;
-    int shield=25;
-    int reward=25;
-    int velocity=2;
-    int damage=2;
+    double hp=20;
+    double shield=25;
+    double reward=25;
+    double velocity=2;
+    double damage=2;
     int pathIndex=0;
-    void move(QVector<QPointF>path,int *health);
+    void move(QVector<QPointF>path,double *health);
     double toCookie(QVector<QPointF>path);
     QString name;
 
     QProgressBar *lifeBar;
 private:
-    int searchCaracMonster(QString lineRead);
+    double searchCaracMonster(QString lineRead);
     QString lineRead;
     int countSearchCarac;
 };

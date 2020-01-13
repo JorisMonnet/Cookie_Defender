@@ -59,8 +59,8 @@ private :
     Tower *t;
 
     int indexTower=0;
-    int health=20;
-    int stackHealth;
+    double health=20;
+    double stackHealth;
     int towerNumber;
     int width;
     int height;

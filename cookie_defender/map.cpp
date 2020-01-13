@@ -258,7 +258,7 @@ void Map::aliveMonster()
     if(!vectMonster.isEmpty())
         for(Monster *monster : vectMonster)
             if(monster->hp<=0){
-                money+=monster->reward;
+                money+=int(monster->reward);
                 vectMonster.removeAll(monster);
                 delete monster;
                 mapUpdate();
@@ -369,7 +369,7 @@ void Map::gameOver()
     timerWave->stop();
     timerTower->stop();
     vectMonster.clear();
-    health=0;
+    textHealth->setText("Health: 0");
     if(difficulty==0)
         QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
     else

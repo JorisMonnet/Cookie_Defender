@@ -8,11 +8,11 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
 {
     int nameFileCount=x-'A';
     QString nameFromFile="";
-    int hpCoef=1;
-    int rewardCoef=1;
-    int velocityCoef=1;
-    int damageCoef=1;
-    int shieldCoef=1;
+    double hpCoef=1;
+    double rewardCoef=1;
+    double velocityCoef=1;
+    double damageCoef=1;
+    double shieldCoef=1;
     setPixmap(QPixmap(QString("../icones/monster/pix/%1.png").arg(x-65)).scaled(size,size));
 
     QFile file("../icones/monster/data.txt");
@@ -45,13 +45,13 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     }
     name=nameFromFile;
     hp*=hpCoef;
-    reward*=rewardCoef;
-    velocity/=velocityCoef;
+    reward*=int(rewardCoef);
+    velocity*=velocityCoef;
     damage*=damageCoef;
     shield*=shieldCoef;
 }
 
-int Monster::searchCaracMonster(QString lineRead)
+double Monster::searchCaracMonster(QString lineRead)
 {
    QString string;
    for(int j=countSearchCarac;lineRead.at(j)!=';';j++){
@@ -59,10 +59,10 @@ int Monster::searchCaracMonster(QString lineRead)
        countSearchCarac++;
     }
     countSearchCarac++;
-    return string.toInt();
+    return string.toDouble();
 }
 
-void Monster::move(QVector<QPointF>path,int *health)
+void Monster::move(QVector<QPointF>path,double *health)
 {
     for(int i=0;i<=velocity;i++){
         if(pos()==path.last()){
