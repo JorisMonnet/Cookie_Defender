@@ -12,6 +12,7 @@ class Projectile : public QObject, public QGraphicsPixmapItem
 {
 public:
     Projectile(Tower *t, QGraphicsScene *scene=nullptr,Monster *monsterTargetedSource=nullptr);
+    int howManyFiles(QString fold);
     const int velocity = 4;
     QTimer *timer;
     QLineF line;

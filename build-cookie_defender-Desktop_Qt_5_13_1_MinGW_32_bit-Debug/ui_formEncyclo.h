@@ -38,6 +38,7 @@ public:
     QLabel *labelTowerCaracRange;
     QLabel *labelTowerCaracDamage;
     QLabel *labelTowerCaracFireRate;
+    QLabel *labelTowerCaracShield;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *btnTower;
     QVBoxLayout *verticalLayout_5;
@@ -137,6 +138,12 @@ public:
         labelTowerCaracFireRate->setAlignment(Qt::AlignCenter);
 
         verticalLayout_4->addWidget(labelTowerCaracFireRate);
+
+        labelTowerCaracShield = new QLabel(formEncyclo);
+        labelTowerCaracShield->setObjectName(QString::fromUtf8("labelTowerCaracShield"));
+        labelTowerCaracShield->setAlignment(Qt::AlignCenter);
+
+        verticalLayout_4->addWidget(labelTowerCaracShield);
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
@@ -272,6 +279,7 @@ public:
         labelTowerCaracRange->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         labelTowerCaracDamage->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         labelTowerCaracFireRate->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelTowerCaracShield->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         btnTower->setText(QCoreApplication::translate("formEncyclo", "Other Tower", nullptr));
         labelMonsterText->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         labelMonsterPix->setText(QString());
@@ -281,7 +289,7 @@ public:
         labelMonsterCaracSpeed->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         labelMonsterCaracReward->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         btnMonster->setText(QCoreApplication::translate("formEncyclo", "Other Enemy", nullptr));
-        labelTowerLvl->setText(QCoreApplication::translate("formEncyclo", "<html><head/><body><p><span style=\" font-size:18pt;\">~MageTower shots throw the enemy's shield ~</span></p><p><span style=\" font-size:16pt;\">Tower Level Evolution :</span></p><p><span style=\" font-size:16pt;\">- Cost increases of 50 per level</span></p><p><span style=\" font-size:16pt;\">- Range increases by 35 per level</span></p><p><span style=\" font-size:16pt;\">- Firerate increases by 1 per level</span></p><p><span style=\" font-size:16pt;\">- Damage increases by 5 per level</span></p></body></html>", nullptr));
+        labelTowerLvl->setText(QCoreApplication::translate("formEncyclo", "<html><head/><body><p><span style=\" font-size:18pt;\">~If shield is yes then the tower shots throw the shield ~</span></p><p><span style=\" font-size:16pt;\">Tower Level Evolution :</span></p><p><span style=\" font-size:16pt;\">- Cost increases of 50 per level</span></p><p><span style=\" font-size:16pt;\">- Range increases by 35 per level</span></p><p><span style=\" font-size:16pt;\">- Firerate increases by 1 per level</span></p><p><span style=\" font-size:16pt;\">- Damage increases by 5 per level</span></p></body></html>", nullptr));
     } // retranslateUi
 
 };

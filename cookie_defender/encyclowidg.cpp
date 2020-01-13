@@ -11,7 +11,7 @@
 EncycloWidg::EncycloWidg(QWidget *parent) : QWidget(parent)
 {
    setupUi(this);
-   numberTower=howManyFiles(":/icones/tower/pix");
+   numberTower=howManyFiles(":/icones/tower")-1;
    numberMonster=howManyFiles(":/icones/monster/pix");
 
    set();
@@ -46,6 +46,7 @@ void EncycloWidg::set()
     labelTowerCaracRange->setFont(QFont("Brush Script MT",14));
     labelTowerCaracDamage->setFont(QFont("Brush Script MT",14));
     labelTowerCaracFireRate->setFont(QFont("Brush Script MT",14));
+    labelTowerCaracShield->setFont(QFont("Brush Script MT",14));
 }
 
 int EncycloWidg::howManyFiles(QString fold)
@@ -55,7 +56,7 @@ int EncycloWidg::howManyFiles(QString fold)
     int numberFiles = 0;
         for (int i = 0; i < listFold.size(); ++i) {
             QFileInfo fileInfos = listFold.at(i);
-            if(fileInfos.isFile())
+            if(fileInfos.isFile()|| fileInfos.isDir())
                 numberFiles++;
         }
      return numberFiles;
@@ -63,13 +64,11 @@ int EncycloWidg::howManyFiles(QString fold)
 
 QPixmap EncycloWidg::getPix()
 {
-
     QPixmap pix;
     if(testBool)
-        pix=QPixmap(QString(":/icones/tower/pix/%1").arg(indexTower%numberTower));
+        pix=QPixmap(QString(":/icones/tower/%1/1").arg(indexTower%numberTower+1));
     else
         pix=QPixmap(QString(":/icones/monster/pix/%1").arg(indexMonster%numberMonster));
-
     return pix;
 }
 
@@ -99,6 +98,12 @@ void EncycloWidg::setSpecs()
         labelTowerCaracDamage->setText(QString("Damage : %1").arg(tower->damage));
         labelTowerCaracFireRate->setText(QString("FireRate : %1").arg(tower->speed));
         labelTowerText->setText(tower->name);
+        QString statement="";
+        if(tower->shield)
+            statement="yes";
+        else
+            statement="no";
+        labelTowerCaracShield->setText(QString("Through shield : "+statement));
         delete tower;
     }
 }
