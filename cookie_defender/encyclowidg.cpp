@@ -92,6 +92,7 @@ void EncycloWidg::setSpecs()
     else{
         Tower *tower=new Tower();
         tower->type=indexTower%number_tower+1;
+        tower->set(1);
 
         labelTowerCarac_cost->setText(QString("Cost : %1").arg(tower->cost));
         labelTowerCarac_range->setText(QString("Range : %1").arg(tower->range));
