@@ -15,10 +15,15 @@ public:
     int velocity=2;
     int damage=2;
     int pathIndex=0;
-    QString name;
     void move(QVector<QPointF>path,int *health);
     double toCookie(QVector<QPointF>path);
+    QString name;
+
     QProgressBar *lifeBar;
+private:
+    int searchCaracMonster(QString lineRead);
+    QString lineRead;
+    int countSearchCarac;
 };
 
 #endif // MONSTER_H

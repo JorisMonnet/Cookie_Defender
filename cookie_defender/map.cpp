@@ -76,7 +76,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
 
-    numberOfTowerLvl = howManyFiles("../icones/tower/mageTower");
+    numberOfTowerLvl = howManyFiles("../icones/tower/classictower");
     numberOfMonster= howManyFiles("../icones/monster/pix");
     if(numberOfMonster>0){
         waveTab= new int [numberOfMonster];
@@ -214,9 +214,9 @@ void Map::keyPressEvent(QKeyEvent*event)
 
 void Map::createTower(int i,int type)
 {
+    t[i].type=type;
+    t[i].set(1);
     if (money>=t[i].cost){
-        t[i].type=type;
-        t[i].set(1);
         t[i].setPos(towerPositions[i]);
         scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
@@ -304,10 +304,10 @@ void Map::spawnMonster()
 {
     if(difficulty==0){
         int x=qrand()%numberOfMonster;
-        if(infiniteSpawn%2==1){
+        if(infiniteSpawn%2==1)
             addMonster(QChar(65+x).toLatin1());
-            infiniteSpawn++;
-        }
+        else if(infiniteSpawn%3==2 )
+            addMonster(QChar(65+x).toLatin1());
         infiniteSpawn++;
     }
     else{
@@ -369,6 +369,7 @@ void Map::gameOver()
     timerWave->stop();
     timerTower->stop();
     vectMonster.clear();
+    health=0;
     if(difficulty==0)
         QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
     else

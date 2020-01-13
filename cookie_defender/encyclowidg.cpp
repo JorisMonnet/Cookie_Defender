@@ -35,17 +35,17 @@ void EncycloWidg::set()
     labelMonsterText->setFont(QFont("Brush Script MT",18));
     labelTowerText->setFont(QFont("Brush Script MT",18));
 
-    labelMonsterCarac_hp->setFont(QFont("Brush Script MT",14));
-    labelMonsterCarac_shield->setFont(QFont("Brush Script MT",14));
-    labelMonsterCarac_damage->setFont(QFont("Brush Script MT",14));
-    labelMonsterCarac_speed->setFont(QFont("Brush Script MT",14));
-    labelMonsterCarac_reward->setFont(QFont("Brush Script MT",14));
-    labelMonsterCarac_shield->setFont(QFont("Brush Script MT",14));
+    labelMonsterCaracHp->setFont(QFont("Brush Script MT",14));
+    labelMonsterCaracShield->setFont(QFont("Brush Script MT",14));
+    labelMonsterCaracDamage->setFont(QFont("Brush Script MT",14));
+    labelMonsterCaracSpeed->setFont(QFont("Brush Script MT",14));
+    labelMonsterCaracReward->setFont(QFont("Brush Script MT",14));
+    labelMonsterCaracShield->setFont(QFont("Brush Script MT",14));
 
-    labelTowerCarac_cost->setFont(QFont("Brush Script MT",14));
-    labelTowerCarac_range->setFont(QFont("Brush Script MT",14));
-    labelTowerCarac_damage->setFont(QFont("Brush Script MT",14));
-    labelTowerCarac_fireRate->setFont(QFont("Brush Script MT",14));
+    labelTowerCaracCost->setFont(QFont("Brush Script MT",14));
+    labelTowerCaracRange->setFont(QFont("Brush Script MT",14));
+    labelTowerCaracDamage->setFont(QFont("Brush Script MT",14));
+    labelTowerCaracFireRate->setFont(QFont("Brush Script MT",14));
 }
 
 int EncycloWidg::howManyFiles(QString fold)
@@ -81,22 +81,23 @@ void EncycloWidg::setSpecs()
         QChar x(65+indexMonster%number_monster);
         Monster* monster=new Monster(x.toLatin1());
 
-        labelMonsterCarac_hp->setText(QString("HP : %1").arg(monster->hp));
-        labelMonsterCarac_shield->setText(QString("Shield : %1").arg(monster->shield));
-        labelMonsterCarac_damage->setText(QString("Damage : %1").arg(monster->damage));
-        labelMonsterCarac_speed->setText(QString("Speed : %1").arg(monster->velocity));
-        labelMonsterCarac_reward->setText(QString("Reward : %1").arg(monster->reward));
+        labelMonsterCaracHp->setText(QString("HP : %1").arg(monster->hp));
+        labelMonsterCaracShield->setText(QString("Shield : %1").arg(monster->shield));
+        labelMonsterCaracDamage->setText(QString("Damage : %1").arg(monster->damage));
+        labelMonsterCaracSpeed->setText(QString("Speed : %1").arg(monster->velocity));
+        labelMonsterCaracReward->setText(QString("Reward : %1").arg(monster->reward));
         labelMonsterText->setText(monster->name);
         delete monster;
     }
     else{
         Tower *tower=new Tower();
         tower->type=indexTower%number_tower+1;
+        tower->set(1);
 
-        labelTowerCarac_cost->setText(QString("Cost : %1").arg(tower->cost));
-        labelTowerCarac_range->setText(QString("Range : %1").arg(tower->range));
-        labelTowerCarac_damage->setText(QString("Damage : %1").arg(tower->damage));
-        labelTowerCarac_fireRate->setText(QString("FireRate : %1").arg(tower->speed));
+        labelTowerCaracCost->setText(QString("Cost : %1").arg(tower->cost));
+        labelTowerCaracRange->setText(QString("Range : %1").arg(tower->range));
+        labelTowerCaracDamage->setText(QString("Damage : %1").arg(tower->damage));
+        labelTowerCaracFireRate->setText(QString("FireRate : %1").arg(tower->speed));
         labelTowerText->setText(tower->name);
         delete tower;
     }
