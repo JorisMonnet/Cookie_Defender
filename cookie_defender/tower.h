@@ -20,6 +20,7 @@ public:
     QString name;
     int damage;
     int range;
+    int costToPlace;
     int cost;
     int speed;
     int level;

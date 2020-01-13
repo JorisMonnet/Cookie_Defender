@@ -99,7 +99,6 @@ int Map::howManyFiles(QString fold)
     QDir dir = fold;
     QFileInfoList listFold = dir.entryInfoList(QDir::Dirs | QDir::Files);
     int numberFiles = 0;
-
         for (int i = 0; i < listFold.size(); ++i) {
             QFileInfo fileInfos = listFold.at(i);
             if(fileInfos.isFile())
@@ -225,11 +224,11 @@ void Map::createTower(int i,int type)
 {
     t[i].type=type;
     t[i].set(1);
-    if (money>=t[i].cost){
+    if (money>=t[i].costToPlace){
         t[i].setPos(towerPositions[i]);
         scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
-        money-=t[i].cost;
+        money-=t[i].costToPlace;
         t[i].hideRange(scene);
         for(int j=3;j<iconNumber;j++){
             scene->removeItem(listIcon[j]);
