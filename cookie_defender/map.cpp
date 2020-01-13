@@ -196,7 +196,7 @@ void Map::mouseMoveEvent(QMouseEvent*event)
             createClickableItem(towerPositions[i].x(),towerPositions[i].y(),t[i].size);
         }
     for(int i=0;i<iconNumber;i++)
-        if(QRectF(listIcon[i]->x(),listIcon[i]->y(),iconSize,iconSize).contains(event->pos())){
+        if(QRectF(listIcon[i]->x(),listIcon[i]->y(),iconSize,iconSize).contains(event->pos())&&listIcon[i]->pos()!=QPointF(0,0)){
             isInNothing = false;
             createClickableItem(listIcon[i]->x(),listIcon[i]->y(),iconSize);
             }
