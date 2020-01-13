@@ -62,15 +62,14 @@ void Monster::setLifeBar()
     rectGreen=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
     rectRed->setBrush(Qt::red);
     rectGreen->setBrush(Qt::green);
-    rectGreen->setZValue(1);
-    rectRed->setZValue(0);
+    rectGreen->setZValue(12);
+    rectRed->setZValue(11);
 }
 
 void Monster::updateMonster()
 {
+    rectGreen->setRect(x()+5,y()-2,(40-((stackHp-hp)/stackHp)*40),10);
     rectRed->setRect(x()+5,y()-2,40,10);
-    double tempWidth=(40-((stackHp-hp)/stackHp)*(40));
-    rectGreen->setRect(x()+5,y()-2,tempWidth,10);
 }
 
 double Monster::searchCaracMonster(QString lineRead)

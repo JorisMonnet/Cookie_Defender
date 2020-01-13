@@ -372,7 +372,7 @@ void Map::mapUpdate()
     if(health>0){
         textMoney->setText(QString("Money: ")+QString::number(money));
         textHealth->setText(QString::number(int(health)));
-        rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
+        delete rectGreen;
     }
     if(health<=0)
         gameOver();
