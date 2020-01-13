@@ -188,6 +188,8 @@ release/qrc_Resources.o: ../cookie_defender/Resources.qrc \
 		../cookie_defender/icones/tower/1/2.png \
 		../cookie_defender/icones/tower/1/1.png \
 		../cookie_defender/icones/tower/1/3.png \
+		../cookie_defender/icones/tower/3/2.png \
+		../cookie_defender/icones/tower/3/1.png \
 		../cookie_defender/sounds/jeu_versiofull.wav \
 		../cookie_defender/sounds/jeu_menu.wav \
 		../cookie_defender/wave/wave1.txt \

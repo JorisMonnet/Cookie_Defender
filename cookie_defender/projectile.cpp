@@ -1,15 +1,30 @@
 #include "projectile.h"
 #include <qmath.h>
+#include <QDir>
 
 Projectile::Projectile(Tower *tsource, QGraphicsScene *sceneSource, Monster *targetSource)
     :target(targetSource),t(tsource),scene(sceneSource)
 {
-    setPixmap(QPixmap(QString(":/icones/projectile%1.png").arg(t->type)).scaled(30,30));
+    int numberProjectile=howManyFiles(":/icones/projectile");
+    setPixmap(QPixmap(QString(":/icones/projectile/%1.png").arg(t->type%numberProjectile)).scaled(30,30));
     timer = new QTimer(this);
     timer->start(10);
     connect(timer,&QTimer::timeout,this,&Projectile::move);
     setPos(t->x()+50,t->y()+50);
     scene->addItem(this);
+}
+
+int Projectile::howManyFiles(QString fold)
+{
+    QDir dir = fold;
+    QFileInfoList listFold = dir.entryInfoList(QDir::Dirs | QDir::Files);
+    int numberFiles = 0;
+        for (int i = 0; i < listFold.size(); ++i) {
+            QFileInfo fileInfos = listFold.at(i);
+            if(fileInfos.isFile()|| fileInfos.isDir())
+                numberFiles++;
+        }
+     return numberFiles;
 }
 
 void Projectile::move()

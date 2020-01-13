@@ -46,6 +46,7 @@ void EncycloWidg::set()
     labelTowerCaracRange->setFont(QFont("Brush Script MT",14));
     labelTowerCaracDamage->setFont(QFont("Brush Script MT",14));
     labelTowerCaracFireRate->setFont(QFont("Brush Script MT",14));
+    labelTowerCaracShield->setFont(QFont("Brush Script MT",14));
 }
 
 int EncycloWidg::howManyFiles(QString fold)
@@ -102,7 +103,7 @@ void EncycloWidg::setSpecs()
             statement="yes";
         else
             statement="no";
-        labelMonsterCaracShield->setText(QString("Throw shield : %1").arg(statement));
+        labelTowerCaracShield->setText(QString("Through shield : "+statement));
         delete tower;
     }
 }

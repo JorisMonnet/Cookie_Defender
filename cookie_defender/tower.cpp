@@ -9,10 +9,23 @@ Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 {
     set(1);
     showedRange= new QGraphicsEllipseItem();
+    maxLevel=howManyFiles(QString(":/icones/tower/%1").arg(type));
+}
+int Tower::howManyFiles(QString fold)
+{
+    QDir dir = fold;
+    QFileInfoList listFold = dir.entryInfoList(QDir::Dirs | QDir::Files);
+    int numberFiles = 0;
+        for (int i = 0; i < listFold.size(); ++i) {
+            QFileInfo fileInfos = listFold.at(i);
+            if(fileInfos.isFile()|| fileInfos.isDir())
+                numberFiles++;
+        }
+     return numberFiles;
 }
 
 void Tower::set(int level)
-{
+{    
     int x=level-1;
     this->level=level;
     int costVar=0;
