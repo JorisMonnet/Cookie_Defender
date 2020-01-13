@@ -11,9 +11,7 @@ class SoundBoxes : public QWidget
 {
     Q_OBJECT
 public:
-    SoundBoxes(QWidget *parent = nullptr);
-    int volume = 0;
-    int soundEffectVolume = 0;
+    SoundBoxes(QWidget *parent = nullptr,int musicVolume = 0,int soundEffectVolume = 0);
     QMediaPlayer * music;
     QMediaPlayer * sounds;
 

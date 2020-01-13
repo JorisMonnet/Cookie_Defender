@@ -4,20 +4,18 @@
 
 #include <QVBoxLayout>
 
-MainMenu::MainMenu(QWidget *parent)
-    : QWidget(parent)
+MainMenu::MainMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QWidget(parent)
 {
     play = new QPushButton(tr("&Play"));
     encyclo = new QPushButton(tr("&Encyclopedia"));
     options = new QPushButton(tr("&Options"));
     story = new QPushButton(tr("The Cookie &Story"));
-
-    SoundBoxes *sounds = new SoundBoxes(this);
-
+    sounds = new SoundBoxes(nullptr,musicVolume,soundsEffectVolume);
+    sounds->music->setMedia(QUrl("../sounds/jeu_menu.wav"));
     QPushButton *exit = new QPushButton(tr("Exit game"));
     QPixmap pix(":/icones/logo2.png");
     QLabel *lab=new QLabel();
-    lab->setPixmap(pix.scaled(2*this->width()/3,2*this->height()/3,Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation));
+    lab->setPixmap(pix.scaled(2*width()/3,2*height()/3,Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation));
 
     QVBoxLayout *vLay = new QVBoxLayout;
     vLay->addStretch();

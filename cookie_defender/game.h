@@ -31,6 +31,7 @@ private:
     Encyclopedia *encyclopedia;
     Map *currentMap;
     Story *story;
+
     int indexMap;
     int lastIndex=0;
     int difficulty=0;
