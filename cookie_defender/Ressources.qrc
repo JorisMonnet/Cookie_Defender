@@ -1,0 +1,37 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icones/monster/pix/0.png</file>
+        <file>icones/monster/pix/1.png</file>
+        <file>icones/monster/data.txt</file>
+        <file>icones/monster/readme.txt</file>
+        <file>icones/tower/classicTower/classictower1.png</file>
+        <file>icones/tower/classicTower/classictower2.png</file>
+        <file>icones/tower/classicTower/classictower3.png</file>
+        <file>icones/tower/mageTower/magetower1.png</file>
+        <file>icones/tower/mageTower/magetower2.png</file>
+        <file>icones/tower/mageTower/magetower3.png</file>
+        <file>icones/tower/pix/0.png</file>
+        <file>icones/tower/pix/1.png</file>
+        <file>icones/bg1.jpg</file>
+        <file>icones/bg2.jpg</file>
+        <file>icones/Cookie.png</file>
+        <file>icones/logo2.png</file>
+        <file>icones/menubg.png</file>
+        <file>icones/miniaGrass.png</file>
+        <file>icones/miniaSand.png</file>
+        <file>icones/option.jpg</file>
+        <file>icones/pause.png</file>
+        <file>icones/projectile1.png</file>
+        <file>icones/projectile2.png</file>
+        <file>icones/sell.png</file>
+        <file>icones/upgrade.png</file>
+        <file>maps/map1.txt</file>
+        <file>maps/map2.txt</file>
+        <file>maps/viellemap 2.txt</file>
+        <file>sounds/jeu_menu.wav</file>
+        <file>sounds/jeu_versiofull.wav</file>
+        <file>wave/wave1.txt</file>
+        <file>wave/wave2.txt</file>
+        <file>wave/wave3.txt</file>
+    </qresource>
+</RCC>

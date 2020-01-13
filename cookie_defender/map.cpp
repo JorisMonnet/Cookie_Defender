@@ -76,7 +76,6 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
 
-    numberOfTowerLvl = howManyFiles(":/icones/tower/classictower");
     numberOfMonster= howManyFiles(":/icones/monster/pix");
     if(numberOfMonster>0){
         waveTab= new int [numberOfMonster];
@@ -372,7 +371,7 @@ void Map::mapUpdate()
         textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");
         rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
     }
-    if(health<=0)
+    if(health<0.1)
         gameOver();
 }
 
@@ -424,7 +423,7 @@ void Map::pauseMenu()
 
 void Map::hideUpgradeSell()
 {
-    for(int i=1;i<numberOfTowerLvl;i++){
+    for(int i=1;i<3;i++){
         scene->removeItem(listIcon[i]);
         listIcon[i]->setPos(0,0);
     }
