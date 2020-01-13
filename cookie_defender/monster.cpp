@@ -6,21 +6,21 @@
 #include <QBrush>
 
 
-Monster::Monster(char x) : QGraphicsPixmapItem()
+Monster::Monster(char charX) : QGraphicsPixmapItem()
 {
-    hp=stackHp;
-    setLifeBar();
 
-    int nameFileCount=x-'A';
+
+    int nameFileCount=charX-'A';
     QString nameFromFile="";
     double hpCoef=1;
     double rewardCoef=1;
     double velocityCoef=1;
     double damageCoef=1;
     double shieldCoef=1;
-    setPixmap(QPixmap(QString("../icones/monster/pix/%1.png").arg(x-65)).scaled(size,size));
 
-    QFile file("../icones/monster/data.txt");
+    setPixmap(QPixmap(QString(":/icones/monster/pix/%1.png").arg(charX-65)).scaled(size,size));
+
+    QFile file(":/icones/monster/data.txt");
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QString lineRead;
@@ -54,16 +54,14 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     velocity*=velocityCoef;
     damage*=damageCoef;
     shield*=shieldCoef;
-}
 
-void Monster::setLifeBar()
-{
+    stackHp=hp;
     rectRed=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
     rectGreen=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
     rectRed->setBrush(Qt::red);
     rectGreen->setBrush(Qt::green);
-    rectGreen->setZValue(12);
-    rectRed->setZValue(11);
+    rectGreen->setZValue(1);
+    rectRed->setZValue(0);
 }
 
 void Monster::updateMonster()

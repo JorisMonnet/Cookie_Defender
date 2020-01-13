@@ -47,20 +47,20 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     clickableItem = new QGraphicsRectItem();
     clickableItem->setPen(QPen(Qt::blue,2));
 
-    listIcon[0]= new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
-    listIcon[1]= new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
-    listIcon[2]= new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
-    listIcon[3]= new QGraphicsPixmapItem(QPixmap("../icones/tower/classictower/classictower1.png").scaled(iconSize,iconSize));
-    listIcon[4]= new QGraphicsPixmapItem(QPixmap("../icones/tower/magetower/magetower1.png").scaled(iconSize,iconSize));
+    listIcon[0]= new QGraphicsPixmapItem(QPixmap(":/icones/pause.png").scaled(iconSize,iconSize));
+    listIcon[1]= new QGraphicsPixmapItem(QPixmap(":/icones/sell.png").scaled(iconSize,iconSize));
+    listIcon[2]= new QGraphicsPixmapItem(QPixmap(":/icones/upgrade.png").scaled(iconSize,iconSize));
+    listIcon[3]= new QGraphicsPixmapItem(QPixmap(":/icones/tower/classicTower/classictower1.png").scaled(iconSize,iconSize));
+    listIcon[4]= new QGraphicsPixmapItem(QPixmap(":/icones/tower/mageTower/magetower1.png").scaled(iconSize,iconSize));
     listIcon[0]->setPos(width-iconSize,0);
 
-    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
+    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap(":/icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
     if(background!=nullptr)
         scene->addItem(background);
     scene->addItem(finish);
     scene->addItem(listIcon[0]);
-    textHealth = scene->addSimpleText(QString::number(health));
+    textHealth = scene->addSimpleText(QString::number(100*(stackHealth)-health/stackHealth)+" %");
     textHealth->setScale(1.5);
     textHealth->setPos(5+width/5,5);
     textMoney = scene->addSimpleText(QString("Money: ")+QString::number(money));
@@ -76,8 +76,8 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
 
-    numberOfTowerLvl = howManyFiles("../icones/tower/classictower");
-    numberOfMonster= howManyFiles("../icones/monster/pix");
+    numberOfTowerLvl = howManyFiles(":/icones/tower/classictower");
+    numberOfMonster= howManyFiles(":/icones/monster/pix");
     if(numberOfMonster>0){
         waveTab= new int [numberOfMonster];
         for(int i=0;i<=numberOfMonster-1;i++)
@@ -341,7 +341,7 @@ void Map::waveMonster()
         countTimeInf=countTimeInf-countTimeInf/50;
     }
     else{
-        QFile file(QString("../wave/wave%1.txt").arg(difficulty));
+        QFile file(QString(":/wave/wave%1.txt").arg(difficulty));
         if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
             QTextStream flow(&file);
             for(int i=0;i<this->waveIndex;i++)
@@ -368,8 +368,8 @@ void Map::waveMonster()
 void Map::mapUpdate()
 {
     if(health>0){
-        textMoney->setText(QString("Money: ")+QString::number(money));
-        textHealth->setText(QString::number(int(health)));
+        textMoney->setText(QString("Money: ")+QString::number(money));    
+        textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");
         rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
     }
     if(health<=0)
@@ -378,12 +378,13 @@ void Map::mapUpdate()
 
 void Map::gameOver()
 {
+    timerSpawn->stop();
     timer->stop();
     timerWave->stop();
     timerTower->stop();
     vectMonster.clear();
-    textHealth->setText("0");
-    delete rectGreen;
+    textHealth->setText("0 %");
+    rectGreen->setRect(0,0,0,40);
     if(difficulty==0)
         QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
     else
@@ -401,7 +402,8 @@ void Map::gameWin()
         for(int i=0;i<3;i++)
             if(health>i*stackHealth/3)
                 string.append(">|< ");
-        QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+        QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans "
+                                                        "Thanks You for your Epic battle !"
                                                 "\ngame star: "+string);
         emit gameEnd();
     }

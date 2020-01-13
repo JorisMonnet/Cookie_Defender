@@ -34,7 +34,7 @@ void Game::setGame()
     setCentralWidget(stackedWidget);
 
     QPalette pal = palette();
-    pal.setBrush(QPalette::Window,QBrush(QPixmap("../icones/menubg.png")));
+    pal.setBrush(QPalette::Window,QBrush(QPixmap(":/icones/menubg.png")));
     stackedWidget->setAutoFillBackground(true);
     stackedWidget->setPalette(pal);
 
@@ -65,8 +65,8 @@ void Game::chooseMap(int indexMap)
     QPoint *towerPositions= new QPoint;
     this->indexMap=indexMap;
     QGraphicsPixmapItem *background = new QGraphicsPixmapItem;
-    background->setPixmap(QPixmap(QString("../icones/bg%1.jpg").arg(indexMap)).scaled(window()->width(),window()->height()));
-    QFile file(QString("../maps/map%1.txt").arg(indexMap));
+    background->setPixmap(QPixmap(QString(":/icones/bg%1.jpg").arg(indexMap)).scaled(window()->width(),window()->height()));
+    QFile file(QString(":/maps/map%1.txt").arg(indexMap));
     if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
         QTextStream flow(&file);

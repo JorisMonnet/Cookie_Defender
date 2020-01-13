@@ -9,8 +9,8 @@ class Monster : public QGraphicsPixmapItem
 public:
     Monster(char);
     const int size=40;
-    const double stackHp=20;
-    double hp;
+    double stackHp=0;
+    double hp=20;
     double shield=25;
     int reward=25;
     double velocity=2;
@@ -24,7 +24,6 @@ public:
     QGraphicsRectItem *rectGreen;
 private:
     double searchCaracMonster(QString lineRead);
-    void setLifeBar();
     QString lineRead;
     int countSearchCarac;
 };

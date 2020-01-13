@@ -13,7 +13,7 @@ MainMenu::MainMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QWid
     sounds = new SoundBoxes(nullptr,musicVolume,soundsEffectVolume);
     sounds->music->setMedia(QUrl("../sounds/jeu_menu.wav"));
     QPushButton *exit = new QPushButton(tr("Exit game"));
-    QPixmap pix("../icones/logo2.png");
+    QPixmap pix(":/icones/logo2.png");
     QLabel *lab=new QLabel();
     lab->setPixmap(pix.scaled(2*width()/3,2*height()/3,Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation));
 
