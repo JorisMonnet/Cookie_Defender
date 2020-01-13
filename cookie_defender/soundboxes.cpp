@@ -9,25 +9,26 @@ const int VOL_MAX = 99;
 SoundBoxes::SoundBoxes(QWidget *parent)
     : QWidget(parent)
 {
-    /*QTimer *timer = new QTimer(this);
+    QTimer *timer = new QTimer(this);
     music = new QMediaPlayer();
     music->setMedia(QUrl("../sounds/jeu_menu.wav"));
     music->play();
     timer->start(static_cast<int>(music->duration()));
     connect(timer,&QTimer::timeout,music,&QMediaPlayer::play);
-    sounds = new QMediaPlayer();*/
+    sounds = new QMediaPlayer();
 
     QGridLayout *layout = new QGridLayout(this);
     musicSlider = new QSlider(Qt::Horizontal, this);
     musicSlider->setRange(VOL_MIN, VOL_MAX);
     musicSlider->setSingleStep(1);
     musicSlider->setValue(volume);
-    //music->setVolume(volume);
+    music->setVolume(volume);
+
     sfx = new QSlider(Qt::Horizontal, this);
     sfx->setRange(VOL_MIN, VOL_MAX);
     sfx->setSingleStep(1);
     sfx->setValue(soundEffectVolume);
-    //sounds->setVolume(soundEffectVolume);
+    sounds->setVolume(soundEffectVolume);
 
     musicLabel = new QLabel(QString::number(volume));
     sfxlb = new QLabel(QString::number(soundEffectVolume));
@@ -49,11 +50,11 @@ SoundBoxes::SoundBoxes(QWidget *parent)
 void SoundBoxes::volumeChanged(int value)
 {
     musicLabel->setText(QString::number(value));
-    //music->setVolume(value);
+    music->setVolume(value);
 }
 
 void SoundBoxes::sfxChanged(int value)
 {
     sfxlb->setText(QString::number(value));
-    //sounds->setVolume(value);
+    sounds->setVolume(value);
 }

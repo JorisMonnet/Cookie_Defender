@@ -255,8 +255,7 @@ void Map::towerDetect()
                         if(monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                             monsterToKill=monsterTargetedList.indexOf(monster);
 
-                    if(t[i].hasTarget(vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill)))))
-                        new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
+                    new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
                 }
             }
 }
