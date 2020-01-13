@@ -63,7 +63,7 @@ public:
     {
         if (formEncyclo->objectName().isEmpty())
             formEncyclo->setObjectName(QString::fromUtf8("formEncyclo"));
-        formEncyclo->resize(908, 630);
+        formEncyclo->resize(908, 648);
         verticalLayout_6 = new QVBoxLayout(formEncyclo);
         verticalLayout_6->setObjectName(QString::fromUtf8("verticalLayout_6"));
         labelTitleEncyclo = new QLabel(formEncyclo);
@@ -281,7 +281,7 @@ public:
         labelMonsterCarac_speed->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         labelMonsterCarac_reward->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         btnMonster->setText(QCoreApplication::translate("formEncyclo", "Other Enemy", nullptr));
-        labelTowerLvl->setText(QCoreApplication::translate("formEncyclo", "<html><head/><body><p><span style=\" font-size:18pt;\">~MageTower shots throw the enemy's shield ~</span></p><p><span style=\" font-size:16pt;\">Tower Level Evolution :</span></p><p><span style=\" font-size:16pt;\">- Cost increases of 50 by level</span></p><p><span style=\" font-size:16pt;\">- Range increases by 35 by level</span></p><p><span style=\" font-size:16pt;\">- Firerate increases by 1 by level</span></p><p><span style=\" font-size:16pt;\">- Damage increases by 5 by level</span></p></body></html>", nullptr));
+        labelTowerLvl->setText(QCoreApplication::translate("formEncyclo", "<html><head/><body><p><span style=\" font-size:18pt;\">~MageTower shots throw the enemy's shield ~</span></p><p><span style=\" font-size:16pt;\">Tower Level Evolution :</span></p><p><span style=\" font-size:16pt;\">- Cost increases of 50 per level</span></p><p><span style=\" font-size:16pt;\">- Range increases by 35 per level</span></p><p><span style=\" font-size:16pt;\">- Firerate increases by 1 per level</span></p><p><span style=\" font-size:16pt;\">- Damage increases by 5 per level</span></p></body></html>", nullptr));
     } // retranslateUi
 
 };

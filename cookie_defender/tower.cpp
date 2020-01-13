@@ -2,6 +2,8 @@
 #include "math.h"
 #include "projectile.h"
 #include <QDebug>
+#include <QDir>
+
 
 Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 {
@@ -22,7 +24,7 @@ void Tower::set(int level)
                 setPixmap(QPixmap(QString("../icones/tower/classictower/classictower%1.png").arg(level)).scaled(size,size));
                 name="Classic Tower";
             break;
-        case 2: cost=200+x*50;
+        case 2: cost=150+x*50;
                 range=120+x*35;
                 speed=2+x;
                 damage=15+x*5;
@@ -78,3 +80,4 @@ bool Tower::isPlaced(QGraphicsScene*scene)
 {
     return scene->items().contains(this);
 }
+

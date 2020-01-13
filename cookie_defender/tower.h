@@ -25,9 +25,10 @@ public:
     int level;
     int type=1;   //type 1 = classsic tower type 2 = mageTower
     const int size=100;
-    const int maxLevel = 3;
+    const int maxLevel=3;
     bool isShowingRange=false;
     QGraphicsEllipseItem *showedRange=nullptr;
+
 };
 
 #endif // TOWER_H
