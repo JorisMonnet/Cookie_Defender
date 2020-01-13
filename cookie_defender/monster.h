@@ -24,7 +24,6 @@ public:
     QGraphicsRectItem *rectGreen;
 private:
     double searchCaracMonster(QString lineRead);
-    void setLifeBar();
     QString lineRead;
     int countSearchCarac;
 };

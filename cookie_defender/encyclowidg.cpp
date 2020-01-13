@@ -11,8 +11,8 @@
 EncycloWidg::EncycloWidg(QWidget *parent) : QWidget(parent)
 {
    setupUi(this);
-   number_tower=howManyFiles("../icones/tower/pix");
-   number_monster=howManyFiles("../icones/monster/pix");
+   numberTower=howManyFiles("../icones/tower/pix");
+   numberMonster=howManyFiles("../icones/monster/pix");
 
    set();
 }
@@ -66,9 +66,9 @@ QPixmap EncycloWidg::getPix()
 
     QPixmap pix;
     if(testBool)
-        pix=QPixmap(QString("../icones/tower/pix/%1").arg(indexTower%number_tower));
+        pix=QPixmap(QString("../icones/tower/pix/%1").arg(indexTower%numberTower));
     else
-        pix=QPixmap(QString("../icones/monster/pix/%1").arg(indexMonster%number_monster));
+        pix=QPixmap(QString("../icones/monster/pix/%1").arg(indexMonster%numberMonster));
 
     return pix;
 }
@@ -78,7 +78,7 @@ void EncycloWidg::setSpecs()
     QString x;
 
     if(!testBool){
-        QChar x(65+indexMonster%number_monster);
+        QChar x(65+indexMonster%numberMonster);
         Monster* monster=new Monster(x.toLatin1());
 
         labelMonsterCaracHp->setText(QString("HP : %1").arg(monster->hp));
@@ -91,7 +91,7 @@ void EncycloWidg::setSpecs()
     }
     else{
         Tower *tower=new Tower();
-        tower->type=indexTower%number_tower+1;
+        tower->type=indexTower%numberTower+1;
         tower->set(1);
 
         labelTowerCaracCost->setText(QString("Cost : %1").arg(tower->cost));

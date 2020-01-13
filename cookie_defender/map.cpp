@@ -60,7 +60,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         scene->addItem(background);
     scene->addItem(finish);
     scene->addItem(listIcon[0]);
-    textHealth = scene->addSimpleText(QString::number(health));
+    textHealth = scene->addSimpleText(QString::number(100*(stackHealth)-health/stackHealth)+" %");
     textHealth->setScale(1.5);
     textHealth->setPos(5+width/5,5);
     textMoney = scene->addSimpleText(QString("Money: ")+QString::number(money));
@@ -369,9 +369,9 @@ void Map::waveMonster()
 void Map::mapUpdate()
 {
     if(health>0){
-        textMoney->setText(QString("Money: ")+QString::number(money));
-        textHealth->setText(QString::number(int(health)));
-        delete rectGreen;
+        textMoney->setText(QString("Money: ")+QString::number(money));    
+        textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");
+        rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
     }
     if(health<=0)
         gameOver();
@@ -379,12 +379,13 @@ void Map::mapUpdate()
 
 void Map::gameOver()
 {
+    timerSpawn->stop();
     timer->stop();
     timerWave->stop();
     timerTower->stop();
     vectMonster.clear();
-    textHealth->setText("0");
-    delete rectGreen;
+    textHealth->setText("0 %");
+    rectGreen->setRect(0,0,0,40);
     if(difficulty==0)
         QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
     else

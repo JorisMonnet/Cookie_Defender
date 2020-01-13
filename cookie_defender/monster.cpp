@@ -9,7 +9,12 @@
 Monster::Monster(char x) : QGraphicsPixmapItem()
 {
     hp=stackHp;
-    setLifeBar();
+    rectRed=new QGraphicsRectItem(QRectF(this->x()+5,y()-2,40,10));
+    rectGreen=new QGraphicsRectItem(QRectF(this->x()+5,y()-2,40,10));
+    rectRed->setBrush(Qt::red);
+    rectGreen->setBrush(Qt::green);
+    rectGreen->setZValue(12);
+    rectRed->setZValue(11);
 
     int nameFileCount=x-'A';
     QString nameFromFile="";
@@ -54,16 +59,6 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     velocity*=velocityCoef;
     damage*=damageCoef;
     shield*=shieldCoef;
-}
-
-void Monster::setLifeBar()
-{
-    rectRed=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
-    rectGreen=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
-    rectRed->setBrush(Qt::red);
-    rectGreen->setBrush(Qt::green);
-    rectGreen->setZValue(12);
-    rectRed->setZValue(11);
 }
 
 void Monster::updateMonster()

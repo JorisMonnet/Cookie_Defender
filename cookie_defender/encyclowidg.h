@@ -17,8 +17,8 @@ private :
      int indexMonster=0;
      int indexTower=0;
      bool testBool;
-     int number_monster;
-     int number_tower;
+     int numberMonster;
+     int numberTower;
 private slots :
     void  on_btnTower_clicked();
     void  on_btnMonster_clicked();
