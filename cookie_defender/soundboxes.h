@@ -14,8 +14,8 @@ public:
     SoundBoxes(QWidget *parent = nullptr);
     int volume = 0;
     int soundEffectVolume = 0;
-    /*QMediaPlayer * music;
-    QMediaPlayer * sounds;*/
+    QMediaPlayer * music;
+    QMediaPlayer * sounds;
 
 private slots:
     void volumeChanged(int vol);

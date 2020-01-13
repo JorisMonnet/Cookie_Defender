@@ -255,8 +255,7 @@ void Map::towerDetect()
                         if(monster->toCookie(path)<vectMonster.at(monsterToKill)->toCookie(path))
                             monsterToKill=monsterTargetedList.indexOf(monster);
 
-                    if(t[i].hasTarget(vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill)))))
-                        new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
+                    new Projectile(&t[i],scene,vectMonster.at(vectMonster.indexOf(monsterTargetedList.at(monsterToKill))));
                 }
             }
 }
@@ -371,7 +370,7 @@ void Map::mapUpdate()
     if(health>0){
         textMoney->setText(QString("Money: ")+QString::number(money));
         textHealth->setText(QString::number(int(health)));
-        delete rectGreen;
+        rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
     }
     if(health<=0)
         gameOver();
