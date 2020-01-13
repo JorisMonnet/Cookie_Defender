@@ -34,10 +34,10 @@ public:
     QHBoxLayout *horizontalLayout_7;
     QLabel *labelTowerPix;
     QSpacerItem *verticalSpacer;
-    QLabel *labelTowerCarac_cost;
-    QLabel *labelTowerCarac_range;
-    QLabel *labelTowerCarac_damage;
-    QLabel *labelTowerCarac_fireRate;
+    QLabel *labelTowerCaracCost;
+    QLabel *labelTowerCaracRange;
+    QLabel *labelTowerCaracDamage;
+    QLabel *labelTowerCaracFireRate;
     QHBoxLayout *horizontalLayout_6;
     QPushButton *btnTower;
     QVBoxLayout *verticalLayout_5;
@@ -46,11 +46,11 @@ public:
     QHBoxLayout *horizontalLayout_8;
     QLabel *labelMonsterPix;
     QSpacerItem *verticalSpacer_2;
-    QLabel *labelMonsterCarac_hp;
-    QLabel *labelMonsterCarac_shield;
-    QLabel *labelMonsterCarac_damage;
-    QLabel *labelMonsterCarac_speed;
-    QLabel *labelMonsterCarac_reward;
+    QLabel *labelMonsterCaracHp;
+    QLabel *labelMonsterCaracShield;
+    QLabel *labelMonsterCaracDamage;
+    QLabel *labelMonsterCaracSpeed;
+    QLabel *labelMonsterCaracReward;
     QHBoxLayout *horizontalLayout_5;
     QPushButton *btnMonster;
     QSpacerItem *horizontalSpacer_4;
@@ -114,29 +114,29 @@ public:
 
         verticalLayout_4->addItem(verticalSpacer);
 
-        labelTowerCarac_cost = new QLabel(formEncyclo);
-        labelTowerCarac_cost->setObjectName(QString::fromUtf8("labelTowerCarac_cost"));
-        labelTowerCarac_cost->setAlignment(Qt::AlignCenter);
+        labelTowerCaracCost = new QLabel(formEncyclo);
+        labelTowerCaracCost->setObjectName(QString::fromUtf8("labelTowerCaracCost"));
+        labelTowerCaracCost->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_4->addWidget(labelTowerCarac_cost);
+        verticalLayout_4->addWidget(labelTowerCaracCost);
 
-        labelTowerCarac_range = new QLabel(formEncyclo);
-        labelTowerCarac_range->setObjectName(QString::fromUtf8("labelTowerCarac_range"));
-        labelTowerCarac_range->setAlignment(Qt::AlignCenter);
+        labelTowerCaracRange = new QLabel(formEncyclo);
+        labelTowerCaracRange->setObjectName(QString::fromUtf8("labelTowerCaracRange"));
+        labelTowerCaracRange->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_4->addWidget(labelTowerCarac_range);
+        verticalLayout_4->addWidget(labelTowerCaracRange);
 
-        labelTowerCarac_damage = new QLabel(formEncyclo);
-        labelTowerCarac_damage->setObjectName(QString::fromUtf8("labelTowerCarac_damage"));
-        labelTowerCarac_damage->setAlignment(Qt::AlignCenter);
+        labelTowerCaracDamage = new QLabel(formEncyclo);
+        labelTowerCaracDamage->setObjectName(QString::fromUtf8("labelTowerCaracDamage"));
+        labelTowerCaracDamage->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_4->addWidget(labelTowerCarac_damage);
+        verticalLayout_4->addWidget(labelTowerCaracDamage);
 
-        labelTowerCarac_fireRate = new QLabel(formEncyclo);
-        labelTowerCarac_fireRate->setObjectName(QString::fromUtf8("labelTowerCarac_fireRate"));
-        labelTowerCarac_fireRate->setAlignment(Qt::AlignCenter);
+        labelTowerCaracFireRate = new QLabel(formEncyclo);
+        labelTowerCaracFireRate->setObjectName(QString::fromUtf8("labelTowerCaracFireRate"));
+        labelTowerCaracFireRate->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_4->addWidget(labelTowerCarac_fireRate);
+        verticalLayout_4->addWidget(labelTowerCaracFireRate);
 
         horizontalLayout_6 = new QHBoxLayout();
         horizontalLayout_6->setObjectName(QString::fromUtf8("horizontalLayout_6"));
@@ -185,35 +185,35 @@ public:
 
         verticalLayout_5->addItem(verticalSpacer_2);
 
-        labelMonsterCarac_hp = new QLabel(formEncyclo);
-        labelMonsterCarac_hp->setObjectName(QString::fromUtf8("labelMonsterCarac_hp"));
-        labelMonsterCarac_hp->setAlignment(Qt::AlignCenter);
+        labelMonsterCaracHp = new QLabel(formEncyclo);
+        labelMonsterCaracHp->setObjectName(QString::fromUtf8("labelMonsterCaracHp"));
+        labelMonsterCaracHp->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_5->addWidget(labelMonsterCarac_hp);
+        verticalLayout_5->addWidget(labelMonsterCaracHp);
 
-        labelMonsterCarac_shield = new QLabel(formEncyclo);
-        labelMonsterCarac_shield->setObjectName(QString::fromUtf8("labelMonsterCarac_shield"));
-        labelMonsterCarac_shield->setAlignment(Qt::AlignCenter);
+        labelMonsterCaracShield = new QLabel(formEncyclo);
+        labelMonsterCaracShield->setObjectName(QString::fromUtf8("labelMonsterCaracShield"));
+        labelMonsterCaracShield->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_5->addWidget(labelMonsterCarac_shield);
+        verticalLayout_5->addWidget(labelMonsterCaracShield);
 
-        labelMonsterCarac_damage = new QLabel(formEncyclo);
-        labelMonsterCarac_damage->setObjectName(QString::fromUtf8("labelMonsterCarac_damage"));
-        labelMonsterCarac_damage->setAlignment(Qt::AlignCenter);
+        labelMonsterCaracDamage = new QLabel(formEncyclo);
+        labelMonsterCaracDamage->setObjectName(QString::fromUtf8("labelMonsterCaracDamage"));
+        labelMonsterCaracDamage->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_5->addWidget(labelMonsterCarac_damage);
+        verticalLayout_5->addWidget(labelMonsterCaracDamage);
 
-        labelMonsterCarac_speed = new QLabel(formEncyclo);
-        labelMonsterCarac_speed->setObjectName(QString::fromUtf8("labelMonsterCarac_speed"));
-        labelMonsterCarac_speed->setAlignment(Qt::AlignCenter);
+        labelMonsterCaracSpeed = new QLabel(formEncyclo);
+        labelMonsterCaracSpeed->setObjectName(QString::fromUtf8("labelMonsterCaracSpeed"));
+        labelMonsterCaracSpeed->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_5->addWidget(labelMonsterCarac_speed);
+        verticalLayout_5->addWidget(labelMonsterCaracSpeed);
 
-        labelMonsterCarac_reward = new QLabel(formEncyclo);
-        labelMonsterCarac_reward->setObjectName(QString::fromUtf8("labelMonsterCarac_reward"));
-        labelMonsterCarac_reward->setAlignment(Qt::AlignCenter);
+        labelMonsterCaracReward = new QLabel(formEncyclo);
+        labelMonsterCaracReward->setObjectName(QString::fromUtf8("labelMonsterCaracReward"));
+        labelMonsterCaracReward->setAlignment(Qt::AlignCenter);
 
-        verticalLayout_5->addWidget(labelMonsterCarac_reward);
+        verticalLayout_5->addWidget(labelMonsterCaracReward);
 
         horizontalLayout_5 = new QHBoxLayout();
         horizontalLayout_5->setObjectName(QString::fromUtf8("horizontalLayout_5"));
@@ -268,18 +268,18 @@ public:
         labelTitleEncyclo->setText(QCoreApplication::translate("formEncyclo", "<html><head/><body><p><span style=\" font-size:25pt;\">Cookie Defender Encyclopedia</span></p></body></html>", nullptr));
         labelTowerText->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         labelTowerPix->setText(QString());
-        labelTowerCarac_cost->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
-        labelTowerCarac_range->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
-        labelTowerCarac_damage->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
-        labelTowerCarac_fireRate->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelTowerCaracCost->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelTowerCaracRange->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelTowerCaracDamage->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelTowerCaracFireRate->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         btnTower->setText(QCoreApplication::translate("formEncyclo", "Other Tower", nullptr));
         labelMonsterText->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         labelMonsterPix->setText(QString());
-        labelMonsterCarac_hp->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
-        labelMonsterCarac_shield->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
-        labelMonsterCarac_damage->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
-        labelMonsterCarac_speed->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
-        labelMonsterCarac_reward->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelMonsterCaracHp->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelMonsterCaracShield->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelMonsterCaracDamage->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelMonsterCaracSpeed->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
+        labelMonsterCaracReward->setText(QCoreApplication::translate("formEncyclo", "TextLabel", nullptr));
         btnMonster->setText(QCoreApplication::translate("formEncyclo", "Other Enemy", nullptr));
         labelTowerLvl->setText(QCoreApplication::translate("formEncyclo", "<html><head/><body><p><span style=\" font-size:18pt;\">~MageTower shots throw the enemy's shield ~</span></p><p><span style=\" font-size:16pt;\">Tower Level Evolution :</span></p><p><span style=\" font-size:16pt;\">- Cost increases of 50 per level</span></p><p><span style=\" font-size:16pt;\">- Range increases by 35 per level</span></p><p><span style=\" font-size:16pt;\">- Firerate increases by 1 per level</span></p><p><span style=\" font-size:16pt;\">- Damage increases by 5 per level</span></p></body></html>", nullptr));
     } // retranslateUi
