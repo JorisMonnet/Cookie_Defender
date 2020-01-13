@@ -2,6 +2,7 @@
 #define MAP_H
 
 #include <QGraphicsView>
+#include <QGraphicsRectItem>
 #include <QMouseEvent>
 #include <QVector>
 #include <QTimer>
@@ -59,8 +60,8 @@ private :
     Tower *t;
 
     int indexTower=0;
-    double health=20;
-    double stackHealth;
+    double health;
+    const double stackHealth=20;
     int towerNumber;
     int width;
     int height;
@@ -84,6 +85,8 @@ private :
     int numberOfMonster=0;
     int *waveTab;
     int numberOfTowerLvl=0;
+    QGraphicsRectItem *rectRed;
+    QGraphicsRectItem *rectGreen;
 signals:
    void pauseFunction();
    void gameEnd();

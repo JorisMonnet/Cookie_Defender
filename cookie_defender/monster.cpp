@@ -3,9 +3,14 @@
 #include <QFile>
 #include <QTextStream>
 #include <QDebug>
+#include <QBrush>
+
 
 Monster::Monster(char x) : QGraphicsPixmapItem()
 {
+    hp=stackHp;
+    setLifeBar();
+
     int nameFileCount=x-'A';
     QString nameFromFile="";
     double hpCoef=1;
@@ -51,6 +56,23 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     shield*=shieldCoef;
 }
 
+void Monster::setLifeBar()
+{
+    rectRed=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
+    rectGreen=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
+    rectRed->setBrush(Qt::red);
+    rectGreen->setBrush(Qt::green);
+    rectGreen->setZValue(1);
+    rectRed->setZValue(0);
+}
+
+void Monster::updateMonster()
+{
+    rectRed->setRect(x()+5,y()-2,40,10);
+    double tempWidth=(40-((stackHp-hp)/stackHp)*(40));
+    rectGreen->setRect(x()+5,y()-2,tempWidth,10);
+}
+
 double Monster::searchCaracMonster(QString lineRead)
 {
    QString string;
@@ -61,6 +83,7 @@ double Monster::searchCaracMonster(QString lineRead)
     countSearchCarac++;
     return string.toDouble();
 }
+
 
 void Monster::move(QVector<QPointF>path,double *health)
 {
@@ -81,6 +104,7 @@ void Monster::move(QVector<QPointF>path,double *health)
             setY(y()-1);
         if(pos() == path.at(pathIndex).toPoint())
             pathIndex++;
+        updateMonster();
     }
 }
 

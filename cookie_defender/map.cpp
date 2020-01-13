@@ -13,7 +13,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
          int moneySource,QGraphicsPixmapItem *backgroundSource,int widthSource,int heightSource,int difficultySource)
     : QGraphicsView(parent)
 {
-    stackHealth=health;
+    health=stackHealth;
     difficulty=difficultySource;
     width = widthSource;
     height = heightSource;
@@ -60,9 +60,9 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         scene->addItem(background);
     scene->addItem(finish);
     scene->addItem(listIcon[0]);
-    textHealth = scene->addSimpleText(QString("Health: ")+QString::number(health));
+    textHealth = scene->addSimpleText(QString::number(health));
     textHealth->setScale(1.5);
-    textHealth->setPos(0,0);
+    textHealth->setPos(5+width/5,5);
     textMoney = scene->addSimpleText(QString("Money: ")+QString::number(money));
     textMoney->setScale(1.5);
     textMoney->setPos(0,50);
@@ -83,6 +83,15 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         for(int i=0;i<=numberOfMonster-1;i++)
             waveTab[i]=0;
     }
+
+    rectRed=new QGraphicsRectItem(QRect(0,0,width/5,40));
+    rectGreen=new QGraphicsRectItem(QRect(0,0,width/5,40));
+    rectRed->setBrush(Qt::red);
+    rectGreen->setBrush(Qt::green);
+    rectGreen->setZValue(1);
+    rectRed->setZValue(0);
+    scene->addItem(rectGreen);
+    scene->addItem(rectRed);
 
 }
 int Map::howManyFiles(QString fold)
@@ -259,6 +268,8 @@ void Map::aliveMonster()
         for(Monster *monster : vectMonster)
             if(monster->hp<=0){
                 money+=monster->reward;
+                scene->removeItem(monster->rectRed);
+                scene->removeItem(monster->rectGreen);
                 vectMonster.removeAll(monster);
                 delete monster;
                 mapUpdate();
@@ -284,6 +295,8 @@ void Map::addMonster(char x)
     vectMonster.append(new Monster(x));
     vectMonster.last()->setPos(path.first().toPoint());
     scene->addItem(vectMonster.last());
+    scene->addItem(vectMonster.last()->rectRed);
+    scene->addItem(vectMonster.last()->rectGreen);
 
 }
 
@@ -356,8 +369,11 @@ void Map::waveMonster()
 
 void Map::mapUpdate()
 {
-    textMoney->setText(QString("Money: ")+QString::number(money));
-    textHealth->setText(QString("Health: ")+QString::number(health));
+    if(health>0){
+        textMoney->setText(QString("Money: ")+QString::number(money));
+        textHealth->setText(QString::number(int(health)));
+        rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
+    }
     if(health<=0)
         gameOver();
 }
@@ -368,7 +384,8 @@ void Map::gameOver()
     timerWave->stop();
     timerTower->stop();
     vectMonster.clear();
-    textHealth->setText("Health: 0");
+    textHealth->setText("0");
+    delete rectGreen;
     if(difficulty==0)
         QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
     else
