@@ -7,6 +7,7 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
     setWindowFlag(Qt::FramelessWindowHint);
     currentMap = new Map();
+    pauseMenu = new PauseMenu();
     currentMap->timer->stop();
     currentMap->timerWave->stop();
     currentMap->timerTower->stop();
@@ -16,8 +17,8 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
 
 void Game::setGame()
 {
-    pauseMenu = new PauseMenu();
-    mainMenu = new MainMenu();
+    mainMenu = new MainMenu(nullptr,pauseMenu->sounds->music->volume(),pauseMenu->sounds->sounds->volume());
+    pauseMenu = new PauseMenu(nullptr,mainMenu->sounds->music->volume(),mainMenu->sounds->sounds->volume());
     mapMenu = new MapMenu();
     difficultyMenu = new DifficultyMenu();
     encyclopedia = new Encyclopedia();
@@ -94,12 +95,16 @@ void Game::chooseMap(int indexMap)
 
 void Game::startMap()
 {
+    mainMenu->sounds->music->stop();
+    mainMenu->sounds->sounds->stop();
     setGame();
+    pauseMenu->sounds->music->stop();
+    pauseMenu->sounds->music->play();
     resume();
 }
 
 void Game::resume()
-{
+{    
     stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
     currentMap->timerWave->start(currentMap->remainingTimeWave);
@@ -109,6 +114,9 @@ void Game::resume()
 
 void Game::menu()
 {
+    pauseMenu->sounds->music->stop();
+    mainMenu->sounds->music->stop();
+    mainMenu->sounds->music->play();
     lastIndex=0;
     stackedWidget->setCurrentWidget(mainMenu);
 }

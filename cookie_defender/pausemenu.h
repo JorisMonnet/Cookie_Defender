@@ -9,7 +9,7 @@ class PauseMenu : public QWidget
 {
     Q_OBJECT
 public:
-    PauseMenu(QWidget *parent = nullptr);
+    PauseMenu(QWidget *parent = nullptr,int musicVolume=50,int soundsEffectVolume=50);
     QPushButton *resume;
     QPushButton *restart;
     QPushButton * encyclo;
