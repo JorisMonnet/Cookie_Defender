@@ -402,7 +402,8 @@ void Map::gameWin()
         for(int i=0;i<3;i++)
             if(health>i*stackHealth/3)
                 string.append(">|< ");
-        QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans Thanks You for your Epic battle !"
+        QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans "
+                                                        "Thanks You for your Epic battle !"
                                                 "\ngame star: "+string);
         emit gameEnd();
     }
