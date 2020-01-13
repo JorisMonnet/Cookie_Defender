@@ -15,6 +15,7 @@ public:
     QPushButton *play;
     QPushButton *story;
     SoundBoxes *sounds;
+    void manageMusic(bool play);
 };
 
 #endif // MAINMENU_H

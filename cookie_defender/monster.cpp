@@ -8,8 +8,6 @@
 
 Monster::Monster(char charX) : QGraphicsPixmapItem()
 {
-
-
     int nameFileCount=charX-'A';
     QString nameFromFile="";
     double hpCoef=1;

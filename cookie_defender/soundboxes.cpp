@@ -1,17 +1,22 @@
 #include "soundboxes.h"
 
 #include <QGridLayout>
-#include <QTimer>
 
 const int VOL_MIN = 0;
 const int VOL_MAX = 99;
 
-SoundBoxes::SoundBoxes(QWidget *parent,int musicVolume,int soundEffectVolume): QWidget(parent)
+SoundBoxes::SoundBoxes(QWidget *parent,int musicVolume,int soundEffectVolume,int indexMenu)
+    : QWidget(parent)
 {
-    //QTimer *timer = new QTimer(this);
+    timer = new QTimer(this);
     music = new QMediaPlayer();
-    //timer->start(static_cast<int>(music->duration()));
-    //connect(timer,&QTimer::timeout,music,&QMediaPlayer::play);
+
+    indexMenu?music->setMedia(QUrl("qrc:/sounds/jeu_versiofull.wav")):music->setMedia(QUrl("qrc:/sounds/jeu_menu.wav"));
+    timer->start(static_cast<int>(music->duration()));
+    connect(timer,&QTimer::timeout,this,[=]{
+        if(isPlaying)
+            music->play();
+    });
     sounds = new QMediaPlayer();
 
     QGridLayout *layout = new QGridLayout(this);
@@ -26,7 +31,6 @@ SoundBoxes::SoundBoxes(QWidget *parent,int musicVolume,int soundEffectVolume): Q
     sfx->setSingleStep(1);
     sfx->setValue(soundEffectVolume);
     sounds->setVolume(soundEffectVolume);
-
     musicLabel = new QLabel(QString::number(musicVolume));
     sfxlb = new QLabel(QString::number(soundEffectVolume));
 

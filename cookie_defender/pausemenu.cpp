@@ -9,8 +9,7 @@ PauseMenu::PauseMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QW
     restart = new QPushButton(tr("Re&start"));
     encyclo = new QPushButton(tr("&Encyclopedia"));
     exit = new QPushButton(tr("To &main menu"));
-    sounds = new SoundBoxes(nullptr,musicVolume,soundsEffectVolume);
-    sounds->music->setMedia(QUrl("../sounds/jeu_versiofull.wav"));
+    sounds = new SoundBoxes(nullptr,musicVolume,soundsEffectVolume,1);
     QVBoxLayout *vLay = new QVBoxLayout;
     vLay->addStretch();
     vLay->addWidget(resume);
@@ -31,4 +30,8 @@ void PauseMenu::keyPressEvent(QKeyEvent *event)
     if(event->key()==Qt::Key_Escape)
         emit resume->click();
 }
-
+void PauseMenu::manageMusic(bool play)
+{
+    play?sounds->music->play():sounds->music->stop();
+    sounds->isPlaying=play;
+}

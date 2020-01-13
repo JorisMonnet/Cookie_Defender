@@ -31,8 +31,8 @@ private:
     Encyclopedia *encyclopedia;
     Map *currentMap;
     Story *story;
-
     int indexMap;
+    int musicVolume=50,soundVolume=50;
     int lastIndex=0;
     int difficulty=0;
 };

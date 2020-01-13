@@ -7,6 +7,7 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
     setWindowFlag(Qt::FramelessWindowHint);
     currentMap = new Map();
+    mainMenu = new MainMenu();
     pauseMenu = new PauseMenu();
     currentMap->timer->stop();
     currentMap->timerWave->stop();
@@ -17,8 +18,10 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
 
 void Game::setGame()
 {
+    musicVolume=mainMenu->sounds->music->volume();
+    soundVolume=mainMenu->sounds->sounds->volume();
     mainMenu = new MainMenu(nullptr,pauseMenu->sounds->music->volume(),pauseMenu->sounds->sounds->volume());
-    pauseMenu = new PauseMenu(nullptr,mainMenu->sounds->music->volume(),mainMenu->sounds->sounds->volume());
+    pauseMenu = new PauseMenu(nullptr,musicVolume,soundVolume);
     mapMenu = new MapMenu();
     difficultyMenu = new DifficultyMenu();
     encyclopedia = new Encyclopedia();
@@ -95,11 +98,10 @@ void Game::chooseMap(int indexMap)
 
 void Game::startMap()
 {
-    mainMenu->sounds->music->stop();
-    mainMenu->sounds->sounds->stop();
+    mainMenu->manageMusic(0);
     setGame();
-    pauseMenu->sounds->music->stop();
-    pauseMenu->sounds->music->play();
+    pauseMenu->manageMusic(0);
+    pauseMenu->manageMusic(1);
     resume();
 }
 
@@ -114,10 +116,12 @@ void Game::resume()
 
 void Game::menu()
 {
-    pauseMenu->sounds->music->stop();
-    mainMenu->sounds->music->stop();
-    mainMenu->sounds->music->play();
+    pauseMenu->manageMusic(0);
+    mainMenu->manageMusic(0);
+    mainMenu->manageMusic(1);
     lastIndex=0;
+    mainMenu->sounds->musicSlider->setValue(pauseMenu->sounds->music->volume());
+    mainMenu->sounds->sfx->setValue(pauseMenu->sounds->sounds->volume());
     stackedWidget->setCurrentWidget(mainMenu);
 }
 

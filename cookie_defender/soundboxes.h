@@ -6,22 +6,23 @@
 #include <QLabel>
 #include <QString>
 #include <QSlider>
-
+#include <QTimer>
 class SoundBoxes : public QWidget
 {
     Q_OBJECT
 public:
-    SoundBoxes(QWidget *parent = nullptr,int musicVolume = 0,int soundEffectVolume = 0);
-    QMediaPlayer * music;
+    SoundBoxes(QWidget *parent = nullptr,int musicVolume = 0,int soundEffectVolume = 0,int indexMenu=0);
+    QMediaPlayer *music;
     QMediaPlayer * sounds;
-
+    bool isPlaying=false;
+    QSlider *musicSlider;
+    QSlider *sfx;
 private slots:
     void volumeChanged(int vol);
     void sfxChanged(int sfx);
 
 private:
-    QSlider *musicSlider;
-    QSlider *sfx;
+    QTimer *timer;
     QLabel *musicLabel;
     QLabel *sfxlb;
 };

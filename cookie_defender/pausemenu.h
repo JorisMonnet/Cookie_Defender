@@ -15,6 +15,7 @@ public:
     QPushButton * encyclo;
     QPushButton *exit;
     SoundBoxes *sounds;
+    void manageMusic(bool play);
     void keyPressEvent(QKeyEvent *event) override;
 };
 #endif // PAUSEMENU_H
