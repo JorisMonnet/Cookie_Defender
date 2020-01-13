@@ -258,7 +258,7 @@ void Map::aliveMonster()
     if(!vectMonster.isEmpty())
         for(Monster *monster : vectMonster)
             if(monster->hp<=0){
-                money+=int(monster->reward);
+                money+=monster->reward;
                 vectMonster.removeAll(monster);
                 delete monster;
                 mapUpdate();

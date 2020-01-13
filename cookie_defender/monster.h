@@ -11,7 +11,7 @@ public:
     const int size=40;
     double hp=20;
     double shield=25;
-    double reward=25;
+    int reward=25;
     double velocity=2;
     double damage=2;
     int pathIndex=0;
