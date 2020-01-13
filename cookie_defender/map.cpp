@@ -264,7 +264,6 @@ void Map::aliveMonster()
                 mapUpdate();
             }
 }
-
 void Map::createClickableItem(double x,double y,int size)
 {
     clickableItem->setRect(x,y,size,size);

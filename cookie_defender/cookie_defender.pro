@@ -20,6 +20,7 @@ SOURCES += \
     encyclopedia.cpp \
     encyclowidg.cpp \
     game.cpp \
+    lifewidg.cpp \
     main.cpp \
     mainmenu.cpp \
     map.cpp \
@@ -36,6 +37,7 @@ HEADERS += \
     encyclopedia.h \
     encyclowidg.h \
     game.h \
+    lifewidg.h \
     mainmenu.h \
     map.h \
     mapmenu.h \
