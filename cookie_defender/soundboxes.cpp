@@ -11,7 +11,7 @@ SoundBoxes::SoundBoxes(QWidget *parent)
 {
     QTimer *timer = new QTimer(this);
     music = new QMediaPlayer();
-    music->setMedia(QUrl("../sounds/jeu_menu.wav"));
+    music->setMedia(QUrl(":/sounds/jeu_menu.wav"));
     music->play();
     timer->start(static_cast<int>(music->duration()));
     connect(timer,&QTimer::timeout,music,&QMediaPlayer::play);

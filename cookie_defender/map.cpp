@@ -47,14 +47,14 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     clickableItem = new QGraphicsRectItem();
     clickableItem->setPen(QPen(Qt::blue,2));
 
-    listIcon[0]= new QGraphicsPixmapItem(QPixmap("../icones/pause.png").scaled(iconSize,iconSize));
-    listIcon[1]= new QGraphicsPixmapItem(QPixmap("../icones/sell.png").scaled(iconSize,iconSize));
-    listIcon[2]= new QGraphicsPixmapItem(QPixmap("../icones/upgrade.png").scaled(iconSize,iconSize));
-    listIcon[3]= new QGraphicsPixmapItem(QPixmap("../icones/tower/classictower/classictower1.png").scaled(iconSize,iconSize));
-    listIcon[4]= new QGraphicsPixmapItem(QPixmap("../icones/tower/magetower/magetower1.png").scaled(iconSize,iconSize));
+    listIcon[0]= new QGraphicsPixmapItem(QPixmap(":/icones/pause.png").scaled(iconSize,iconSize));
+    listIcon[1]= new QGraphicsPixmapItem(QPixmap(":/icones/sell.png").scaled(iconSize,iconSize));
+    listIcon[2]= new QGraphicsPixmapItem(QPixmap(":/icones/upgrade.png").scaled(iconSize,iconSize));
+    listIcon[3]= new QGraphicsPixmapItem(QPixmap(":/icones/tower/classicTower/classictower1.png").scaled(iconSize,iconSize));
+    listIcon[4]= new QGraphicsPixmapItem(QPixmap(":/icones/tower/mageTower/magetower1.png").scaled(iconSize,iconSize));
     listIcon[0]->setPos(width-iconSize,0);
 
-    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap("../icones/Cookie.png").scaled(100,100));
+    QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap(":/icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
     if(background!=nullptr)
         scene->addItem(background);
@@ -76,8 +76,8 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     for(int i=0;i<path.size()-1;i++)
         scene->addLine(QLineF(path.at(i),path.at(i+1)));
 
-    numberOfTowerLvl = howManyFiles("../icones/tower/classictower");
-    numberOfMonster= howManyFiles("../icones/monster/pix");
+    numberOfTowerLvl = howManyFiles(":/icones/tower/classictower");
+    numberOfMonster= howManyFiles(":/icones/monster/pix");
     if(numberOfMonster>0){
         waveTab= new int [numberOfMonster];
         for(int i=0;i<=numberOfMonster-1;i++)
@@ -341,7 +341,7 @@ void Map::waveMonster()
         countTimeInf=countTimeInf-countTimeInf/50;
     }
     else{
-        QFile file(QString("../wave/wave%1.txt").arg(difficulty));
+        QFile file(QString(":/wave/wave%1.txt").arg(difficulty));
         if(file.open(QIODevice::ReadOnly | QIODevice::Text)){
             QTextStream flow(&file);
             for(int i=0;i<this->waveIndex;i++)

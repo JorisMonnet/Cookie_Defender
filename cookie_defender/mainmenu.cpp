@@ -15,7 +15,7 @@ MainMenu::MainMenu(QWidget *parent)
     SoundBoxes *sounds = new SoundBoxes(this);
 
     QPushButton *exit = new QPushButton(tr("Exit game"));
-    QPixmap pix("../icones/logo2.png");
+    QPixmap pix(":/icones/logo2.png");
     QLabel *lab=new QLabel();
     lab->setPixmap(pix.scaled(2*this->width()/3,2*this->height()/3,Qt::KeepAspectRatioByExpanding,Qt::SmoothTransformation));
 

@@ -11,8 +11,8 @@
 EncycloWidg::EncycloWidg(QWidget *parent) : QWidget(parent)
 {
    setupUi(this);
-   numberTower=howManyFiles("../icones/tower/pix");
-   numberMonster=howManyFiles("../icones/monster/pix");
+   numberTower=howManyFiles(":/icones/tower/pix");
+   numberMonster=howManyFiles(":/icones/monster/pix");
 
    set();
 }
@@ -66,9 +66,9 @@ QPixmap EncycloWidg::getPix()
 
     QPixmap pix;
     if(testBool)
-        pix=QPixmap(QString("../icones/tower/pix/%1").arg(indexTower%numberTower));
+        pix=QPixmap(QString(":/icones/tower/pix/%1").arg(indexTower%numberTower));
     else
-        pix=QPixmap(QString("../icones/monster/pix/%1").arg(indexMonster%numberMonster));
+        pix=QPixmap(QString(":/icones/monster/pix/%1").arg(indexMonster%numberMonster));
 
     return pix;
 }
