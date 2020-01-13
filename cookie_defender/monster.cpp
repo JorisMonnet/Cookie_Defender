@@ -6,7 +6,6 @@
 
 Monster::Monster(char x) : QGraphicsPixmapItem()
 {
-    QString string;
     int nameFileCount=x-'A';
     QString nameFromFile="";
     int hpCoef=1;
@@ -23,49 +22,20 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
         QTextStream flow(&file);
         for(int i=0;i<nameFileCount+1;i++){
             lineRead=flow.readLine();
-            int k=0;
-            string.clear();
+            countSearchCarac=0;
             nameFromFile.clear();
 
-            for(int j =k;lineRead.at(j)!=';';j++){
+            for(int j =countSearchCarac;lineRead.at(j)!=';';j++){
                 nameFromFile.append(lineRead.at(j));
-                k++;
+                countSearchCarac++;
             }
-            k++;
-            for(int j=k;lineRead.at(j)!=';';j++){
-                string.append(lineRead.at(j));
-                k++;
-            }
-            k++;
-            hpCoef=string.toInt();
-            string.clear();
-            for(int j=k;lineRead.at(j)!=';';j++){
-                string.append(lineRead.at(j));
-                k++;
-            }
-            k++;
-            rewardCoef=string.toInt();
-            string.clear();
-            for(int j=k;lineRead.at(j)!=';';j++){
-                string.append(lineRead.at(j));
-                k++;
-            }
-            k++;
-            velocityCoef=string.toInt();
-            string.clear();
-            for(int j=k;lineRead.at(j)!=';';j++){
-                string.append(lineRead.at(j));
-                k++;
-            }
-            k++;
-            damageCoef=string.toInt();
-            string.clear();
-            for(int j=k;lineRead.at(j)!=';';j++){
-                string.append(lineRead.at(j));
-                k++;
-            }
-            k++;
-            shieldCoef=string.toInt();
+            countSearchCarac++;
+
+            hpCoef=searchCaracMonster(lineRead);
+            rewardCoef=searchCaracMonster(lineRead);
+            velocityCoef=searchCaracMonster(lineRead);
+            damageCoef=searchCaracMonster(lineRead);
+            shieldCoef=searchCaracMonster(lineRead);
         }
         file.close();
     }
@@ -79,6 +49,17 @@ Monster::Monster(char x) : QGraphicsPixmapItem()
     velocity/=velocityCoef;
     damage*=damageCoef;
     shield*=shieldCoef;
+}
+
+int Monster::searchCaracMonster(QString lineRead)
+{
+   QString string;
+   for(int j=countSearchCarac;lineRead.at(j)!=';';j++){
+       string.append(lineRead.at(j));
+       countSearchCarac++;
+    }
+    countSearchCarac++;
+    return string.toInt();
 }
 
 void Monster::move(QVector<QPointF>path,int *health)

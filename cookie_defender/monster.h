@@ -18,8 +18,12 @@ public:
     void move(QVector<QPointF>path,int *health);
     double toCookie(QVector<QPointF>path);
     QString name;
-    QString lineRead;
+
     QProgressBar *lifeBar;
+private:
+    int searchCaracMonster(QString lineRead);
+    QString lineRead;
+    int countSearchCarac;
 };
 
 #endif // MONSTER_H
