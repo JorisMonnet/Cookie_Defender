@@ -17,14 +17,16 @@ void Tower::set(int level)
     this->level=level;
     switch(type)
     {
-        case 1: cost=100+x*50;
+        case 1: cost=150+x*50;
+                costToPlace=100;
                 range=150+x*35;
                 speed=2+x;
                 damage=10+x*5;
                 setPixmap(QPixmap(QString("../icones/tower/classictower/classictower%1.png").arg(level)).scaled(size,size));
                 name="Classic Tower";
             break;
-        case 2: cost=150+x*50;
+        case 2: cost=200+x*50;
+                costToPlace=150;
                 range=120+x*35;
                 speed=2+x;
                 damage=15+x*5;

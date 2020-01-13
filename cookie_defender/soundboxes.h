@@ -2,8 +2,10 @@
 #define SOUNDBOXES_H
 
 #include <QWidget>
-class QSlider;
-class QLabel;
+#include <QMediaPlayer>
+#include <QLabel>
+#include <QString>
+#include <QSlider>
 
 class SoundBoxes : public QWidget
 {
@@ -11,16 +13,18 @@ class SoundBoxes : public QWidget
 public:
     SoundBoxes(QWidget *parent = nullptr);
     int volume = 0;
-    int soundEffect = 0;
+    int soundEffectVolume = 0;
+    /*QMediaPlayer * music;
+    QMediaPlayer * sounds;*/
 
-public slots:
+private slots:
     void volumeChanged(int vol);
     void sfxChanged(int sfx);
 
 private:
-    QSlider *sound;
+    QSlider *musicSlider;
     QSlider *sfx;
-    QLabel *soundlb;
+    QLabel *musicLabel;
     QLabel *sfxlb;
 };
 #endif // SOUNDBOXES_H
