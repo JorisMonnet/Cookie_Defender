@@ -128,7 +128,7 @@ void Map::mousePressEvent(QMouseEvent *event)
     else if(scene->items().contains(listIcon[2])&&QRectF(listIcon[2]->x(),listIcon[2]->y(),iconSize,iconSize).contains(event->pos())&&t[indexTower].cost<=money){
             money-=t[indexTower].cost;
             hideUpgradeSell();
-            t[indexTower].set(t[indexTower].level+1);
+            t[indexTower].set(++t[indexTower].level);
     }
     else if(scene->items().contains(listIcon[1])&&QRectF(listIcon[1]->x(),listIcon[1]->y(),iconSize,iconSize).contains(event->pos())){
         money+=t[indexTower].cost/2;

@@ -179,8 +179,8 @@ release/qrc_Resources.o: ../cookie_defender/Resources.qrc \
 		../cookie_defender/icones/monster/readme.txt \
 		../cookie_defender/icones/monster/pix/1.png \
 		../cookie_defender/icones/monster/pix/0.png \
-		../cookie_defender/icones/projectile/2.png \
 		../cookie_defender/icones/projectile/1.png \
+		../cookie_defender/icones/projectile/0.png \
 		../cookie_defender/icones/tower/data.txt \
 		../cookie_defender/icones/tower/2/2.png \
 		../cookie_defender/icones/tower/2/1.png \

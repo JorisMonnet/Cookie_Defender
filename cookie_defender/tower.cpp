@@ -18,7 +18,7 @@ int Tower::howManyFiles(QString fold)
     int numberFiles = 0;
         for (int i = 0; i < listFold.size(); ++i) {
             QFileInfo fileInfos = listFold.at(i);
-            if(fileInfos.isFile()|| fileInfos.isDir())
+            if(fileInfos.isFile())
                 numberFiles++;
         }
      return numberFiles;
