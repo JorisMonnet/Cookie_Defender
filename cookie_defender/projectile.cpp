@@ -6,7 +6,7 @@ Projectile::Projectile(Tower *tsource, QGraphicsScene *sceneSource, Monster *tar
     :target(targetSource),t(tsource),scene(sceneSource)
 {
     int numberProjectile=howManyFiles(":/icones/projectile");
-    setPixmap(QPixmap(QString(":/icones/projectile/%1.png").arg(t->type%numberProjectile)).scaled(30,30));
+    setPixmap(QPixmap(QString(":/icones/projectile/%1.png").arg(numberProjectile%t->type)).scaled(30,30));
     timer = new QTimer(this);
     timer->start(10);
     connect(timer,&QTimer::timeout,this,&Projectile::move);

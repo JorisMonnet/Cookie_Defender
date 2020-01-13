@@ -19,6 +19,7 @@ public:
     int searchCaracMonster(QString lineRead);
     int howManyFiles(QString fold);
     bool shield;
+    int projIndex;
     int countSearchCarac=0;
     QString name;
     int damage;

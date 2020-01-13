@@ -33,6 +33,7 @@ void Tower::set(int level)
     int rangeVar=0;
     int speedVar=0;
     int damageVar=0;
+    int proIndexVar=0;
     bool shieldVar=false;
     QString stringVar="";
 
@@ -56,6 +57,7 @@ void Tower::set(int level)
             speedVar=searchCaracMonster(lineRead);
             damageVar=searchCaracMonster(lineRead);
             shieldVar=bool(searchCaracMonster(lineRead));
+            proIndexVar=searchCaracMonster(lineRead);
         }
         file.close();
     }
@@ -71,6 +73,7 @@ void Tower::set(int level)
     damage=damageVar+x*5;
     name=stringVar;
     shield=shieldVar;
+    projIndex=proIndexVar;
     setPixmap(QPixmap(QString(":/icones/tower/%1/%2.png").arg(type).arg(x+1)).scaled(size,size));
 }
 
