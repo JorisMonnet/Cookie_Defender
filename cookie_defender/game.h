@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include <QStackedWidget>
-#include "pausemenu.h"
 #include "mainmenu.h"
 #include "mapmenu.h"
 #include "map.h"

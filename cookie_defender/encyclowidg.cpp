@@ -79,8 +79,7 @@ void EncycloWidg::setSpecs()
 
     if(!testBool){
         QChar x(65+indexMonster%number_monster);
-        char xC=x.toLatin1();
-        Monster* monster=new Monster(xC);
+        Monster* monster=new Monster(x.toLatin1());
 
         labelMonsterCarac_hp->setText(QString("HP : %1").arg(monster->hp));
         labelMonsterCarac_shield->setText(QString("Shield : %1").arg(monster->shield));
@@ -93,7 +92,6 @@ void EncycloWidg::setSpecs()
     else{
         Tower *tower=new Tower();
         tower->type=indexTower%number_tower+1;
-        tower->set(1);
 
         labelTowerCarac_cost->setText(QString("Cost : %1").arg(tower->cost));
         labelTowerCarac_range->setText(QString("Range : %1").arg(tower->range));
