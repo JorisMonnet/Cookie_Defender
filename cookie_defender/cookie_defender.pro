@@ -57,5 +57,4 @@ FORMS += \
     formEncyclo.ui
 
 RESOURCES += \
-    Ressources.qrc \
-    Ressources.qrc
+    Resources.qrc

@@ -84,7 +84,6 @@ private :
     int howManyFiles(QString fold);
     int numberOfMonster=0;
     int *waveTab;
-    int numberOfTowerLvl=0;
     QGraphicsRectItem *rectRed;
     QGraphicsRectItem *rectGreen;
 signals:
