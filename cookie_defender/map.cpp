@@ -340,7 +340,7 @@ void Map::waveMonster()
 {
     if(difficulty==0){
         timerSpawn->start(countTimeInf);
-        countTimeInf=countTimeInf-countTimeInf/50;
+        countTimeInf=countTimeInf-countTimeInf/25;
     }
     else{
         QFile file(QString(":/wave/wave%1.txt").arg(difficulty));

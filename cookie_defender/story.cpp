@@ -33,6 +33,10 @@ Story::Story(QWidget *parent) : QWidget(parent)
     vLay->addStretch();
     setLayout(vLay);
 
+    QPalette pal = palette();
+    pal.setBrush(QPalette::Window,QBrush(QPixmap(":/icones/backgroundStory.png")));
+    setAutoFillBackground(true);
+    setPalette(pal);
 
     connect(exit,&QPushButton::clicked,this,[=]{emit finishStory();});
 }

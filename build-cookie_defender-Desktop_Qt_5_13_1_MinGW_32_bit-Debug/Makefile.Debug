@@ -166,7 +166,6 @@ debug/qrc_Resources.o: ../cookie_defender/Resources.qrc \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/bin/rcc.exe \
 		../cookie_defender/icones/menubg.png \
 		../cookie_defender/icones/upgrade.png \
-		../cookie_defender/icones/option.jpg \
 		../cookie_defender/icones/miniaGrass.png \
 		../cookie_defender/icones/logo2.png \
 		../cookie_defender/icones/bg2.jpg \
@@ -179,6 +178,7 @@ debug/qrc_Resources.o: ../cookie_defender/Resources.qrc \
 		../cookie_defender/icones/monster/readme.txt \
 		../cookie_defender/icones/monster/pix/1.png \
 		../cookie_defender/icones/monster/pix/0.png \
+		../cookie_defender/icones/projectile/2.png \
 		../cookie_defender/icones/projectile/1.png \
 		../cookie_defender/icones/projectile/0.png \
 		../cookie_defender/icones/tower/data.txt \
@@ -424,6 +424,28 @@ debug/moc_encyclopedia.cpp: ../cookie_defender/encyclopedia.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qtouchdevice.h \
 		ui_formEncyclo.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QPushButton \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/bin/moc.exe
 	C:\Qt\Qt5.13.1\5.13.1\mingw73_32\bin\moc.exe $(DEFINES) --include C:/DEV/Qt/code_p2/tower-defense/build-cookie_defender-Desktop_Qt_5_13_1_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/win32-g++ -IC:/DEV/Qt/code_p2/tower-defense/cookie_defender -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtMultimedia -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtNetwork -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.13.1/Tools/mingw730_32/i686-w64-mingw32/include ..\cookie_defender\encyclopedia.h -o debug\moc_encyclopedia.cpp
@@ -533,6 +555,28 @@ debug/moc_encyclowidg.cpp: ../cookie_defender/encyclowidg.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qtouchdevice.h \
 		ui_formEncyclo.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QPushButton \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/bin/moc.exe
 	C:\Qt\Qt5.13.1\5.13.1\mingw73_32\bin\moc.exe $(DEFINES) --include C:/DEV/Qt/code_p2/tower-defense/build-cookie_defender-Desktop_Qt_5_13_1_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/win32-g++ -IC:/DEV/Qt/code_p2/tower-defense/cookie_defender -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtMultimedia -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtNetwork -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.13.1/Tools/mingw730_32/i686-w64-mingw32/include ..\cookie_defender\encyclowidg.h -o debug\moc_encyclowidg.cpp
@@ -722,6 +766,13 @@ debug/moc_game.cpp: ../cookie_defender/game.h \
 		../cookie_defender/difficultymenu.h \
 		../cookie_defender/encyclopedia.h \
 		ui_formEncyclo.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout \
 		debug/moc_predefs.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/bin/moc.exe
 	C:\Qt\Qt5.13.1\5.13.1\mingw73_32\bin\moc.exe $(DEFINES) --include C:/DEV/Qt/code_p2/tower-defense/build-cookie_defender-Desktop_Qt_5_13_1_MinGW_32_bit-Debug/debug/moc_predefs.h -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/win32-g++ -IC:/DEV/Qt/code_p2/tower-defense/cookie_defender -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtMultimedia -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtANGLE -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtNetwork -IC:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore -I. -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++ -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/i686-w64-mingw32 -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include/c++/backward -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include -IC:/Qt/Qt5.13.1/Tools/mingw730_32/lib/gcc/i686-w64-mingw32/7.3.0/include-fixed -IC:/Qt/Qt5.13.1/Tools/mingw730_32/i686-w64-mingw32/include ..\cookie_defender\game.h -o debug\moc_game.cpp
@@ -1644,17 +1695,29 @@ debug/encyclopedia.o: ../cookie_defender/encyclopedia.cpp ../cookie_defender/enc
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qtouchdevice.h \
 		ui_formEncyclo.h \
-		../cookie_defender/encyclowidg.h \
-		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QPushButton \
-		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
-		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
-		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qinputmethod.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QHBoxLayout \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qboxlayout.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayout.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayoutitem.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgridlayout.h \
-		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QLabel \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlabel.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QPushButton \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout \
+		../cookie_defender/encyclowidg.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\encyclopedia.o ..\cookie_defender\encyclopedia.cpp
 
 debug/encyclowidg.o: ../cookie_defender/encyclowidg.cpp ../cookie_defender/encyclowidg.h \
@@ -1762,9 +1825,28 @@ debug/encyclowidg.o: ../cookie_defender/encyclowidg.cpp ../cookie_defender/encyc
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qvector2d.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qtouchdevice.h \
 		ui_formEncyclo.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QVariant \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QApplication \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qcoreapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qeventloop.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qdesktopwidget.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qguiapplication.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qinputmethod.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgridlayout.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QLabel \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlabel.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qframe.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QPushButton \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qpushbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qabstractbutton.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtGui/qicon.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QDir \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qdir.h \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/qfileinfo.h \
@@ -1966,6 +2048,13 @@ debug/game.o: ../cookie_defender/game.cpp ../cookie_defender/game.h \
 		../cookie_defender/difficultymenu.h \
 		../cookie_defender/encyclopedia.h \
 		ui_formEncyclo.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout \
 		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtCore/QTextStream
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\game.o ..\cookie_defender\game.cpp
 
@@ -2153,7 +2242,14 @@ debug/main.o: ../cookie_defender/main.cpp ../cookie_defender/game.h \
 		../cookie_defender/story.h \
 		../cookie_defender/difficultymenu.h \
 		../cookie_defender/encyclopedia.h \
-		ui_formEncyclo.h
+		ui_formEncyclo.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QHBoxLayout \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qboxlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qlayoutitem.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/qgridlayout.h \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QSpacerItem \
+		C:/Qt/Qt5.13.1/5.13.1/mingw73_32/include/QtWidgets/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\main.o ..\cookie_defender\main.cpp
 
 debug/mainmenu.o: ../cookie_defender/mainmenu.cpp ../cookie_defender/mainmenu.h \

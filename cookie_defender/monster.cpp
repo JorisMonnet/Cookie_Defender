@@ -54,8 +54,8 @@ Monster::Monster(char charX) : QGraphicsPixmapItem()
     shield*=shieldCoef;
 
     stackHp=hp;
-    rectRed=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
-    rectGreen=new QGraphicsRectItem(QRectF(x()+5,y()-2,40,10));
+    rectRed=new QGraphicsRectItem(QRectF(x()+5,y()-8,40,10));
+    rectGreen=new QGraphicsRectItem(QRectF(x()+5,y()-8,40,10));
     rectRed->setBrush(Qt::red);
     rectGreen->setBrush(Qt::green);
     rectGreen->setZValue(1);
@@ -64,8 +64,8 @@ Monster::Monster(char charX) : QGraphicsPixmapItem()
 
 void Monster::updateMonster()
 {
-    rectGreen->setRect(x()+5,y()-2,(40-((stackHp-hp)/stackHp)*40),10);
-    rectRed->setRect(x()+5,y()-2,40,10);
+    rectGreen->setRect(x()+5,y()-8,(40-((stackHp-hp)/stackHp)*40),10);
+    rectRed->setRect(x()+5,y()-8,40,10);
 }
 
 double Monster::searchCaracMonster(QString lineRead)

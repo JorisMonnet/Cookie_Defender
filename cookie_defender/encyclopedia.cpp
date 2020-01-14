@@ -23,4 +23,9 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     vLay->addItem(hLay);
     vLay->addStretch();
     setLayout(vLay);
+
+    QPalette pal = palette();
+    pal.setBrush(QPalette::Window,QBrush(QPixmap(":/icones/backgroundStory.png")));
+    setAutoFillBackground(true);
+    setPalette(pal);
 }
