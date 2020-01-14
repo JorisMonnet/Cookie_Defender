@@ -8,7 +8,6 @@ MainMenu::MainMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QWid
 {
     play = new QPushButton(tr("&Play"));
     encyclo = new QPushButton(tr("&Encyclopedia"));
-    options = new QPushButton(tr("&Options"));
     story = new QPushButton(tr("The Cookie &Story"));
     QPushButton *exit = new QPushButton(tr("Exit game"));
     sounds = new SoundBoxes(nullptr,musicVolume,soundsEffectVolume,0);
@@ -21,7 +20,6 @@ MainMenu::MainMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QWid
     vLay->addStretch();
     vLay->addWidget(play);
     vLay->addWidget(encyclo);
-    vLay->addWidget(options);
     vLay->addWidget(sounds);
     vLay->addWidget(story);
     vLay->addWidget(exit);

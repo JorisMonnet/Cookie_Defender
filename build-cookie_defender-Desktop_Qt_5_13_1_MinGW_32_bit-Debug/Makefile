@@ -225,6 +225,7 @@ Makefile: ../cookie_defender/cookie_defender.pro ../../../Qt/Qt5.13.1/5.13.1/min
 		../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/qt_config.prf \
 		../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/win32-g++/qmake.conf \
 		../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/exclusive_builds.prf \
 		../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/toolchain.prf \
 		../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/default_pre.prf \
@@ -417,6 +418,7 @@ Makefile: ../cookie_defender/cookie_defender.pro ../../../Qt/Qt5.13.1/5.13.1/min
 ../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/qt_config.prf:
 ../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/win32-g++/qmake.conf:
 ../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/spec_post.prf:
+.qmake.stash:
 ../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/exclusive_builds.prf:
 ../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/toolchain.prf:
 ../../../Qt/Qt5.13.1/5.13.1/mingw73_32/mkspecs/features/default_pre.prf:
