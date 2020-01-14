@@ -99,6 +99,7 @@ void Game::chooseMap(int indexMap)
 void Game::startMap()
 {
     mainMenu->manageMusic(0);
+    pauseMenu->manageMusic(0);
     setGame();
     pauseMenu->manageMusic(0);
     pauseMenu->manageMusic(1);
