@@ -7,7 +7,6 @@
 
 Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
 {
-
     EncycloWidg *encycloWidg = new EncycloWidg();
 
     QPushButton *exit = new QPushButton(tr("&Exit"));

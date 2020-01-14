@@ -11,39 +11,91 @@ Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
     showedRange= new QGraphicsEllipseItem();
 }
 
-void Tower::set(int level)
+int Tower::howManyFiles(QString fold)
 {
+    QDir dir = fold;
+    QFileInfoList listFold = dir.entryInfoList(QDir::Dirs | QDir::Files);
+    int numberFiles = 0;
+        for (int i = 0; i < listFold.size(); ++i) {
+            QFileInfo fileInfos = listFold.at(i);
+            if(fileInfos.isFile())
+                numberFiles++;
+        }
+     return numberFiles;
+}
+
+void Tower::set(int level)
+{    
+    maxLevel=howManyFiles(QString(":/icones/tower/%1").arg(type));
     int x=level-1;
     this->level=level;
-    switch(type)
+    int costVar=0;
+    int costToVar=100;
+    int rangeVar=0;
+    int speedVar=0;
+    int damageVar=0;
+    int proIndexVar=0;
+    bool shieldVar=false;
+    QString stringVar="";
+
+    QFile file(":/icones/tower/data.txt");
+    if(file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
-        case 1: cost=150+x*50;
-                costToPlace=100;
-                range=150+x*35;
-                speed=2+x;
-                damage=10+x*5;
-                setPixmap(QPixmap(QString(":/icones/tower/classicTower/classictower%1.png").arg(level)).scaled(size,size));
-                name="Classic Tower";
-            break;
-        case 2: cost=200+x*50;
-                costToPlace=150;
-                range=120+x*35;
-                speed=2+x;
-                damage=15+x*5;
-                setPixmap(QPixmap(QString(":/icones/tower/mageTower/magetower%1.png").arg(level)).scaled(size,size));
-                name="Mage Tower";
-            break;
+        QString lineRead;
+        QTextStream flow(&file);
+        for(int i=0;i<type;i++){
+            lineRead=flow.readLine();
+            countSearchCarac=0;
+            stringVar.clear();
+            for(int j =countSearchCarac;lineRead.at(j)!=';';j++){
+                stringVar.append(lineRead.at(j));
+                countSearchCarac++;
+            }
+            countSearchCarac++;
+            costVar=searchCaracMonster(lineRead);
+            costToVar=searchCaracMonster(lineRead);
+            rangeVar=searchCaracMonster(lineRead);
+            speedVar=searchCaracMonster(lineRead);
+            damageVar=searchCaracMonster(lineRead);
+            shieldVar=(searchCaracMonster(lineRead));
+            proIndexVar=searchCaracMonster(lineRead);
+        }
+        file.close();
     }
+    else{
+        //Catching error
+        qDebug()<<"Can't find file"<<endl;
+    }
+
+    cost=costVar+x*50;
+    costToPlace=costToVar;
+    range=rangeVar+x*35;
+    speed=speedVar+x;
+    damage=damageVar+x*5;
+    name=stringVar;
+    shield=shieldVar;
+    projIndex=proIndexVar;
+    setPixmap(QPixmap(QString(":/icones/tower/%1/%2.png").arg(type).arg(x+1)).scaled(size,size));
 }
+
+int Tower::searchCaracMonster(QString lineRead)
+{
+   QString string;
+   for(int j=countSearchCarac;lineRead.at(j)!=';';j++){
+       string.append(lineRead.at(j));
+       countSearchCarac++;
+    }
+    countSearchCarac++;
+    return string.toInt();
+}
+
 
 void Tower::shotTower(Monster *target)
 {
-    switch(type){
-        case 1: target->hp-=damage*(1-target->shield/100);
-            break;
-        case 2: target->hp-=damage;
-            break;
-    }
+    if(!shield)
+        target->hp-=damage*(1-target->shield/100);
+    else
+        target->hp-=damage;
 }
 
 bool Tower::hasTarget(Monster *target)

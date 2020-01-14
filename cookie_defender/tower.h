@@ -16,7 +16,11 @@ public:
     bool hasTarget(Monster*target);
     bool isPlaced(QGraphicsScene *scene);
     QLineF getAimLine(Monster *target);
-
+    int searchCaracMonster(QString lineRead);
+    int howManyFiles(QString fold);
+    bool shield;
+    int projIndex;
+    int countSearchCarac=0;
     QString name;
     int damage;
     int range;
@@ -26,7 +30,7 @@ public:
     int level;
     int type=1;   //type 1 = classsic tower type 2 = mageTower
     const int size=100;
-    const int maxLevel=3;
+    int maxLevel;
     bool isShowingRange=false;
     QGraphicsEllipseItem *showedRange=nullptr;
 

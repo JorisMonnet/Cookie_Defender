@@ -98,11 +98,12 @@ void Game::chooseMap(int indexMap)
 
 void Game::startMap()
 {
+    pauseMenu->manageMusic(0);
     mainMenu->manageMusic(0);
     pauseMenu->manageMusic(0);
     setGame();
     pauseMenu->manageMusic(0);
-    pauseMenu->manageMusic(1);
+    pauseMenu->manageMusic(1);    
     resume();
 }
 

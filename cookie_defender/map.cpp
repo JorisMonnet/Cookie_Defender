@@ -25,6 +25,9 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     towerPlacement = new QGraphicsRectItem[towerNumber];
     t = new Tower[towerNumber];
 
+    iconNumber=howManyFiles(":/icones/tower")+2;
+    listIcon=new QGraphicsPixmapItem*[iconNumber];
+
     timer = new QTimer(this);
     timerTower = new QTimer(this);
     timerWave = new QTimer(this);
@@ -50,9 +53,9 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     listIcon[0]= new QGraphicsPixmapItem(QPixmap(":/icones/pause.png").scaled(iconSize,iconSize));
     listIcon[1]= new QGraphicsPixmapItem(QPixmap(":/icones/sell.png").scaled(iconSize,iconSize));
     listIcon[2]= new QGraphicsPixmapItem(QPixmap(":/icones/upgrade.png").scaled(iconSize,iconSize));
-    listIcon[3]= new QGraphicsPixmapItem(QPixmap(":/icones/tower/classicTower/classictower1.png").scaled(iconSize,iconSize));
-    listIcon[4]= new QGraphicsPixmapItem(QPixmap(":/icones/tower/mageTower/magetower1.png").scaled(iconSize,iconSize));
     listIcon[0]->setPos(width-iconSize,0);
+    for(int i=3;i<iconNumber;i++)
+        listIcon[i]= new QGraphicsPixmapItem(QPixmap(QString(":/icones/tower/%1/1.png").arg(i-2)).scaled(iconSize,iconSize));
 
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap(":/icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
@@ -91,8 +94,8 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     rectRed->setZValue(0);
     scene->addItem(rectGreen);
     scene->addItem(rectRed);
-
 }
+
 int Map::howManyFiles(QString fold)
 {
     QDir dir = fold;
@@ -100,7 +103,7 @@ int Map::howManyFiles(QString fold)
     int numberFiles = 0;
         for (int i = 0; i < listFold.size(); ++i) {
             QFileInfo fileInfos = listFold.at(i);
-            if(fileInfos.isFile())
+            if(fileInfos.isFile()|| fileInfos.isDir())
                 numberFiles++;
         }
      return numberFiles;
@@ -122,7 +125,7 @@ void Map::mousePressEvent(QMouseEvent *event)
     else if(scene->items().contains(listIcon[2])&&QRectF(listIcon[2]->x(),listIcon[2]->y(),iconSize,iconSize).contains(event->pos())&&t[indexTower].cost<=money){
             money-=t[indexTower].cost;
             hideUpgradeSell();
-            t[indexTower].set(t[indexTower].level+1);
+            t[indexTower].set(++t[indexTower].level);
     }
     else if(scene->items().contains(listIcon[1])&&QRectF(listIcon[1]->x(),listIcon[1]->y(),iconSize,iconSize).contains(event->pos())){
         money+=t[indexTower].cost/2;
@@ -184,7 +187,7 @@ QPointF Map::findPos(int i)
     if(left.x()>0&&isEmpty(left))
         return left;
     else
-        return {0,0};
+        return {0,0};//to fix
 }
 
 bool Map::isEmpty(QPointF point)
