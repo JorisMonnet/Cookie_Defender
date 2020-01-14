@@ -26,7 +26,6 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     t = new Tower[towerNumber];
 
     iconNumber=howManyFiles(":/icones/tower")+2;
-    qDebug()<<"icon number : "<<iconNumber<<endl;
     listIcon=new QGraphicsPixmapItem*[iconNumber];
 
     timer = new QTimer(this);
@@ -56,9 +55,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     listIcon[2]= new QGraphicsPixmapItem(QPixmap(":/icones/upgrade.png").scaled(iconSize,iconSize));
     listIcon[0]->setPos(width-iconSize,0);
     for(int i=3;i<iconNumber;i++)
-    {
         listIcon[i]= new QGraphicsPixmapItem(QPixmap(QString(":/icones/tower/%1/1.png").arg(i-2)).scaled(iconSize,iconSize));
-    }
 
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap(":/icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
@@ -97,8 +94,8 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     rectRed->setZValue(0);
     scene->addItem(rectGreen);
     scene->addItem(rectRed);
-
 }
+
 int Map::howManyFiles(QString fold)
 {
     QDir dir = fold;

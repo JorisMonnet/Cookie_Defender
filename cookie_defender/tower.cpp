@@ -9,7 +9,6 @@ Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 {
     set(1);
     showedRange= new QGraphicsEllipseItem();
-    maxLevel=howManyFiles(QString(":/icones/tower/%1").arg(type));
 }
 
 int Tower::howManyFiles(QString fold)
@@ -27,6 +26,7 @@ int Tower::howManyFiles(QString fold)
 
 void Tower::set(int level)
 {    
+    maxLevel=howManyFiles(QString(":/icones/tower/%1").arg(type));
     int x=level-1;
     this->level=level;
     int costVar=0;
