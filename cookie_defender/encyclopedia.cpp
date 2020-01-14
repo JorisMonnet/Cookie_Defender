@@ -22,12 +22,10 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     vLay->addItem(hLay);
     vLay->addStretch();
     setLayout(vLay);
-<<<<<<< HEAD
+
 
     QPalette pal = palette();
     pal.setBrush(QPalette::Window,QBrush(QPixmap(":/icones/backgroundStory.png")));
     setAutoFillBackground(true);
     setPalette(pal);
-=======
->>>>>>> 4f221992dba9021dbacec7aeb690d9782b8e4da5
 }
