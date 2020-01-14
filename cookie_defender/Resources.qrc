@@ -34,5 +34,10 @@
         <file>wave/wave1.txt</file>
         <file>wave/wave2.txt</file>
         <file>wave/wave3.txt</file>
+        <file>sounds/enemyTP.wav</file>
+        <file>sounds/gameOver.wav</file>
+        <file>sounds/gameWin.wav</file>
+        <file>sounds/money.wav</file>
+        <file>sounds/buttonClick.wav</file>
     </qresource>
 </RCC>
