@@ -13,19 +13,6 @@ Projectile::Projectile(Tower *tsource, QGraphicsScene *sceneSource, Monster *tar
     scene->addItem(this);
 }
 
-int Projectile::howManyFiles(QString fold)
-{
-    QDir dir = fold;
-    QFileInfoList listFold = dir.entryInfoList(QDir::Dirs | QDir::Files);
-    int numberFiles = 0;
-        for (int i = 0; i < listFold.size(); ++i) {
-            QFileInfo fileInfos = listFold.at(i);
-            if(fileInfos.isFile()|| fileInfos.isDir())
-                numberFiles++;
-        }
-     return numberFiles;
-}
-
 void Projectile::move()
 {
     if(scene->items().contains(target)){

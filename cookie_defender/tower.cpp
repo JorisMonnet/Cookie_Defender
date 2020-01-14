@@ -11,6 +11,7 @@ Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
     showedRange= new QGraphicsEllipseItem();
     maxLevel=howManyFiles(QString(":/icones/tower/%1").arg(type));
 }
+
 int Tower::howManyFiles(QString fold)
 {
     QDir dir = fold;
@@ -56,7 +57,7 @@ void Tower::set(int level)
             rangeVar=searchCaracMonster(lineRead);
             speedVar=searchCaracMonster(lineRead);
             damageVar=searchCaracMonster(lineRead);
-            shieldVar=bool(searchCaracMonster(lineRead));
+            shieldVar=(searchCaracMonster(lineRead));
             proIndexVar=searchCaracMonster(lineRead);
         }
         file.close();
@@ -91,7 +92,7 @@ int Tower::searchCaracMonster(QString lineRead)
 
 void Tower::shotTower(Monster *target)
 {
-    if(shield)
+    if(!shield)
         target->hp-=damage*(1-target->shield/100);
     else
         target->hp-=damage;
