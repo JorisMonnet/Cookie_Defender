@@ -93,7 +93,7 @@ void EncycloWidg::setSpecs()
         tower->type=indexTower%numberTower+1;
         tower->set(1);
 
-        labelTowerCaracCost->setText(QString("Cost : %1").arg(tower->cost));
+        labelTowerCaracCost->setText(QString("Cost : %1").arg(tower->costToPlace));
         labelTowerCaracRange->setText(QString("Range : %1").arg(tower->range));
         labelTowerCaracDamage->setText(QString("Damage : %1").arg(tower->damage));
         labelTowerCaracFireRate->setText(QString("FireRate : %1").arg(tower->speed));

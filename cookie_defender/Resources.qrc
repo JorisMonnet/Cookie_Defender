@@ -6,6 +6,7 @@
         <file>icones/monster/readme.txt</file>
         <file>icones/projectile/0.png</file>
         <file>icones/projectile/1.png</file>
+        <file>icones/projectile/2.png</file>
         <file>icones/tower/1/1.png</file>
         <file>icones/tower/1/2.png</file>
         <file>icones/tower/1/3.png</file>
@@ -22,7 +23,6 @@
         <file>icones/menubg.png</file>
         <file>icones/miniaGrass.png</file>
         <file>icones/miniaSand.png</file>
-        <file>icones/option.jpg</file>
         <file>icones/pause.png</file>
         <file>icones/sell.png</file>
         <file>icones/upgrade.png</file>
@@ -39,5 +39,9 @@
         <file>sounds/gameWin.wav</file>
         <file>sounds/money.wav</file>
         <file>sounds/buttonClick.wav</file>
+        <file>icones/tower/3/3.png</file>
+        <file>icones/tower/3/4.png</file>
+        <file>icones/tower/3/5.png</file>
+        <file>icones/backgroundStory.png</file>
     </qresource>
 </RCC>
