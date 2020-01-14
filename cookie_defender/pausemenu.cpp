@@ -19,7 +19,12 @@ PauseMenu::PauseMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QW
     soundMoney->setMedia(QUrl("qrc:/sounds/money.wav"));
     soundGameWin->setMedia(QUrl("qrc:/sounds/gameWin.wav"));
     soundGameOver->setMedia(QUrl("qrc:/sounds/gameOver.wav"));
-
+    connect(sounds->sfx,&QSlider::valueChanged,this,[=](int value){
+        soundEnemyTP->setVolume(value);
+        soundMoney->setVolume(value);
+        soundGameWin->setVolume(value);
+        soundGameOver->setVolume(value);
+    });
     QVBoxLayout *vLay = new QVBoxLayout;
     vLay->addStretch();
     vLay->addWidget(resume);

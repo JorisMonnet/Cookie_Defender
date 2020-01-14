@@ -394,11 +394,10 @@ void Map::gameOver()
     vectMonster.clear();
     textHealth->setText("0 %");
     rectGreen->setRect(0,0,0,40);
-    QMessageBox *box=new QMessageBox;
     if(difficulty==0)
-        box->information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
+        QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
     else
-        box->information(this,"GAME OVER","GAME OVER !!");
+        QMessageBox::information(this,"GAME OVER","GAME OVER !!");
 }
 void Map::gameWin()
 {
@@ -411,8 +410,7 @@ void Map::gameWin()
         for(int i=0;i<3;i++)
             if(health>i*stackHealth/3)
                 string.append(">|< ");
-        QMessageBox *box=new QMessageBox;
-        box->information(this,"Congratulations","You win the Cookie's War\nSevenans "
+        QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans "
                                                         "Thanks You for your Epic battle !"
                                                 "\ngame star: "+string);
         emit gameWinSound();
