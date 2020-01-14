@@ -103,30 +103,28 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         xDiff=x2Pos-xPos;
         yDiff=y2Pos-yPos;
 
+        QGraphicsRectItem *rectPath = new QGraphicsRectItem();
         if(xDiff>0){
-            QGraphicsRectItem *rectPath = new QGraphicsRectItem(xPos,yPos,xDiff+45,yDiff+45);
+            rectPath->setRect(xPos,yPos,xDiff+45,yDiff+45);
             rectPath->setBrush(Qt::gray);
             rectPath->setPen(QPen(Qt::gray,0));
-            scene->addItem(rectPath);
         }
         if(xDiff<0){
-            QGraphicsRectItem *rectPath = new QGraphicsRectItem(x2Pos,y2Pos,-xDiff+45,yDiff+45);
+            rectPath->setRect(x2Pos,y2Pos,-xDiff+45,yDiff+45);
             rectPath->setBrush(Qt::gray);
             rectPath->setPen(QPen(Qt::gray,0));
-            scene->addItem(rectPath);
         }
         if(yDiff>0){
-            QGraphicsRectItem *rectPath = new QGraphicsRectItem(xPos,yPos,xDiff+45,yDiff+45);
+            rectPath->setRect(xPos,yPos,xDiff+45,yDiff+45);
             rectPath->setBrush(Qt::gray);
             rectPath->setPen(QPen(Qt::gray,0));
-            scene->addItem(rectPath);
         }
         if(yDiff<0){
-            QGraphicsRectItem *rectPath = new QGraphicsRectItem(x2Pos,y2Pos,xDiff+45,-yDiff+45);
+            rectPath->setRect(x2Pos,y2Pos,xDiff+45,-yDiff+45);
             rectPath->setBrush(Qt::gray);
             rectPath->setPen(QPen(Qt::gray,0));
-            scene->addItem(rectPath);
         }
+        scene->addItem(rectPath);
     }
 }
 
