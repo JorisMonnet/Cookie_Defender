@@ -15,6 +15,10 @@ public:
     QPushButton * encyclo;
     QPushButton *exit;
     SoundBoxes *sounds;
+    QMediaPlayer *soundEnemyTP;
+    QMediaPlayer *soundMoney;
+    QMediaPlayer *soundGameWin;
+    QMediaPlayer *soundGameOver;
     void manageMusic(bool play);
     void keyPressEvent(QKeyEvent *event) override;
 };

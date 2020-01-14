@@ -58,3 +58,5 @@ FORMS += \
 
 RESOURCES += \
     Resources.qrc
+
+DISTFILES +=

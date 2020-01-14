@@ -158,6 +158,7 @@ void Map::mousePressEvent(QMouseEvent *event)
         pauseMenu();
     else if(scene->items().contains(listIcon[2])&&QRectF(listIcon[2]->x(),listIcon[2]->y(),iconSize,iconSize).contains(event->pos())&&t[indexTower].cost<=money){
             money-=t[indexTower].cost;
+            emit moneySound();
             hideUpgradeSell();
             t[indexTower].set(++t[indexTower].level);
     }
@@ -209,26 +210,22 @@ void Map::addIcon(int indexListIcon)
 
 QPointF Map::findPos(int i)
 {
-    double x = t[i].x()+iconSize/2;     //centre
-    double y = t[i].y()+iconSize/2;     //centre
-    double range = t[i].range;        //rayon
-    for(int l=-1;l<1;l++){
-        QPointF point = {x+range*l,y+range*(l+1)};
-        if(isFree(point))
-            return point;
-    }
-    /*for(int l=0;l<2;l++){
-        QPointF point = {x+range*l,y+range*(l-1)};
-            if(isFree(point))
-                return point;
-    }*/
-    for(double j=-0.5;j<1;j++)
+    double x = t[i].x()+iconSize/2;
+    double y = t[i].y()+iconSize/2;
+
+    QPointF point[4]={{x,y-t[i].range},{x,y+t[i].range},{x+t[i].range,y},{x-t[i].range,y}}; // 4 points top/bottom/left/right
+    for(int i=0;i<4;i++)
+        if(isFree(point[i]))
+            return point[i];
+
+    for(double j=-0.5;j<1;j++){
         for(double k=-0.5;k<1;k++){
-            QPointF point = {x+(range+iconSize*1.5)*j,y+(range+iconSize*1.5)*k};
+            QPointF point = {x+(t[i].range+iconSize*1.5)*j,y+(t[i].range+iconSize*1.5)*k}; //corner points
             if(isFree(point))
                 return point;
         }
-        return {0,0};//to fix
+    }
+    return {0,0};//to fix
 }
 
 bool Map::isFree(QPointF point)
@@ -270,6 +267,7 @@ void Map::createTower(int i,int type)
     t[i].type=type;
     t[i].set(1);
     if (money>=t[i].costToPlace){
+        emit moneySound();
         t[i].setPos(towerPositions[i]);
         scene->removeItem(&towerPlacement[i]);
         scene->addItem(&t[i]);
@@ -329,7 +327,8 @@ void Map::moveMonster()
 {
     if(!vectMonster.isEmpty())
         for(Monster * monster : vectMonster)
-            monster->move(path,&health);
+            if(monster->move(path,&health))
+                emit enemyTPSound();
     mapUpdate();
 }
 
@@ -412,13 +411,12 @@ void Map::waveMonster()
 
 void Map::mapUpdate()
 {
-    if(health>0){
-        textMoney->setText(QString("Money: ")+QString::number(money));    
-        textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");
-        rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
-    }
     if(health<0.1)
         gameOver();
+    QString string= textHealth->text()+" %";
+    textMoney->setText(QString("Money: ")+QString::number(money));
+    textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");
+    rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
 }
 
 void Map::gameOver()
@@ -427,6 +425,7 @@ void Map::gameOver()
     timer->stop();
     timerWave->stop();
     timerTower->stop();
+    emit gameEnd();
     vectMonster.clear();
     textHealth->setText("0 %");
     rectGreen->setRect(0,0,0,40);
@@ -434,7 +433,6 @@ void Map::gameOver()
         QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
     else
         QMessageBox::information(this,"GAME OVER","GAME OVER !!");
-    emit gameEnd();
 }
 void Map::gameWin()
 {
@@ -450,7 +448,7 @@ void Map::gameWin()
         QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans "
                                                         "Thanks You for your Epic battle !"
                                                 "\ngame star: "+string);
-        emit gameEnd();
+        emit gameWinSound();
     }
 }
 

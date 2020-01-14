@@ -8,6 +8,7 @@
 
 class MainMenu : public QWidget
 {
+    Q_OBJECT
 public:
     MainMenu(QWidget *parent = nullptr,int musicVolume=50,int SoundEffectVolume=50);
     QPushButton *encyclo;
@@ -15,6 +16,8 @@ public:
     QPushButton *story;
     SoundBoxes *sounds;
     void manageMusic(bool play);
+private slots:
+    void playSound();
 };
 
 #endif // MAINMENU_H

@@ -89,6 +89,9 @@ private :
 signals:
    void pauseFunction();
    void gameEnd();
+   void moneySound();
+   void gameWinSound();
+   void enemyTPSound();
 };
 
 #endif // MAP_H

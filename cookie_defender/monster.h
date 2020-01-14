@@ -16,7 +16,7 @@ public:
     double velocity=2;
     double damage=2;
     int pathIndex=0;
-    void move(QVector<QPointF>path,double *health);
+    bool move(QVector<QPointF>path,double *health);
     void updateMonster();
     double toCookie(QVector<QPointF>path);
     QString name;

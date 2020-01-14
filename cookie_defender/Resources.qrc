@@ -34,6 +34,11 @@
         <file>wave/wave1.txt</file>
         <file>wave/wave2.txt</file>
         <file>wave/wave3.txt</file>
+        <file>sounds/enemyTP.wav</file>
+        <file>sounds/gameOver.wav</file>
+        <file>sounds/gameWin.wav</file>
+        <file>sounds/money.wav</file>
+        <file>sounds/buttonClick.wav</file>
         <file>icones/tower/3/3.png</file>
         <file>icones/tower/3/4.png</file>
         <file>icones/tower/3/5.png</file>

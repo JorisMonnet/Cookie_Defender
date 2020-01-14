@@ -42,26 +42,65 @@ void Game::setGame()
     stackedWidget->setPalette(pal);
 
     connect(currentMap,&Map::pauseFunction,this,&Game::pause);
-    connect(currentMap,&Map::gameEnd,this,&Game::menu);
-    connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,&Game::menu);
+    connect(difficultyMenu,&DifficultyMenu::exitDifficultyMenu,this,[=]{
+        mainMenu->sounds->sounds->play();
+        menu();
+    });
     connect(difficultyMenu,&DifficultyMenu::difficultySignal,this,[=](int arg){
+        mainMenu->sounds->sounds->play();
         difficulty=arg;
         stackedWidget->setCurrentWidget(mapMenu);
     });
-    connect(pauseMenu->resume,&QPushButton::clicked,this,&Game::resume);
-    connect(pauseMenu->restart,&QPushButton::clicked,this,[=]{chooseMap(indexMap);});
-    connect(pauseMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
-    connect(pauseMenu->exit,&QPushButton::clicked,currentMap,&Map::gameOver);
+    connect(pauseMenu->resume,&QPushButton::clicked,this,[=]{
+        mainMenu->sounds->sounds->play();
+        resume();
+    });
+    connect(pauseMenu->restart,&QPushButton::clicked,this,[=]{
+        mainMenu->sounds->sounds->play();
+        chooseMap(indexMap);
+    });
+    connect(pauseMenu->encyclo,&QPushButton::clicked,this,[=]{
+        mainMenu->sounds->sounds->play();
+        stackedWidget->setCurrentWidget(encyclopedia);
+    });
+    connect(pauseMenu->exit,&QPushButton::clicked,this,[=]{
+        mainMenu->sounds->sounds->play();
+        currentMap->gameOver();
+    });
     connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(difficultyMenu);});
     connect(mainMenu->story,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(story);});
-    connect(story,&Story::finishStory,this,[=]{stackedWidget->setCurrentWidget(mainMenu);});
     connect(mainMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
-    connect(encyclopedia,&Encyclopedia::finishEncyclo,this,[=]{stackedWidget->setCurrentIndex(lastIndex);});
-    connect(mapMenu,&MapMenu::exitMapMenu,this,[=]{stackedWidget->setCurrentWidget(difficultyMenu);});
+    connect(story,&Story::finishStory,this,[=]{
+        mainMenu->sounds->sounds->play();
+        stackedWidget->setCurrentWidget(mainMenu);
+    });
+    connect(encyclopedia,&Encyclopedia::finishEncyclo,this,[=]{
+        mainMenu->sounds->sounds->play();
+        stackedWidget->setCurrentIndex(lastIndex);
+    });
+    connect(mapMenu,&MapMenu::exitMapMenu,this,[=]{
+        mainMenu->sounds->sounds->play();
+        stackedWidget->setCurrentWidget(difficultyMenu);
+    });
     connect(mapMenu,&MapMenu::mapChosen,this,&Game::chooseMap);
+    connect(currentMap,&Map::enemyTPSound,this,[=]{pauseMenu->soundEnemyTP->play();});
+    connect(currentMap,&Map::moneySound,this,[=]{pauseMenu->soundMoney->play();});
+    connect(currentMap,&Map::gameWinSound,this,[=]{
+        pauseMenu->manageMusic(0);
+        pauseMenu->soundGameWin->play();
+        connect(pauseMenu->soundGameWin,&QMediaPlayer::stateChanged,this,[=]{menu();});
+    });
+    connect(currentMap,&Map::gameEnd,this,[=]{
+        pauseMenu->manageMusic(0);
+        pauseMenu->soundGameOver->play();
+        connect(pauseMenu->soundGameOver,&QMediaPlayer::stateChanged,this,[=]{menu();});
+    });
+
+
 }
 void Game::chooseMap(int indexMap)
 {
+    mainMenu->sounds->sounds->play();
     QVector<QPointF> path;
     int towerNumber,money;
     QPoint *towerPositions= new QPoint;
@@ -121,8 +160,10 @@ void Game::menu()
     mainMenu->manageMusic(0);
     mainMenu->manageMusic(1);
     lastIndex=0;
-    mainMenu->sounds->musicSlider->setValue(pauseMenu->sounds->music->volume());
-    mainMenu->sounds->sfx->setValue(pauseMenu->sounds->sounds->volume());
+    if(pauseMenu->sounds->music->volume()!=50&&pauseMenu->sounds->sounds->volume()!=50){
+        mainMenu->sounds->musicSlider->setValue(pauseMenu->sounds->music->volume());
+        mainMenu->sounds->sfx->setValue(pauseMenu->sounds->sounds->volume());
+    }
     stackedWidget->setCurrentWidget(mainMenu);
 }
 

@@ -17,6 +17,7 @@ debug/moc_difficultymenu.o
 debug/moc_encyclopedia.o
 debug/moc_encyclowidg.o
 debug/moc_game.o
+debug/moc_mainmenu.o
 debug/moc_map.o
 debug/moc_mapmenu.o
 debug/moc_pausemenu.o

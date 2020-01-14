@@ -80,14 +80,14 @@ double Monster::searchCaracMonster(QString lineRead)
 }
 
 
-void Monster::move(QVector<QPointF>path,double *health)
+bool Monster::move(QVector<QPointF>path,double *health)
 {
     for(int i=0;i<=velocity;i++){
         if(pos()==path.last()){
             setPos(path.first().toPoint());
             pathIndex=0;
             *health-=damage;
-            return;
+            return true;
         }
         if(x() < path.at(pathIndex).x())
             setX(x()+1);
@@ -101,6 +101,7 @@ void Monster::move(QVector<QPointF>path,double *health)
             pathIndex++;
         updateMonster();
     }
+    return false;
 }
 
 double Monster::toCookie(QVector<QPointF> path)
