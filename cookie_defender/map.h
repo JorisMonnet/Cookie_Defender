@@ -78,7 +78,7 @@ private :
     void attackMonster(Monster *);
     void hideUpgradeSell();
     QPointF findPos(int indexTower);
-    bool isEmpty(QPointF point);
+    bool isFree(QPointF point);
     void addMonster(char c);
     void addIcon(int indexListIcon);
     int howManyFiles(QString fold);

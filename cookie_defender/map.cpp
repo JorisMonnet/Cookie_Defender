@@ -174,27 +174,35 @@ void Map::addIcon(int indexListIcon)
 
 QPointF Map::findPos(int i)
 {
-    QPointF top = {t[i].x()+iconSize/2,t[i].y()-t[i].range+iconSize/2};
-    QPointF down = {t[i].x()+iconSize/2,t[i].y()+t[i].range+iconSize/2};
-    QPointF right = {t[i].x()+t[i].range+iconSize/2,t[i].y()+iconSize/2};
-    QPointF left = {t[i].x()-t[i].range+iconSize/2,t[i].y()+iconSize/2};
-    if(top.y()>0&&isEmpty(top))
-        return top;
-    if(down.y()<width-iconSize&&isEmpty(down))
-        return down;
-    if(right.x()<width-iconSize&&isEmpty(right))
-        return right;
-    if(left.x()>0&&isEmpty(left))
-        return left;
-    else
+    double x = t[i].x()+iconSize/2;     //centre
+    double y = t[i].y()+iconSize/2;     //centre
+    double range = t[i].range;        //rayon
+    for(int l=-1;l<1;l++){
+        QPointF point = {x+range*l,y+range*(l+1)};
+        if(isFree(point))
+            return point;
+    }
+    /*for(int l=0;l<2;l++){
+        QPointF point = {x+range*l,y+range*(l-1)};
+            if(isFree(point))
+                return point;
+    }*/
+    for(double j=-0.5;j<1;j++)
+        for(double k=-0.5;k<1;k++){
+            QPointF point = {x+(range+iconSize*1.5)*j,y+(range+iconSize*1.5)*k};
+            if(isFree(point))
+                return point;
+        }
         return {0,0};//to fix
 }
 
-bool Map::isEmpty(QPointF point)
+bool Map::isFree(QPointF point)
 {
+    if(!(point.x()>0&&point.x()<width-iconSize&&point.y()>0&&point.y()<width-iconSize))
+        return false;
     for(int i=0;i<iconNumber;i++)
        if(listIcon[i]->pos()==point)
-           return false;
+          return false;
     return true;
 }
 void Map::mouseMoveEvent(QMouseEvent*event)

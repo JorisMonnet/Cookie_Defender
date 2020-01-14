@@ -92,10 +92,7 @@ int Tower::searchCaracMonster(QString lineRead)
 
 void Tower::shotTower(Monster *target)
 {
-    if(!shield)
-        target->hp-=damage*(1-target->shield/100);
-    else
-        target->hp-=damage;
+    shield?target->hp-=damage:target->hp-=damage*(1-target->shield/100);
 }
 
 bool Tower::hasTarget(Monster *target)

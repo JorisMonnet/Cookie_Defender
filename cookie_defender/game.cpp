@@ -55,7 +55,6 @@ void Game::setGame()
     connect(mainMenu->play,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(difficultyMenu);});
     connect(mainMenu->story,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(story);});
     connect(story,&Story::finishStory,this,[=]{stackedWidget->setCurrentWidget(mainMenu);});
-    //connect(mainMenu->options,&QPushButton::clicked,this,&Game::?);
     connect(mainMenu->encyclo,&QPushButton::clicked,this,[=]{stackedWidget->setCurrentWidget(encyclopedia);});
     connect(encyclopedia,&Encyclopedia::finishEncyclo,this,[=]{stackedWidget->setCurrentIndex(lastIndex);});
     connect(mapMenu,&MapMenu::exitMapMenu,this,[=]{stackedWidget->setCurrentWidget(difficultyMenu);});
@@ -100,9 +99,10 @@ void Game::startMap()
 {
     pauseMenu->manageMusic(0);
     mainMenu->manageMusic(0);
+    pauseMenu->manageMusic(0);
     setGame();
     pauseMenu->manageMusic(0);
-    pauseMenu->manageMusic(1);    
+    pauseMenu->manageMusic(1);
     resume();
 }
 
