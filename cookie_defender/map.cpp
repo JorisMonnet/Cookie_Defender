@@ -59,6 +59,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
 
     QGraphicsPixmapItem *finish = new QGraphicsPixmapItem(QPixmap(":/icones/Cookie.png").scaled(100,100));
     finish->setPos(path.last().x(),path.last().y()-iconSize);
+    finish->setZValue(5);
     if(background!=nullptr)
         scene->addItem(background);
     scene->addItem(finish);
@@ -76,8 +77,6 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         towerPlacement[i].setPen(QPen(Qt::red));
         scene->addItem(&towerPlacement[i]);
     }
-    for(int i=0;i<path.size()-1;i++)
-        scene->addLine(QLineF(path.at(i),path.at(i+1)));
 
     numberOfMonster= howManyFiles(":/icones/monster/pix");
     if(numberOfMonster>0){
@@ -94,6 +93,41 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     rectRed->setZValue(0);
     scene->addItem(rectGreen);
     scene->addItem(rectRed);
+
+    double xPos,yPos,x2Pos,y2Pos,xDiff,yDiff;
+    for(int i=0;i<path.size()-1;i++){
+        xPos=path.at(i).x();
+        yPos=path.at(i).y();
+        x2Pos=path.at(i+1).x();
+        y2Pos=path.at(i+1).y();
+        xDiff=x2Pos-xPos;
+        yDiff=y2Pos-yPos;
+
+        if(xDiff>0){
+            QGraphicsRectItem *rectPath = new QGraphicsRectItem(xPos,yPos,xDiff+45,yDiff+45);
+            rectPath->setBrush(Qt::gray);
+            rectPath->setPen(QPen(Qt::gray,0));
+            scene->addItem(rectPath);
+        }
+        if(xDiff<0){
+            QGraphicsRectItem *rectPath = new QGraphicsRectItem(x2Pos,y2Pos,-xDiff+45,yDiff+45);
+            rectPath->setBrush(Qt::gray);
+            rectPath->setPen(QPen(Qt::gray,0));
+            scene->addItem(rectPath);
+        }
+        if(yDiff>0){
+            QGraphicsRectItem *rectPath = new QGraphicsRectItem(xPos,yPos,xDiff+45,yDiff+45);
+            rectPath->setBrush(Qt::gray);
+            rectPath->setPen(QPen(Qt::gray,0));
+            scene->addItem(rectPath);
+        }
+        if(yDiff<0){
+            QGraphicsRectItem *rectPath = new QGraphicsRectItem(x2Pos,y2Pos,xDiff+45,-yDiff+45);
+            rectPath->setBrush(Qt::gray);
+            rectPath->setPen(QPen(Qt::gray,0));
+            scene->addItem(rectPath);
+        }
+    }
 }
 
 int Map::howManyFiles(QString fold)
@@ -127,6 +161,7 @@ void Map::mousePressEvent(QMouseEvent *event)
             hideUpgradeSell();
             t[indexTower].set(++t[indexTower].level);
     }
+
     else if(scene->items().contains(listIcon[1])&&QRectF(listIcon[1]->x(),listIcon[1]->y(),iconSize,iconSize).contains(event->pos())){
         money+=t[indexTower].cost/2;
         t[indexTower].set(1);
