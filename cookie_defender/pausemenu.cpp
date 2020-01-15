@@ -1,9 +1,5 @@
 #include "pausemenu.h"
 
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-
-
 PauseMenu::PauseMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QWidget(parent)
 {
     resume = new QPushButton(tr("&Resume"));
@@ -42,6 +38,8 @@ PauseMenu::PauseMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QW
 }
 void PauseMenu::keyPressEvent(QKeyEvent *event)
 {
+    if(soundGameOver->state()==1||soundGameWin->state()==1)
+        return;
     if(event->key()==Qt::Key_Escape)
         emit resume->click();
 }

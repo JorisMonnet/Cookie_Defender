@@ -1,10 +1,4 @@
 #include "monster.h"
-#include "math.h"
-#include <QFile>
-#include <QTextStream>
-#include <QDebug>
-#include <QBrush>
-
 
 Monster::Monster(char charX) : QGraphicsPixmapItem()
 {
@@ -44,7 +38,6 @@ Monster::Monster(char charX) : QGraphicsPixmapItem()
     }
     else{
         //Catching error
-        qDebug()<<"Can't find file"<<endl;
     }
     name=nameFromFile;
     hp*=hpCoef;
@@ -62,7 +55,7 @@ Monster::Monster(char charX) : QGraphicsPixmapItem()
     rectRed->setZValue(0);
 }
 
-void Monster::updateMonster()
+void Monster::updateMonster(void)
 {
     rectGreen->setRect(x()+5,y()-9,(40-((stackHp-hp)/stackHp)*40),10);
     rectRed->setRect(x()+5,y()-9,40,10);

@@ -1,9 +1,4 @@
 #include "tower.h"
-#include "math.h"
-#include "projectile.h"
-#include <QDebug>
-#include <QDir>
-
 
 Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 {
@@ -13,8 +8,7 @@ Tower::Tower(QGraphicsPixmapItem *parent): QGraphicsPixmapItem(parent)
 
 int Tower::howManyFiles(QString fold)
 {
-    QDir dir = fold;
-    QFileInfoList listFold = dir.entryInfoList(QDir::Dirs | QDir::Files);
+    QFileInfoList listFold = QDir(fold).entryInfoList(QDir::Dirs | QDir::Files);
     int numberFiles = 0;
         for (int i = 0; i < listFold.size(); ++i) {
             QFileInfo fileInfos = listFold.at(i);
@@ -64,7 +58,6 @@ void Tower::set(int level)
     }
     else{
         //Catching error
-        qDebug()<<"Can't find file"<<endl;
     }
 
     cost=costVar+x*50;
@@ -102,11 +95,6 @@ bool Tower::hasTarget(Monster *target)
     double yM = target->y() + target->size/2;
     double distance = sqrt(pow((xM-(this->x()+size/2)),2)+ pow((yM-(this->y()+size/2)),2));
     return distance<=range;
-}
-
-QLineF Tower::getAimLine(Monster *target)
-{
-    return QLineF(this->x(), this->y(), target->x(), target->y());
 }
 
 void Tower::showRange(QGraphicsScene*scene,bool isFilled)

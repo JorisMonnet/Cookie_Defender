@@ -3,15 +3,17 @@
 
 #include <QWidget>
 #include <QPushButton>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
+#include <QLabel>
 
 class Story : public QWidget
 {
     Q_OBJECT
 public:
-    explicit Story(QWidget *parent = nullptr);
-
+    Story(QWidget *parent = nullptr);
 signals:
-    void finishStory();
+    void finishStory(void);
 };
 
 #endif // STORY_H

@@ -1,7 +1,5 @@
 #include "soundboxes.h"
 
-#include <QGridLayout>
-
 const int VOL_MIN = 0;
 const int VOL_MAX = 99;
 
@@ -32,7 +30,7 @@ SoundBoxes::SoundBoxes(QWidget *parent,int musicVolume,int soundEffectVolume,int
     sfx->setValue(soundEffectVolume);
     sounds->setVolume(soundEffectVolume);
     musicLabel = new QLabel(QString::number(musicVolume));
-    sfxlb = new QLabel(QString::number(soundEffectVolume));
+    sfxLabel = new QLabel(QString::number(soundEffectVolume));
 
     QLabel *soundtxt = new QLabel("Music");
     QLabel *sfxtxt = new QLabel("SFX");
@@ -42,7 +40,7 @@ SoundBoxes::SoundBoxes(QWidget *parent,int musicVolume,int soundEffectVolume,int
     layout->addWidget(musicLabel, 0, 2);
     layout->addWidget(sfxtxt, 1, 0);
     layout->addWidget(sfx, 1, 1);
-    layout->addWidget(sfxlb, 1, 2);
+    layout->addWidget(sfxLabel, 1, 2);
 
     connect(musicSlider, &QSlider::valueChanged, this, &SoundBoxes::volumeChanged);
     connect(sfx, &QSlider::valueChanged, this, &SoundBoxes::sfxChanged);
@@ -56,6 +54,6 @@ void SoundBoxes::volumeChanged(int value)
 
 void SoundBoxes::sfxChanged(int value)
 {
-    sfxlb->setText(QString::number(value));
+    sfxLabel->setText(QString::number(value));
     sounds->setVolume(value);
 }

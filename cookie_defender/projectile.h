@@ -1,11 +1,9 @@
 #ifndef BULLET_H
 #define BULLET_H
 
-
-#include <QGraphicsPixmapItem>
-#include <QGraphicsScene>
-#include <QObject>
+#include <qmath.h>
 #include <QTimer>
+
 #include "tower.h"
 
 class Projectile : public QObject, public QGraphicsPixmapItem
@@ -13,13 +11,11 @@ class Projectile : public QObject, public QGraphicsPixmapItem
 public:
     Projectile(Tower *t, QGraphicsScene *scene=nullptr,Monster *monsterTargetedSource=nullptr);
     const int velocity = 4;
-    QTimer *timer;
-    QLineF line;
     Monster *target;
     Tower *t;
     QGraphicsScene *scene;
 public slots :
-    void move();
+    void move(void);
 };
 
 #endif // BULLET_H

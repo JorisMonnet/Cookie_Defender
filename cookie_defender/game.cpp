@@ -88,11 +88,13 @@ void Game::setGame()
     connect(currentMap,&Map::gameWinSound,this,[=]{
         pauseMenu->manageMusic(0);
         pauseMenu->soundGameWin->play();
+        stackedWidget->setCurrentWidget(mainMenu);
         connect(pauseMenu->soundGameWin,&QMediaPlayer::stateChanged,this,[=]{menu();});
     });
     connect(currentMap,&Map::gameEnd,this,[=]{
         pauseMenu->manageMusic(0);
         pauseMenu->soundGameOver->play();
+        stackedWidget->setCurrentWidget(mainMenu);
         connect(pauseMenu->soundGameOver,&QMediaPlayer::stateChanged,this,[=]{menu();});
     });
 

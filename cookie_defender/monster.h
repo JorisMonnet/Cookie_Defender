@@ -3,29 +3,32 @@
 
 #include <QGraphicsPixmapItem>
 #include <QGraphicsRectItem>
+#include <QFile>
+#include <QTextStream>
+#include <QBrush>
+
+#include "math.h"
 
 class Monster : public QGraphicsPixmapItem
 {
 public:
     Monster(char);
     const int size=40;
-    double stackHp=0;
-    double hp=20;
-    double shield=25;
     int reward=25;
     double velocity=2;
+    double hp=20;
+    double shield=25;
     double damage=2;
-    int pathIndex=0;
-    bool move(QVector<QPointF>path,double *health);
-    void updateMonster();
-    double toCookie(QVector<QPointF>path);
     QString name;
-    QGraphicsRectItem *rectRed;
-    QGraphicsRectItem *rectGreen;
+    QGraphicsRectItem *rectRed,*rectGreen;
+    double toCookie(QVector<QPointF>);
+    bool move(QVector<QPointF>,double*);
 private:
-    double searchCaracMonster(QString lineRead);
-    QString lineRead;
     int countSearchCarac;
+    int pathIndex=0;
+    double stackHp=0;
+    double searchCaracMonster(QString);
+    void updateMonster(void);
 };
 
 #endif // MONSTER_H

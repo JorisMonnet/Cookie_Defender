@@ -1,25 +1,23 @@
 #ifndef PAUSEMENU_H
 #define PAUSEMENU_H
 
-#include <QWidget>
 #include <QPushButton>
 #include <QKeyEvent>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 #include "soundboxes.h"
+
 class PauseMenu : public QWidget
 {
     Q_OBJECT
 public:
     PauseMenu(QWidget *parent = nullptr,int musicVolume=50,int soundsEffectVolume=50);
-    QPushButton *resume;
-    QPushButton *restart;
-    QPushButton * encyclo;
-    QPushButton *exit;
+    QPushButton *resume,*restart,*encyclo,*exit;
     SoundBoxes *sounds;
-    QMediaPlayer *soundEnemyTP;
-    QMediaPlayer *soundMoney;
-    QMediaPlayer *soundGameWin;
-    QMediaPlayer *soundGameOver;
-    void manageMusic(bool play);
-    void keyPressEvent(QKeyEvent *event) override;
+    QMediaPlayer *soundEnemyTP,*soundMoney,*soundGameWin,*soundGameOver;
+    void manageMusic(bool);
+private:
+    void keyPressEvent(QKeyEvent*) override;
 };
+
 #endif // PAUSEMENU_H
