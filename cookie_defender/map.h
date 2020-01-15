@@ -69,9 +69,7 @@ private :
 
     QGraphicsRectItem * clickableItem;
     QGraphicsRectItem * towerPlacement;
-    QGraphicsRectItem *rectRed;
-    QGraphicsRectItem *rectGreen;
-
+    QGraphicsRectItem *rectRed,*rectGreen;
 
     QVector<Monster*> vectMonster;
     QVector<QPointF> path;
@@ -93,9 +91,8 @@ private :
     double health;
     const double stackHealth=20;
 
-    bool hasBeen=true;
     bool hasWave=false;
-    bool statement=true;
+    //bool statement=true;
 
     QString waveCode;
 

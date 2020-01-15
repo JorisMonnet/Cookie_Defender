@@ -365,7 +365,7 @@ void Map::spawnMonster(void)
                 waveTab[i]--;
             }
         timerSpawn->setInterval(500);
-        statement=!statement;
+        //statement=!statement;
     }
 }
 

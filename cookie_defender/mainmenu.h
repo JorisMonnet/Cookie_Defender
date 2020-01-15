@@ -12,6 +12,7 @@ class MainMenu : public QWidget
 public:
     MainMenu(QWidget *parent = nullptr,int musicVolume=50,int SoundEffectVolume=50);
     void manageMusic(bool play);
+
     QPushButton *encyclo,*play,*story;
     SoundBoxes *sounds;
 
