@@ -141,28 +141,19 @@ Map::~Map()
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
+    QList<QGraphicsItem *> list = scene->items(mapToScene(event->pos()));
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
 
     for(int i=3;i<iconNumber;i++)
-        if(scene->items().contains(listIcon[i])&&QRectF(listIcon[i]->x(),listIcon[i]->y(),iconSize,iconSize).contains(event->pos()))
+        if(scene->items().contains(listIcon[i])&&list.contains(listIcon[i]))
             createTower(indexTower,i-2);
-    if(QRectF(listIcon[0]->x(),listIcon[0]->y(),iconSize,iconSize).contains(event->pos()))
+    if(list.contains(listIcon[0]))
         pauseMenu();
-    else if(scene->items().contains(listIcon[2])&&QRectF(listIcon[2]->x(),listIcon[2]->y(),iconSize,iconSize).contains(event->pos())&&t[indexTower].cost<=money){
-            money-=t[indexTower].cost;
-            emit moneySound();
-            hideUpgradeSell();
-            t[indexTower].set(++t[indexTower].level);
-    }
-
-    else if(scene->items().contains(listIcon[1])&&QRectF(listIcon[1]->x(),listIcon[1]->y(),iconSize,iconSize).contains(event->pos())){
-        money+=t[indexTower].cost/2;
-        t[indexTower].set(1);
-        hideUpgradeSell();
-        scene->removeItem(&t[indexTower]);
-        scene->addItem(&towerPlacement[indexTower]);
-    }
+    else if(scene->items().contains(listIcon[2])&&list.contains(listIcon[2]))
+        upgrade();
+    else if(scene->items().contains(listIcon[1])&&list.contains(listIcon[1]))
+        sell();
     else{
         for (int i=0;i<towerNumber;i++)
             if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
@@ -464,4 +455,23 @@ void Map::hideUpgradeSell(void)
     }
     t[indexTower].hideRange(scene);
     mapUpdate();
+}
+void Map::upgrade()
+{
+    if(t[indexTower].cost<=money){
+        money-=t[indexTower].cost;
+        emit moneySound();
+        hideUpgradeSell();
+        t[indexTower].set(++t[indexTower].level);
+    }
+}
+
+void Map::sell()
+{
+    money+=t[indexTower].cost/2;
+    t[indexTower].type=1;
+    t[indexTower].set(1);
+    hideUpgradeSell();
+    scene->removeItem(&t[indexTower]);
+    scene->addItem(&towerPlacement[indexTower]);
 }

@@ -50,7 +50,8 @@ private slots:
     void spawnMonster(void);
 
 private :
-
+    void upgrade(void);
+    void sell(void);
     void createClickableItem(double x,double y,int size);
     void createTower(int index,int type);
     void mapUpdate(void);
