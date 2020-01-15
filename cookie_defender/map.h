@@ -92,7 +92,6 @@ private :
     const double stackHealth=20;
 
     bool hasWave=false;
-    //bool statement=true;
 
     QString waveCode;
 

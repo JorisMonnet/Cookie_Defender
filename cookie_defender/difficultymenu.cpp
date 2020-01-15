@@ -2,28 +2,24 @@
 
 DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
 {
-    QPushButton *easy = new QPushButton(tr("E&asy"));
-    QPushButton *medium = new QPushButton(tr("&Medium"));
-    QPushButton *hard = new QPushButton(tr("&Hard"));
-    QPushButton *infinite = new QPushButton(tr("&Infinite"));
+    QPushButton **listButton = new QPushButton*[4];
+    listButton[0] = new QPushButton(tr("&Infinite"));
+    listButton[1] = new QPushButton(tr("E&asy"));
+    listButton[2] = new QPushButton(tr("&Medium"));
+    listButton[3] = new QPushButton(tr("&Hard"));
     QPushButton *exit = new QPushButton(tr("&Exit"));
 
     QButtonGroup * group = new QButtonGroup(this);
-    group->addButton(easy);
-    group->setId(easy,1);
-    group->addButton(medium);
-    group->setId(medium,2);
-    group->addButton(hard);
-    group->setId(hard,3);
-    group->addButton(infinite);
-    group->setId(infinite,0);
+    for(int i=0;i<4;i++){
+        group->addButton(listButton[i]);
+        group->setId(listButton[i],i);
+    }
 
     QVBoxLayout *vLay = new QVBoxLayout();
     vLay->addStretch();
-    vLay->addWidget(easy);
-    vLay->addWidget(medium);
-    vLay->addWidget(hard);
-    vLay->addWidget(infinite);
+    for(int i=1;i<4;i++)
+        vLay->addWidget(listButton[i]);
+    vLay->addWidget(listButton[0]);
     vLay->addStretch();
     vLay->addWidget(exit);
     vLay->addStretch();
