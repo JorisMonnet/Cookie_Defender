@@ -104,7 +104,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         yDiff=y2Pos-yPos;
 
         QGraphicsRectItem *rectPath = new QGraphicsRectItem();
-        rectPath->setBrush(Qt::gray);
+        rectPath->setBrush(QBrush(Qt::gray,Qt::Dense2Pattern));
         rectPath->setPen(QPen(Qt::gray,0));
         if(xDiff>0)
             rectPath->setRect(xPos,yPos,xDiff+45,yDiff+45);
