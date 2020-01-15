@@ -30,12 +30,13 @@ public:
     void showRange(QGraphicsScene*,bool);
     bool isPlaced(QGraphicsScene*);
     bool hasTarget(Monster*);
+
 private:
+    QGraphicsEllipseItem *showedRange=nullptr;
+
     int searchCaracMonster(QString);
     int howManyFiles(QString);
     int countSearchCarac=0;
-    QGraphicsEllipseItem *showedRange=nullptr;
-
 };
 
 #endif // TOWER_H

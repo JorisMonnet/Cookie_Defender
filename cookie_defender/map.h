@@ -10,7 +10,6 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QFile>
-#include <QDebug>
 #include "pausemenu.h"
 #include "projectile.h"
 
@@ -28,70 +27,84 @@ public:
     QTimer *timerTower;
     QTimer *timerWave;
     QTimer *timerSpawn;
+
     int money;
     int remainingTimeSpawn=0;
     int remainingTimeWave=0;
     int difficulty;
     int countTimeInf = 1020;
+
 public slots :
     void gameOver();
     void waveMonster();
     void gameWin();
+
 private slots:
     void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
-    void moveMonster();
-    void pauseMenu();
-    void towerDetect();
-    void aliveMonster();
-    void spawnMonster();
+    void moveMonster(void);
+    void pauseMenu(void);
+    void towerDetect(void);
+    void aliveMonster(void);
+    void spawnMonster(void);
+
 private :
-    int iconNumber;
+
+    void createClickableItem(double x,double y,int size);
+    void createTower(int index,int type);
+    void mapUpdate(void);
+    void attackMonster(Monster *);
+    void hideUpgradeSell(void);
+    void addMonster(char c);
+    void addIcon(int indexListIcon);
+    QPointF findPos(int indexTower);
+    bool isFree(QPointF point);
+    int howManyFiles(QString fold);
+
     QGraphicsPixmapItem ** listIcon;
     QGraphicsPixmapItem * background;
-    QGraphicsSimpleTextItem * textHealth;
-    QGraphicsSimpleTextItem * textMoney;
+
+    QGraphicsSimpleTextItem * textHealth,*textMoney;
+
     QGraphicsRectItem * clickableItem;
-    QVector<Monster*> vectMonster;
     QGraphicsRectItem * towerPlacement;
+    QGraphicsRectItem *rectRed;
+    QGraphicsRectItem *rectGreen;
+
+
+    QVector<Monster*> vectMonster;
     QVector<QPointF> path;
+
     QPoint *towerPositions;
     Tower *t;
 
+    int iconNumber;
     int indexTower=0;
-    double health;
-    const double stackHealth=20;
     int towerNumber;
     int width;
     int height;
     int infiniteSpawn=1;
-    bool hasBeen=true;
     int waveIndex=1;
-    bool statement=true;
-    bool hasWave=false;
-    QString waveCode;
-    const int iconSize = 50;
-    void createClickableItem(double x,double y,int size);
-    void createTower(int index,int type);
-    void mapUpdate();
-    void attackMonster(Monster *);
-    void hideUpgradeSell();
-    QPointF findPos(int indexTower);
-    bool isFree(QPointF point);
-    void addMonster(char c);
-    void addIcon(int indexListIcon);
-    int howManyFiles(QString fold);
     int numberOfMonster=0;
     int *waveTab;
-    QGraphicsRectItem *rectRed;
-    QGraphicsRectItem *rectGreen;
+    const int iconSize = 50;
+
+    double health;
+    const double stackHealth=20;
+
+    bool hasBeen=true;
+    bool hasWave=false;
+    bool statement=true;
+
+    QString waveCode;
+
 signals:
-   void pauseFunction();
-   void gameEnd();
-   void moneySound();
-   void gameWinSound();
-   void enemyTPSound();
+   void pauseFunction(void);
+   void gameEnd(void);
+   void moneySound(void);
+   void gameWinSound(void);
+   void enemyTPSound(void);
 };
 
 #endif // MAP_H

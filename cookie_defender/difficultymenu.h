@@ -2,6 +2,10 @@
 #define DIFFICULTYMENU_H
 
 #include <QWidget>
+#include <QPushButton>
+#include <QButtonGroup>
+#include <QVBoxLayout>
+#include <QHBoxLayout>
 
 class DifficultyMenu : public QWidget
 {
@@ -9,8 +13,8 @@ class DifficultyMenu : public QWidget
 public:
     DifficultyMenu(QWidget *parent=nullptr);
 signals:
-    void difficultySignal(int id);
-    void exitDifficultyMenu();
+    void difficultySignal(int);
+    void exitDifficultyMenu(void);
 };
 
 #endif // DIFFICULTYMENU_H

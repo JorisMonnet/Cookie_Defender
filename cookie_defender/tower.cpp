@@ -56,10 +56,6 @@ void Tower::set(int level)
         }
         file.close();
     }
-    else{
-        //Catching error
-    }
-
     cost=costVar+x*50;
     costToPlace=costToVar;
     range=rangeVar+x*35;

@@ -1,8 +1,4 @@
 #include "mapmenu.h"
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-#include <QButtonGroup>
-#include <QLabel>
 
 MapMenu::MapMenu(QWidget *parent): QWidget(parent)
 {

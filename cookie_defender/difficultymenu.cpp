@@ -1,9 +1,4 @@
 #include "difficultymenu.h"
-#include <QPushButton>
-#include <QButtonGroup>
-#include <QVBoxLayout>
-#include <QHBoxLayout>
-
 
 DifficultyMenu::DifficultyMenu(QWidget * parent): QWidget(parent)
 {

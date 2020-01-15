@@ -59,7 +59,7 @@ int EncycloWidg::howManyFiles(QString fold)
             if(fileInfos.isFile()|| fileInfos.isDir())
                 numberFiles++;
         }
-     return numberFiles;
+    return numberFiles;
 }
 
 QPixmap EncycloWidg::getPix()
@@ -108,13 +108,13 @@ void EncycloWidg::setSpecs()
     }
 }
 
-void EncycloWidg:: on_btnTower_clicked()
+void EncycloWidg::on_btnTower_clicked(void)
 {
     indexTower++;
     set();
 }
 
-void EncycloWidg:: on_btnMonster_clicked()
+void EncycloWidg::on_btnMonster_clicked(void)
 {
     indexMonster++;
     set();

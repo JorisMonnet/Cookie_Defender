@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QStackedWidget>
+#include <QTextStream>
+#include <QString>
 #include "mainmenu.h"
 #include "mapmenu.h"
 #include "map.h"
@@ -16,13 +18,13 @@ class Game : public QMainWindow
 public:
     Game(QMainWindow*parent=nullptr);
 private slots :
-    void resume();
-    void pause();
+    void resume(void);
+    void pause(void);
     void chooseMap(int indexMap=1);
-    void startMap();
+    void startMap(void);
 private:
-    void menu();
-    void setGame();
+    void menu(void);
+    void setGame(void);
     MainMenu *mainMenu;
     PauseMenu*pauseMenu;
     MapMenu*mapMenu;
