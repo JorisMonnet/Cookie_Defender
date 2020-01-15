@@ -141,18 +141,18 @@ Map::~Map()
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
-    QList<QGraphicsItem *> list = scene->items(mapToScene(event->pos()));
+    QList<QGraphicsItem *> itemsUnderCursor = scene->items(mapToScene(event->pos()));
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
 
     for(int i=3;i<iconNumber;i++)
-        if(scene->items().contains(listIcon[i])&&list.contains(listIcon[i]))
+        if(scene->items().contains(listIcon[i])&&itemsUnderCursor.contains(listIcon[i]))
             createTower(indexTower,i-2);
-    if(list.contains(listIcon[0]))
+    if(itemsUnderCursor.contains(listIcon[0]))
         pauseMenu();
-    else if(scene->items().contains(listIcon[2])&&list.contains(listIcon[2]))
+    else if(scene->items().contains(listIcon[2])&&itemsUnderCursor.contains(listIcon[2]))
         upgrade();
-    else if(scene->items().contains(listIcon[1])&&list.contains(listIcon[1]))
+    else if(scene->items().contains(listIcon[1])&&itemsUnderCursor.contains(listIcon[1]))
         sell();
     else{
         for (int i=0;i<towerNumber;i++)
@@ -209,7 +209,7 @@ QPointF Map::findPos(int i)
                 return point;
         }
     }
-    return {0,0};
+    return {-100,0};
 }
 
 bool Map::isFree(QPointF point)
@@ -263,6 +263,10 @@ void Map::createTower(int i,int type)
             listIcon[j]->setPos(0,0);
         }
         mapUpdate();
+    }
+    else{
+        t[i].type=1;
+        t[i].set(1);
     }
 }
 

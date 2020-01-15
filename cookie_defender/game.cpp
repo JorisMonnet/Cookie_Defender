@@ -86,12 +86,14 @@ void Game::setGame(void)
         pauseMenu->manageMusic(0);
         pauseMenu->soundGameWin->play();
         stackedWidget->setCurrentWidget(mainMenu);
+        mainMenu->setEnabled(false);
         connect(pauseMenu->soundGameWin,&QMediaPlayer::stateChanged,this,[=]{menu();});
     });
     connect(currentMap,&Map::gameEnd,this,[=]{
         pauseMenu->manageMusic(0);
         pauseMenu->soundGameOver->play();
         stackedWidget->setCurrentWidget(mainMenu);
+        mainMenu->setEnabled(false);
         connect(pauseMenu->soundGameOver,&QMediaPlayer::stateChanged,this,[=]{menu();});
     });
 }
@@ -151,6 +153,7 @@ void Game::resume(void)
 
 void Game::menu(void)
 {
+    mainMenu->setEnabled(true);
     pauseMenu->manageMusic(0);
     mainMenu->manageMusic(0);
     mainMenu->manageMusic(1);
