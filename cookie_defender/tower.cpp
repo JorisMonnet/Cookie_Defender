@@ -62,10 +62,6 @@ void Tower::set(int level)
         }
         file.close();
     }
-    else{
-        //Catching error
-        qDebug()<<"Can't find file"<<endl;
-    }
 
     cost=costVar+x*50;
     costToPlace=costToVar;

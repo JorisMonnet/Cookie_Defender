@@ -1,7 +1,4 @@
 #include "game.h"
-#include <QTextStream>
-#include <QString>
-
 
 Game::Game(QMainWindow *parent) : QMainWindow(parent)
 {
@@ -16,7 +13,7 @@ Game::Game(QMainWindow *parent) : QMainWindow(parent)
     menu();
 }
 
-void Game::setGame()
+void Game::setGame(void)
 {
     musicVolume=mainMenu->sounds->music->volume();
     soundVolume=mainMenu->sounds->sounds->volume();
@@ -95,9 +92,8 @@ void Game::setGame()
         pauseMenu->soundGameOver->play();
         connect(pauseMenu->soundGameOver,&QMediaPlayer::stateChanged,this,[=]{menu();});
     });
-
-
 }
+
 void Game::chooseMap(int indexMap)
 {
     mainMenu->sounds->sounds->play();
@@ -129,12 +125,9 @@ void Game::chooseMap(int indexMap)
         stackedWidget->addWidget(currentMap);
         startMap();
     }
-    else{
-        //implements if the map doesn't exist
-    }
 }
 
-void Game::startMap()
+void Game::startMap(void)
 {
     pauseMenu->manageMusic(0);
     mainMenu->manageMusic(0);
@@ -145,7 +138,7 @@ void Game::startMap()
     resume();
 }
 
-void Game::resume()
+void Game::resume(void)
 {    
     stackedWidget->setCurrentWidget(currentMap);
     currentMap->timer->start(15);
@@ -154,7 +147,7 @@ void Game::resume()
     currentMap->timerSpawn->start(currentMap->remainingTimeSpawn);
 }
 
-void Game::menu()
+void Game::menu(void)
 {
     pauseMenu->manageMusic(0);
     mainMenu->manageMusic(0);

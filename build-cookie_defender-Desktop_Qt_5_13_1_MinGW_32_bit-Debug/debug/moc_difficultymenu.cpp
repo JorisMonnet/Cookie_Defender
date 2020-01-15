@@ -22,8 +22,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_DifficultyMenu_t {
-    QByteArrayData data[5];
-    char stringdata0[55];
+    QByteArrayData data[4];
+    char stringdata0[52];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -35,11 +35,10 @@ static const qt_meta_stringdata_DifficultyMenu_t qt_meta_stringdata_DifficultyMe
 QT_MOC_LITERAL(0, 0, 14), // "DifficultyMenu"
 QT_MOC_LITERAL(1, 15, 16), // "difficultySignal"
 QT_MOC_LITERAL(2, 32, 0), // ""
-QT_MOC_LITERAL(3, 33, 2), // "id"
-QT_MOC_LITERAL(4, 36, 18) // "exitDifficultyMenu"
+QT_MOC_LITERAL(3, 33, 18) // "exitDifficultyMenu"
 
     },
-    "DifficultyMenu\0difficultySignal\0\0id\0"
+    "DifficultyMenu\0difficultySignal\0\0"
     "exitDifficultyMenu"
 };
 #undef QT_MOC_LITERAL
@@ -59,10 +58,10 @@ static const uint qt_meta_data_DifficultyMenu[] = {
 
  // signals: name, argc, parameters, tag, flags
        1,    1,   24,    2, 0x06 /* Public */,
-       4,    0,   27,    2, 0x06 /* Public */,
+       3,    0,   27,    2, 0x06 /* Public */,
 
  // signals: parameters
-    QMetaType::Void, QMetaType::Int,    3,
+    QMetaType::Void, QMetaType::Int,    2,
     QMetaType::Void,
 
        0        // eod

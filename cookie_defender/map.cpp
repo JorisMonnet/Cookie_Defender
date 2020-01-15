@@ -78,6 +78,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
         scene->addItem(&towerPlacement[i]);
     }
 
+    //declaring the array to stack the waves
     numberOfMonster= howManyFiles(":/icones/monster/pix");
     if(numberOfMonster>0){
         waveTab= new int [numberOfMonster];
@@ -85,6 +86,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
             waveTab[i]=0;
     }
 
+    //drawing map's lifebar
     rectRed=new QGraphicsRectItem(QRect(0,0,width/5,40));
     rectGreen=new QGraphicsRectItem(QRect(0,0,width/5,40));
     rectRed->setBrush(Qt::red);
@@ -94,6 +96,7 @@ Map::Map(QGraphicsView *parent,QVector<QPointF> pathSource,int towerNumberSource
     scene->addItem(rectGreen);
     scene->addItem(rectRed);
 
+    //drawing the path
     double xPos,yPos,x2Pos,y2Pos,xDiff,yDiff;
     for(int i=0;i<path.size()-1;i++){
         xPos=path.at(i).x();
@@ -128,12 +131,14 @@ int Map::howManyFiles(QString fold)
             if(fileInfos.isFile()|| fileInfos.isDir())
                 numberFiles++;
         }
-     return numberFiles;
+    return numberFiles;
 }
+
 Map::~Map()
 {
    delete [] t;
 }
+
 void Map::mousePressEvent(QMouseEvent *event)
 {
     if(scene->items().contains(clickableItem))
@@ -213,7 +218,7 @@ QPointF Map::findPos(int i)
                 return point;
         }
     }
-    return {0,0};//to fix
+    return {0,0};
 }
 
 bool Map::isFree(QPointF point)
@@ -225,6 +230,7 @@ bool Map::isFree(QPointF point)
           return false;
     return true;
 }
+
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
     bool isInNothing=true;
@@ -237,7 +243,7 @@ void Map::mouseMoveEvent(QMouseEvent*event)
         if(QRectF(listIcon[i]->x(),listIcon[i]->y(),iconSize,iconSize).contains(event->pos())&&listIcon[i]->pos()!=QPointF(0,0)){
             isInNothing = false;
             createClickableItem(listIcon[i]->x(),listIcon[i]->y(),iconSize);
-            }
+        }
     if(isInNothing&&scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
     QGraphicsView::mouseMoveEvent(event);
@@ -269,7 +275,7 @@ void Map::createTower(int i,int type)
     }
 }
 
-void Map::towerDetect()
+void Map::towerDetect(void)
 {
     if(!vectMonster.isEmpty())
         for(int i=0;i<towerNumber;i++)
@@ -291,7 +297,7 @@ void Map::towerDetect()
             }
 }
 
-void Map::aliveMonster()
+void Map::aliveMonster(void)
 {
     if(!vectMonster.isEmpty())
         for(Monster *monster : vectMonster)
@@ -304,6 +310,7 @@ void Map::aliveMonster()
                 mapUpdate();
             }
 }
+
 void Map::createClickableItem(double x,double y,int size)
 {
     clickableItem->setRect(x,y,size,size);
@@ -311,7 +318,7 @@ void Map::createClickableItem(double x,double y,int size)
         scene->addItem(clickableItem);
 }
 
-void Map::moveMonster()
+void Map::moveMonster(void)
 {
     if(!vectMonster.isEmpty())
         for(Monster * monster : vectMonster)
@@ -327,7 +334,6 @@ void Map::addMonster(char x)
     scene->addItem(vectMonster.last());
     scene->addItem(vectMonster.last()->rectRed);
     scene->addItem(vectMonster.last()->rectGreen);
-
 }
 
 int waveCodeTest(int i,QString waveCode,char x)
@@ -342,7 +348,7 @@ int waveCodeTest(int i,QString waveCode,char x)
     return 0;
 }
 
-void Map::spawnMonster()
+void Map::spawnMonster(void)
 {
     if(difficulty==0){
         int x=qrand()%numberOfMonster;
@@ -353,20 +359,17 @@ void Map::spawnMonster()
         infiniteSpawn++;
     }
     else{
-        for(int i=0;i<=numberOfMonster-1;i++){
+        for(int i=0;i<=numberOfMonster-1;i++)
             if(waveTab[i]>0){
                 addMonster(QChar(65+i).toLatin1());
                 waveTab[i]--;
             }
-        }
-            timerSpawn->setInterval(500);
+        timerSpawn->setInterval(500);
         statement=!statement;
     }
 }
 
-//called each waveTimer => timeout()
-//use to get the right waveCode to the current waveIndex
-void Map::waveMonster()
+void Map::waveMonster(void)
 {
     if(difficulty==0){
         timerSpawn->start(countTimeInf);
@@ -387,7 +390,6 @@ void Map::waveMonster()
         }
         else{
             //Catching error
-            qDebug()<<"Can't find file"<<endl;
             emit gameWin();
         }
         if(waveCode=="" || waveCode=="\n")
@@ -397,7 +399,7 @@ void Map::waveMonster()
     timerWave->setInterval(15000);
 }
 
-void Map::mapUpdate()
+void Map::mapUpdate(void)
 {
     if(health<0.1)
         gameOver();
@@ -407,7 +409,7 @@ void Map::mapUpdate()
     rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
 }
 
-void Map::gameOver()
+void Map::gameOver(void)
 {
     timerSpawn->stop();
     timer->stop();
@@ -418,11 +420,13 @@ void Map::gameOver()
     textHealth->setText("0 %");
     rectGreen->setRect(0,0,0,40);
     if(difficulty==0)
-        QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a sum\nof %1 ennemy").arg(infiniteSpawn-1)));
+        QMessageBox::information(this,"GAME OVER",(QString("GAME OVER !! \nYou lose against a "
+                                                           "sum\nof %1 ennemy").arg(infiniteSpawn-1)));
     else
         QMessageBox::information(this,"GAME OVER","GAME OVER !!");
 }
-void Map::gameWin()
+
+void Map::gameWin(void)
 {
     if(vectMonster.isEmpty()&& hasWave){
         QString string;
@@ -435,12 +439,12 @@ void Map::gameWin()
                 string.append(">|< ");
         QMessageBox::information(this,"Congratulations","You win the Cookie's War\nSevenans "
                                                         "Thanks You for your Epic battle !"
-                                                "\ngame star: "+string);
+                                                        "\ngame star: "+string);
         emit gameWinSound();
     }
 }
 
-void Map::pauseMenu()
+void Map::pauseMenu(void)
 {
     timer->stop();
     if(remainingTimeWave>0)
@@ -453,7 +457,7 @@ void Map::pauseMenu()
     emit pauseFunction();
 }
 
-void Map::hideUpgradeSell()
+void Map::hideUpgradeSell(void)
 {
     for(int i=1;i<3;i++){
         scene->removeItem(listIcon[i]);

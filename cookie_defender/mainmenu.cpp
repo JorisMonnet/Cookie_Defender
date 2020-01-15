@@ -1,8 +1,4 @@
 #include "mainmenu.h"
-#include "soundboxes.h"
-#include <QLabel>
-
-#include <QVBoxLayout>
 
 MainMenu::MainMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QWidget(parent)
 {
@@ -35,12 +31,14 @@ MainMenu::MainMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QWid
     connect(play,&QPushButton::clicked,this,&MainMenu::playSound);
     connect(exit, &QPushButton::clicked, this, &QApplication::quit);
 }
+
 void MainMenu::manageMusic(bool play)
 {
     play?sounds->music->play():sounds->music->stop();
     sounds->isPlaying=play;
 }
-void MainMenu::playSound()
+
+void MainMenu::playSound(void)
 {
     sounds->sounds->play();
 }

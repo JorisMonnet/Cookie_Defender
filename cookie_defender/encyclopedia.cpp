@@ -1,10 +1,6 @@
 #include "encyclopedia.h"
 #include "encyclowidg.h"
 
-#include <QPushButton>
-#include <QHBoxLayout>
-#include <QVBoxLayout>
-
 Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
 {
     EncycloWidg *encycloWidg = new EncycloWidg();

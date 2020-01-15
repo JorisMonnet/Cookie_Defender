@@ -2,6 +2,9 @@
 #define ENCYCLOPEDIA_H
 
 #include <QWidget>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 #include "ui_formEncyclo.h"
 
 class Encyclopedia : public QWidget
@@ -10,7 +13,7 @@ class Encyclopedia : public QWidget
 public:
     Encyclopedia(QWidget *parent=nullptr);
 signals:
-    void finishEncyclo();
+    void finishEncyclo(void);
 };
 
 #endif // ENCYCLOPEDIA_H

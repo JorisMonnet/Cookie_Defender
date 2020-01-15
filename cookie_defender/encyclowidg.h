@@ -10,18 +10,18 @@ class EncycloWidg : public QWidget, public Ui::formEncyclo
 public:
      EncycloWidg(QWidget *parent = nullptr);
 private :
-     void setSpecs();
-     QPixmap getPix();
+     void setSpecs(void);
+     QPixmap getPix(void);
      int howManyFiles(QString fold);
-     void set();
+     void set(void);
      int indexMonster=0;
      int indexTower=0;
      bool testBool;
      int numberMonster;
      int numberTower;
 private slots :
-    void  on_btnTower_clicked();
-    void  on_btnMonster_clicked();
+    void  on_btnTower_clicked(void);
+    void  on_btnMonster_clicked(void);
 };
 
 #endif // ENCYCLOWIDG_H
