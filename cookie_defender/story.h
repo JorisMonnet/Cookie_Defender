@@ -7,6 +7,13 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
+
 class Story : public QWidget
 {
     Q_OBJECT

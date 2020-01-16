@@ -6,6 +6,13 @@
 
 #include "tower.h"
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
+
 class Projectile : public QObject, public QGraphicsPixmapItem
 {
 public:

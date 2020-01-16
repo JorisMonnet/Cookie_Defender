@@ -8,6 +8,13 @@
 #include <QButtonGroup>
 #include <QLabel>
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
+
 class MapMenu : public QWidget
 {
     Q_OBJECT

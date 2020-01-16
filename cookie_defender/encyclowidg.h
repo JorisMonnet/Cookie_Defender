@@ -4,6 +4,13 @@
 #include <QWidget>
 #include "ui_formEncyclo.h"
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
+
 class EncycloWidg : public QWidget, public Ui::formEncyclo
 {
     Q_OBJECT

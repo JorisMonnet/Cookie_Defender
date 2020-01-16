@@ -9,6 +9,13 @@
 #include <QTimer>
 #include <QGridLayout>
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
+
 class SoundBoxes : public QWidget
 {
     Q_OBJECT

@@ -9,6 +9,13 @@
 
 #include "math.h"
 
+/**
+* Description of the class
+*
+* @author	Name of the author
+* @version	Number of the version
+*/
+
 class Monster : public QGraphicsPixmapItem
 {
 public:

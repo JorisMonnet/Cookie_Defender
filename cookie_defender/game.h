@@ -10,6 +10,13 @@
 #include "difficultymenu.h"
 #include "encyclopedia.h"
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
+
 class Game : public QMainWindow
 {
     Q_OBJECT

@@ -6,6 +6,13 @@
 #include <QVBoxLayout>
 #include "soundboxes.h"
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
+
 class MainMenu : public QWidget
 {
     Q_OBJECT

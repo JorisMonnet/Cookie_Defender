@@ -7,6 +7,13 @@
 #include <QHBoxLayout>
 #include "soundboxes.h"
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
+
 class PauseMenu : public QWidget
 {
     Q_OBJECT

@@ -13,6 +13,12 @@
 #include "pausemenu.h"
 #include "projectile.h"
 
+/**
+* Description of the class
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+* @version	Number of the version
+*/
 
 class Map : public QGraphicsView
 {
