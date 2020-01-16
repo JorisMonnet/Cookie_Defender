@@ -141,19 +141,9 @@ Map::~Map()
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
-    QList<QGraphicsItem*> itemsUnderCursor = scene->items(event->pos());
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
 
-    /*for(int i=3;i<iconNumber;i++)
-        if(scene->items().contains(listIcon[i])&&itemsUnderCursor.contains(listIcon[i]))
-            createTower(indexTower,i-2);
-    if(itemsUnderCursor.contains(listIcon[0]))
-        pauseMenu();
-    else if(scene->items().contains(listIcon[2])&&itemsUnderCursor.contains(listIcon[2]))
-        upgrade();
-    else if(scene->items().contains(listIcon[1])&&itemsUnderCursor.contains(listIcon[1]))
-        sell();*/
     for(int i=3;i<iconNumber;i++)
             if(isCLicked(i,event->pos()))
                 createTower(indexTower,i-2);
@@ -185,7 +175,7 @@ void Map::mousePressEvent(QMouseEvent *event)
                 else{
                     t[i].setPos(towerPositions[i]);
                     t[i].showRange(scene,false);
-                    for(int j=3;j<iconNumber;j++)
+                    for(int j=1;j<iconNumber;j++)
                         addIcon(j);     //add tower Images
                 }
             }
@@ -217,13 +207,12 @@ QPointF Map::findPos(int i)
         if(isFree(point[i]))
             return point[i];
 
-    for(double j=-0.5;j<1;j++){
-        for(double k=-0.5;k<1;k++){
-            QPointF point = {x+(t[i].range+iconSize*1.5)*j,y+(t[i].range+iconSize*1.5)*k}; //corner points
+    for(int j=-1;j<2;j+=2)
+        for(int k=-1;k<2;k+=2){
+            QPointF point = {x+(t[i].range-iconSize)*j,y+(t[i].range-iconSize)*k}; //corner points
             if(isFree(point))
                 return point;
         }
-    }
     return {-100,0};
 }
 
