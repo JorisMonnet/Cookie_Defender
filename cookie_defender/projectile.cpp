@@ -18,7 +18,7 @@ void Projectile::move(void)
         setRotation(-line.angle());
         moveBy(velocity*qCos(qDegreesToRadians(-line.angle())),velocity*qSin(qDegreesToRadians(-line.angle())));
         if(target->collidingItems().contains(this)){
-            t->shotTower(target);
+            t->shot(target);
             delete this;
         }
         else if(target->x()<this->x()-t->range*1.5)

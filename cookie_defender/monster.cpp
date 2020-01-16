@@ -99,5 +99,8 @@ bool Monster::move(QVector<QPointF>path,double *health)
 
 double Monster::toCookie(QVector<QPointF> path)
 {
-    return sqrt(pow(path.last().x()-this->x(),2)+pow(path.last().y()-this->y(),2));
+    double total=0;
+    for(int j=path.indexOf(path.last());j>pathIndex+1;j--)
+        total+=sqrt(pow(path.at(j-1).x()-path.at(j).x(),2)+pow(path.at(j-1).y()-path.at(j).y(),2));
+    return total;
 }

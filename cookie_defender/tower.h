@@ -25,7 +25,7 @@ public:
     QString name;
 
     void set(int level);
-    void shotTower(Monster*);
+    void shot(Monster*);
     void hideRange(QGraphicsScene*);
     void showRange(QGraphicsScene*,bool);
     bool isPlaced(QGraphicsScene*);

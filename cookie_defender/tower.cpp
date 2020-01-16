@@ -79,7 +79,7 @@ int Tower::searchCaracMonster(QString lineRead)
 }
 
 
-void Tower::shotTower(Monster *target)
+void Tower::shot(Monster *target)
 {
     shield?target->hp-=damage:target->hp-=damage*(1-target->shield/100);
 }
