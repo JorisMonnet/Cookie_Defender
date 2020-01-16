@@ -59,6 +59,7 @@ private :
     void hideUpgradeSell(void);
     void addMonster(char c);
     void addIcon(int indexListIcon);
+    bool isCLicked(int,QPointF);
     QPointF findPos(int indexTower);
     bool isFree(QPointF point);
     int howManyFiles(QString fold);

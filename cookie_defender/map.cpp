@@ -141,11 +141,11 @@ Map::~Map()
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
-    QList<QGraphicsItem *> itemsUnderCursor = scene->items(mapToScene(event->pos()));
+    QList<QGraphicsItem*> itemsUnderCursor = scene->items(event->pos());
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
 
-    for(int i=3;i<iconNumber;i++)
+    /*for(int i=3;i<iconNumber;i++)
         if(scene->items().contains(listIcon[i])&&itemsUnderCursor.contains(listIcon[i]))
             createTower(indexTower,i-2);
     if(itemsUnderCursor.contains(listIcon[0]))
@@ -153,7 +153,16 @@ void Map::mousePressEvent(QMouseEvent *event)
     else if(scene->items().contains(listIcon[2])&&itemsUnderCursor.contains(listIcon[2]))
         upgrade();
     else if(scene->items().contains(listIcon[1])&&itemsUnderCursor.contains(listIcon[1]))
-        sell();
+        sell();*/
+    for(int i=3;i<iconNumber;i++)
+            if(isCLicked(i,event->pos()))
+                createTower(indexTower,i-2);
+        if(isCLicked(0,event->pos()))
+            pauseMenu();
+        else if(isCLicked(2,event->pos()))
+            upgrade();
+        else if(isCLicked(1,event->pos()))
+            sell();
     else{
         for (int i=0;i<towerNumber;i++)
             if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
@@ -183,7 +192,13 @@ void Map::mousePressEvent(QMouseEvent *event)
     }
     QGraphicsView::mousePressEvent(event);
 }
-
+bool Map::isCLicked(int i, QPointF point)
+{
+    if(scene->items().contains(listIcon[i]))
+        if(QRectF(listIcon[i]->x(),listIcon[i]->y(),iconSize,iconSize).contains(point))
+            return true;
+    return false;
+}
 void Map::addIcon(int indexListIcon)
 {
     if(!scene->items().contains(listIcon[indexListIcon])){
