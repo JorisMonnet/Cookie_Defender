@@ -138,6 +138,14 @@ Map::~Map()
 {
    delete [] t;
 }
+/**
+* PressEvent
+*
+* Check if the press Event is made in a clickable item and do the action in consequences
+*
+* @param QMouseEvent : event of the mouse
+* @return void
+*/
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
@@ -175,13 +183,24 @@ void Map::mousePressEvent(QMouseEvent *event)
                 else{
                     t[i].setPos(towerPositions[i]);
                     t[i].showRange(scene,false);
-                    for(int j=1;j<iconNumber;j++)
+                    for(int j=3;j<iconNumber;j++)
                         addIcon(j);     //add tower Images
                 }
             }
     }
     QGraphicsView::mousePressEvent(event);
 }
+/**
+* isClicked
+*
+* Create a rectangle to verify if the cursor is in the bounding rect of the icon.
+* Check also if the icon is shown in the scene.
+*
+* @param int : index of the icon tested
+* @param QPointF : position of the QMouse Event
+* @return if it's clicked or not
+*/
+
 bool Map::isCLicked(int i, QPointF point)
 {
     if(scene->items().contains(listIcon[i]))
@@ -189,6 +208,7 @@ bool Map::isCLicked(int i, QPointF point)
             return true;
     return false;
 }
+
 void Map::addIcon(int indexListIcon)
 {
     if(!scene->items().contains(listIcon[indexListIcon])){
@@ -197,6 +217,14 @@ void Map::addIcon(int indexListIcon)
     }
 }
 
+/**
+* findPos
+*
+* Search a position where an icon can be placed
+*
+* @param int : index of the tower where the icon is displayed
+* @return point which is free to place an icon
+*/
 QPointF Map::findPos(int i)
 {
     double x = t[i].x()+iconSize/2;
@@ -215,6 +243,15 @@ QPointF Map::findPos(int i)
         }
     return {-100,0};
 }
+/**
+* isFree
+*
+* Check if the point in parameter is not outside the window
+* or used  to set the position of another icon
+*
+* @param QPointF : point which is checked
+* @return if this point can be placed or not
+*/
 
 bool Map::isFree(QPointF point)
 {
@@ -225,6 +262,15 @@ bool Map::isFree(QPointF point)
           return false;
     return true;
 }
+/**
+* mouseMoveEvent
+*
+* when the mouse move, this function will show  blue square if
+* the element which is pointed by the cursor is clickable by the player
+*
+* @param QMouseEvent* : event of the mouse
+* @return void
+*/
 
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
@@ -273,6 +319,13 @@ void Map::createTower(int i,int type)
         t[i].set(1);
     }
 }
+/**
+* towerDetect
+* detect for each tower if a monster is in their range and throw a projectile if it's the case
+*
+* @param void
+* @return void
+*/
 
 void Map::towerDetect(void)
 {
@@ -403,7 +456,7 @@ void Map::mapUpdate(void)
         gameOver();
     QString string= textHealth->text()+" %";
     textMoney->setText(QString("Money: ")+QString::number(money));
-    textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");
+    textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");//put health in percent
     rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
 }
 

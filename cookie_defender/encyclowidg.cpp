@@ -6,14 +6,11 @@
 #include "tower.h"
 #include "monster.h"
 
-#include <QDebug>
-
 EncycloWidg::EncycloWidg(QWidget *parent) : QWidget(parent)
 {
    setupUi(this);
    numberTower=howManyFiles(":/icones/tower")-1;
    numberMonster=howManyFiles(":/icones/monster/pix");
-
    set();
 }
 
@@ -75,7 +72,6 @@ QPixmap EncycloWidg::getPix()
 void EncycloWidg::setSpecs()
 {
     QString x;
-
     if(!testBool){
         QChar x(65+indexMonster%numberMonster);
         Monster* monster=new Monster(x.toLatin1());

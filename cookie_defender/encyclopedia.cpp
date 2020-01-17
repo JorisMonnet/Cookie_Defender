@@ -19,6 +19,7 @@ Encyclopedia::Encyclopedia(QWidget *parent) : QWidget(parent)
     vLay->addStretch();
     setLayout(vLay);
 
+    //QPalette allows to put an image in the background
     QPalette pal = palette();
     pal.setBrush(QPalette::Window,QBrush(QPixmap(":/icones/backgroundStory.png")));
     setAutoFillBackground(true);

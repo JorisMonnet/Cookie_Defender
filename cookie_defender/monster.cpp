@@ -72,6 +72,15 @@ double Monster::searchCaracMonster(QString lineRead)
     return string.toDouble();
 }
 
+/**
+* move
+*
+* move the monster on the path
+*
+* @param QVector<QPointF> : path of the map
+* @param double * :health of the map
+* @return true if the monster is tp, otherwise false
+*/
 
 bool Monster::move(QVector<QPointF>path,double *health)
 {
@@ -96,6 +105,14 @@ bool Monster::move(QVector<QPointF>path,double *health)
     }
     return false;
 }
+/**
+* toCookie
+*
+* Function which return the distance from the monster to the cookie via the path
+*
+* @param QVector<QPointF> : path of the map
+* @return the distance
+*/
 
 double Monster::toCookie(QVector<QPointF> path)
 {
