@@ -7,6 +7,13 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 
+/**
+ * This Class handle the choose of difficulty with buttons
+ *
+ * @author Ugo Crucy,Joris Monnet,Adrien Paysant
+ * @version
+ */
+
 class DifficultyMenu : public QWidget
 {
     Q_OBJECT

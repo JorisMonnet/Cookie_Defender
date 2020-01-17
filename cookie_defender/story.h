@@ -7,6 +7,12 @@
 #include <QHBoxLayout>
 #include <QLabel>
 
+/**
+* Class which inherits of QWidget, it contains the story of the game
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class Story : public QWidget
 {
     Q_OBJECT

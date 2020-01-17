@@ -13,6 +13,11 @@
 #include "pausemenu.h"
 #include "projectile.h"
 
+/**
+* Class which define the looking of the map and manage the action of the player in
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
 
 class Map : public QGraphicsView
 {
@@ -59,6 +64,7 @@ private :
     void hideUpgradeSell(void);
     void addMonster(char c);
     void addIcon(int indexListIcon);
+    bool isCLicked(int,QPointF);
     QPointF findPos(int indexTower);
     bool isFree(QPointF point);
     int howManyFiles(QString fold);

@@ -9,6 +9,12 @@
 #include <QTimer>
 #include <QGridLayout>
 
+/**
+* Class which contains two sliders and two QMediaPlayer to play sounds and music in the game
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class SoundBoxes : public QWidget
 {
     Q_OBJECT

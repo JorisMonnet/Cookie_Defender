@@ -83,6 +83,14 @@ void Tower::shot(Monster *target)
 {
     shield?target->hp-=damage:target->hp-=damage*(1-target->shield/100);
 }
+/**
+* hasTarget
+*
+* check if a monster is in range
+*
+* @param Monster* : monster checked
+* @return if it is in range or not
+*/
 
 bool Tower::hasTarget(Monster *target)
 {

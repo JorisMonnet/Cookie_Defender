@@ -4,6 +4,12 @@
 #include <QWidget>
 #include "ui_formEncyclo.h"
 
+/**
+* Link between encyclopedia (the view) and the form
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class EncycloWidg : public QWidget, public Ui::formEncyclo
 {
     Q_OBJECT

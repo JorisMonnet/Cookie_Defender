@@ -10,6 +10,14 @@
 #include "difficultymenu.h"
 #include "encyclopedia.h"
 
+/**
+* Class which manage the widget shown at the player
+* widget which can be shown : story/difficultyMenu/mapMenu/pauseMenu/encycmopedia/map
+* it also play the game sounds
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class Game : public QMainWindow
 {
     Q_OBJECT

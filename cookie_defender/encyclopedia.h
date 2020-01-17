@@ -7,6 +7,12 @@
 #include <QVBoxLayout>
 #include "ui_formEncyclo.h"
 
+/**
+* This class allow to the player to see the atributes of the differents ennemies and towers
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class Encyclopedia : public QWidget
 {
     Q_OBJECT

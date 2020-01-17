@@ -36,6 +36,8 @@ PauseMenu::PauseMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QW
     mainLay->addStretch();
     setLayout(mainLay);
 }
+
+//return to the map when escape key is pressed
 void PauseMenu::keyPressEvent(QKeyEvent *event)
 {
     if(soundGameOver->state()==1||soundGameWin->state()==1)

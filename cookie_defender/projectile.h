@@ -6,6 +6,12 @@
 
 #include "tower.h"
 
+/**
+* Class which manage the projectile of the towers
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class Projectile : public QObject, public QGraphicsPixmapItem
 {
 public:

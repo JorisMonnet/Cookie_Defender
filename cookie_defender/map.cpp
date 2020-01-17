@@ -138,22 +138,29 @@ Map::~Map()
 {
    delete [] t;
 }
+/**
+* PressEvent
+*
+* Check if the press Event is made in a clickable item and do the action in consequences
+*
+* @param QMouseEvent : event of the mouse
+* @return void
+*/
 
 void Map::mousePressEvent(QMouseEvent *event)
 {
-    QList<QGraphicsItem *> itemsUnderCursor = scene->items(mapToScene(event->pos()));
     if(scene->items().contains(clickableItem))
         scene->removeItem(clickableItem);
 
     for(int i=3;i<iconNumber;i++)
-        if(scene->items().contains(listIcon[i])&&itemsUnderCursor.contains(listIcon[i]))
-            createTower(indexTower,i-2);
-    if(itemsUnderCursor.contains(listIcon[0]))
-        pauseMenu();
-    else if(scene->items().contains(listIcon[2])&&itemsUnderCursor.contains(listIcon[2]))
-        upgrade();
-    else if(scene->items().contains(listIcon[1])&&itemsUnderCursor.contains(listIcon[1]))
-        sell();
+            if(isCLicked(i,event->pos()))
+                createTower(indexTower,i-2);
+        if(isCLicked(0,event->pos()))
+            pauseMenu();
+        else if(isCLicked(2,event->pos()))
+            upgrade();
+        else if(isCLicked(1,event->pos()))
+            sell();
     else{
         for (int i=0;i<towerNumber;i++)
             if(!towerPlacement[i].contains(event->pos())&&t[i].isShowingRange){
@@ -183,6 +190,24 @@ void Map::mousePressEvent(QMouseEvent *event)
     }
     QGraphicsView::mousePressEvent(event);
 }
+/**
+* isClicked
+*
+* Create a rectangle to verify if the cursor is in the bounding rect of the icon.
+* Check also if the icon is shown in the scene.
+*
+* @param int : index of the icon tested
+* @param QPointF : position of the QMouse Event
+* @return if it's clicked or not
+*/
+
+bool Map::isCLicked(int i, QPointF point)
+{
+    if(scene->items().contains(listIcon[i]))
+        if(QRectF(listIcon[i]->x(),listIcon[i]->y(),iconSize,iconSize).contains(point))
+            return true;
+    return false;
+}
 
 void Map::addIcon(int indexListIcon)
 {
@@ -192,6 +217,14 @@ void Map::addIcon(int indexListIcon)
     }
 }
 
+/**
+* findPos
+*
+* Search a position where an icon can be placed
+*
+* @param int : index of the tower where the icon is displayed
+* @return point which is free to place an icon
+*/
 QPointF Map::findPos(int i)
 {
     double x = t[i].x()+iconSize/2;
@@ -202,15 +235,23 @@ QPointF Map::findPos(int i)
         if(isFree(point[i]))
             return point[i];
 
-    for(double j=-0.5;j<1;j++){
-        for(double k=-0.5;k<1;k++){
-            QPointF point = {x+(t[i].range+iconSize*1.5)*j,y+(t[i].range+iconSize*1.5)*k}; //corner points
+    for(int j=-1;j<2;j+=2)
+        for(int k=-1;k<2;k+=2){
+            QPointF point = {x+(t[i].range-iconSize)*j,y+(t[i].range-iconSize)*k}; //corner points
             if(isFree(point))
                 return point;
         }
-    }
     return {-100,0};
 }
+/**
+* isFree
+*
+* Check if the point in parameter is not outside the window
+* or used  to set the position of another icon
+*
+* @param QPointF : point which is checked
+* @return if this point can be placed or not
+*/
 
 bool Map::isFree(QPointF point)
 {
@@ -221,6 +262,15 @@ bool Map::isFree(QPointF point)
           return false;
     return true;
 }
+/**
+* mouseMoveEvent
+*
+* when the mouse move, this function will show  blue square if
+* the element which is pointed by the cursor is clickable by the player
+*
+* @param QMouseEvent* : event of the mouse
+* @return void
+*/
 
 void Map::mouseMoveEvent(QMouseEvent*event)
 {
@@ -269,6 +319,13 @@ void Map::createTower(int i,int type)
         t[i].set(1);
     }
 }
+/**
+* towerDetect
+* detect for each tower if a monster is in their range and throw a projectile if it's the case
+*
+* @param void
+* @return void
+*/
 
 void Map::towerDetect(void)
 {
@@ -399,7 +456,7 @@ void Map::mapUpdate(void)
         gameOver();
     QString string= textHealth->text()+" %";
     textMoney->setText(QString("Money: ")+QString::number(money));
-    textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");
+    textHealth->setText(QString::number(100-100*(stackHealth-health)/stackHealth)+" %");//put health in percent
     rectGreen->setRect(0,0,((width/5)-(((stackHealth-health)/stackHealth)*(width/5))),40);
 }
 

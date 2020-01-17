@@ -31,6 +31,14 @@ MainMenu::MainMenu(QWidget *parent,int musicVolume,int soundsEffectVolume): QWid
     connect(play,&QPushButton::clicked,this,&MainMenu::playSound);
     connect(exit, &QPushButton::clicked, this, &QApplication::quit);
 }
+/**
+* manageMusic
+*
+* play or stop the music
+*
+* @param bool : check if the music is playing or not
+* @return void
+*/
 
 void MainMenu::manageMusic(bool play)
 {

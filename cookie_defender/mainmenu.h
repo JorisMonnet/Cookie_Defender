@@ -6,6 +6,13 @@
 #include <QVBoxLayout>
 #include "soundboxes.h"
 
+/**
+* Menu where the player begin, from this, the player can play,
+* read the story/the encyclopedia, manage the sounds volume or exit the game
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class MainMenu : public QWidget
 {
     Q_OBJECT

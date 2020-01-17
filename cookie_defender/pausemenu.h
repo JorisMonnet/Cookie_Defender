@@ -7,6 +7,12 @@
 #include <QHBoxLayout>
 #include "soundboxes.h"
 
+/**
+* Menu of pause when pause icon or escape key are clicked on from the map
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class PauseMenu : public QWidget
 {
     Q_OBJECT

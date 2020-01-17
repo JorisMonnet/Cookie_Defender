@@ -8,6 +8,12 @@
 #include <QButtonGroup>
 #include <QLabel>
 
+/**
+* Menu where the player choose between the available maps
+*
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
+*/
+
 class MapMenu : public QWidget
 {
     Q_OBJECT

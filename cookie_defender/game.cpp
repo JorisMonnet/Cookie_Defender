@@ -82,6 +82,8 @@ void Game::setGame(void)
     connect(mapMenu,&MapMenu::mapChosen,this,&Game::chooseMap);
     connect(currentMap,&Map::enemyTPSound,this,[=]{pauseMenu->soundEnemyTP->play();});
     connect(currentMap,&Map::moneySound,this,[=]{pauseMenu->soundMoney->play();});
+
+    //Game Win
     connect(currentMap,&Map::gameWinSound,this,[=]{
         pauseMenu->manageMusic(0);
         pauseMenu->soundGameWin->play();
@@ -89,6 +91,8 @@ void Game::setGame(void)
         mainMenu->setEnabled(false);
         connect(pauseMenu->soundGameWin,&QMediaPlayer::stateChanged,this,[=]{menu();});
     });
+
+    //Game OVER
     connect(currentMap,&Map::gameEnd,this,[=]{
         pauseMenu->manageMusic(0);
         pauseMenu->soundGameOver->play();
@@ -97,6 +101,13 @@ void Game::setGame(void)
         connect(pauseMenu->soundGameOver,&QMediaPlayer::stateChanged,this,[=]{menu();});
     });
 }
+/**
+* chooseMap
+* function which instantiate a map, it finds the attributes into a text file
+*
+* @param int indexMap : parameter of which map button was clicked
+* @return void
+*/
 
 void Game::chooseMap(int indexMap)
 {

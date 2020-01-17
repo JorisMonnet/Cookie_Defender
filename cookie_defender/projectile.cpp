@@ -10,6 +10,16 @@ Projectile::Projectile(Tower *tsource, QGraphicsScene *sceneSource, Monster *tar
     setPos(t->x()+50,t->y()+50);
     scene->addItem(this);
 }
+/**
+* move
+*
+* move the projectile by followinf=g the targeted ennemy
+* delete it when colliding it, if target go out of range (TP)
+* or if another projectile kill the target before.
+*
+* @param void
+* @return void
+*/
 
 void Projectile::move(void)
 {
