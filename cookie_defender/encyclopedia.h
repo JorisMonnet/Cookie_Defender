@@ -8,10 +8,9 @@
 #include "ui_formEncyclo.h"
 
 /**
-* Description of the class
+* This class allow to the player to see the atributes of the differents ennemies and towers
 *
 * @author	Ugo Crucy,Joris Monnet,Adrien Paysant
-* @version	Number of the version
 */
 
 class Encyclopedia : public QWidget

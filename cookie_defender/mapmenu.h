@@ -9,10 +9,9 @@
 #include <QLabel>
 
 /**
-* Description of the class
+* Menu where the player choose between the available maps
 *
 * @author	Ugo Crucy,Joris Monnet,Adrien Paysant
-* @version	Number of the version
 */
 
 class MapMenu : public QWidget

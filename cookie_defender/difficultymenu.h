@@ -8,7 +8,7 @@
 #include <QHBoxLayout>
 
 /**
- * This Class handle difficulty choosing with buttons
+ * This Class handle the choose of difficulty with buttons
  *
  * @author Ugo Crucy,Joris Monnet,Adrien Paysant
  * @version

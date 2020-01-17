@@ -5,10 +5,9 @@
 #include "ui_formEncyclo.h"
 
 /**
-* Description of the class
+* Link between encyclopedia (the view) and the form
 *
 * @author	Ugo Crucy,Joris Monnet,Adrien Paysant
-* @version	Number of the version
 */
 
 class EncycloWidg : public QWidget, public Ui::formEncyclo

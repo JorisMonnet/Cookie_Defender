@@ -10,10 +10,9 @@
 #include "math.h"
 
 /**
-* Description of the class
+* Class of the ennemies on the map
 *
-* @author	Name of the author
-* @version	Number of the version
+* @author	Ugo Crucy,Joris Monnet,Adrien Paysant
 */
 
 class Monster : public QGraphicsPixmapItem

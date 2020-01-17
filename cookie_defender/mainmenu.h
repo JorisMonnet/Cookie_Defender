@@ -7,10 +7,10 @@
 #include "soundboxes.h"
 
 /**
-* Description of the class
+* Menu where the player begin, from this, the player can play,
+* read the story/the encyclopedia, manage the sounds volume or exit the game
 *
 * @author	Ugo Crucy,Joris Monnet,Adrien Paysant
-* @version	Number of the version
 */
 
 class MainMenu : public QWidget

@@ -7,10 +7,9 @@
 #include "monster.h"
 
 /**
-* Description of the class
+* Class of the towers on the map
 *
 * @author	Ugo Crucy,Joris Monnet,Adrien Paysant
-* @version	Number of the version
 */
 
 class Tower : public QGraphicsPixmapItem

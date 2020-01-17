@@ -14,10 +14,9 @@
 #include "projectile.h"
 
 /**
-* Description of the class
+* Class which define the looking of the map and manage the action of the player in
 *
 * @author	Ugo Crucy,Joris Monnet,Adrien Paysant
-* @version	Number of the version
 */
 
 class Map : public QGraphicsView

@@ -8,10 +8,9 @@
 #include <QLabel>
 
 /**
-* Description of the class
+* Class which inherits of QWidget, it contains the story of the game
 *
 * @author	Ugo Crucy,Joris Monnet,Adrien Paysant
-* @version	Number of the version
 */
 
 class Story : public QWidget
