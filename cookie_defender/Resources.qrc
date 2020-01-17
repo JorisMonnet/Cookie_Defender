@@ -43,5 +43,6 @@
         <file>icones/tower/3/4.png</file>
         <file>icones/tower/3/5.png</file>
         <file>icones/backgroundStory.png</file>
+        <file>icones/icone.ico</file>
     </qresource>
 </RCC>
