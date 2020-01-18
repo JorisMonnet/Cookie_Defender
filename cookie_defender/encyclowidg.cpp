@@ -14,6 +14,13 @@ EncycloWidg::EncycloWidg(QWidget *parent) : QWidget(parent)
    set();
 }
 
+/**
+* set
+* function which define the font and display the specs of items
+*
+* @return void
+*/
+
 void EncycloWidg::set()
 {
     testBool=true;
@@ -68,6 +75,14 @@ QPixmap EncycloWidg::getPix()
         pix=QPixmap(QString(":/icones/monster/pix/%1").arg(indexMonster%numberMonster));
     return pix;
 }
+
+/**
+* setSpecs
+* function that get and then set the specs of the items
+*
+* @param int indexMap : parameter of which map button was clicked
+* @return void
+*/
 
 void EncycloWidg::setSpecs()
 {

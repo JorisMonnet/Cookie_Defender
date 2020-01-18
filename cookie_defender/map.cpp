@@ -388,6 +388,17 @@ void Map::addMonster(char x)
     scene->addItem(vectMonster.last()->rectGreen);
 }
 
+/**
+* waveCodeTest
+* function which test a string to extract the composition of one wave (for one type
+* of monster, it is repeat in function waveMonster).
+*
+* @param int i : the current index of the string where we are testing
+*        QString wavecCode : the entire code of wave
+*        char x : the type of monster to test and get the data
+* @return void
+*/
+
 int waveCodeTest(int i,QString waveCode,char x)
 {
     QString string;
@@ -419,6 +430,14 @@ void Map::spawnMonster(void)
         timerSpawn->setInterval(500);
     }
 }
+
+/**
+* waveMonster
+*function wich launch the spawn of monsters
+*
+* @param void
+* @return void
+*/
 
 void Map::waveMonster(void)
 {

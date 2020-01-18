@@ -5,7 +5,7 @@
 #include "ui_formEncyclo.h"
 
 /**
-* Link between encyclopedia (the view) and the form
+* Link between encyclopedia (the view) and the form with the data
 *
 * @author	Ugo Crucy,Joris Monnet,Adrien Paysant
 */
