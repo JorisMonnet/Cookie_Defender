@@ -24,7 +24,7 @@ public:
     double velocity=2;
     double hp=20;
     double shield=25;
-    double damage=2;
+    double damage=0;
     QString name;
     QGraphicsRectItem *rectRed,*rectGreen;
     double toCookie(QVector<QPointF>);

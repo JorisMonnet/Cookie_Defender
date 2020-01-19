@@ -442,7 +442,7 @@ void Map::spawnMonster(void)
 void Map::waveMonster(void)
 {
     if(difficulty==0){
-        timerSpawn->start(countTimeInf);
+        timerSpawn->start(0);
         countTimeInf=countTimeInf-countTimeInf/25;
     }
     else{
