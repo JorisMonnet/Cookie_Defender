@@ -1,5 +1,5 @@
 # Cookie Defender
 
-Tower Defense en c++ avec Qt
+Tower Defense made with Qt
 
-Membres du groupe :  Joris MONNET, Ugo CRUCY, Adrien PAYSANT
+Team :   Joris MONNET, Ugo CRUCY, Adrien PAYSANT
